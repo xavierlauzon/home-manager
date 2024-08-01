@@ -139,7 +139,7 @@
               org = "sd";
               role = "server";
               hostname = "newton";
-              username = xl;
+              username = "xl";
               inherit inputs outputs;
             };
           };
