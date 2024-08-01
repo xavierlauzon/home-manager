@@ -1,0 +1,17 @@
+keys:
+  - &user_xavier 
+creation_rules:
+  - path_regex: secrets/.*
+    key_groups:
+    - age:
+      - *user_xavier
+      - *host_xaviersdesktop
+  - path_regex: home/*/secrets/.*
+    key_groups:
+    - age:
+      - *user_xavier
+      - *host_xaviersdesktop
+  - path_regex: home/xl/user/xavier/secrets/.*
+    key_groups:
+    - age:
+      - *user_xavier
