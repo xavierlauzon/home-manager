@@ -15,13 +15,12 @@ Based off [tiredofit/home](https://github.com/tiredofit/home).
       - `role`: Files related to what "role" is being selected as a template
       - `secrets`: Secrets that are available to all users
     - `generic`: The 'generic' org to allow for isolation of configurations, secrets and config from various clients
-    - `toi`: The 'toi' org to allow for isolation of configurations, secrets and config from various clients
+    - `xl`: The 'xl' org to allow for isolation of configurations, secrets and config from various clients
       - `secrets`: Secrets that are specific to the 'toi' org
       - `<hostname>`: Optional subfolder to load more configuration files based on the home-manager profiles name
       - `<role>`: Optional subfolder to load more configuration files based on the roles name
       - `<users>`: Load some specific user profile information
     - `sd`: Similar to the above org, just another org for isolation
-    - `sr`: Similar to the above org, just another org for isolation
     - `...`
 - `modules`: Modules that are specific to this installation
   - `applications`: Applications and configurations
