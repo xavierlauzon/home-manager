@@ -62,15 +62,15 @@ with lib;
       service.decrypt_encfs_workspace.enable = true;
       user = {
         xavier = {
-          secrets = {
-            github = {
-              xl.enable = false;
-            };
-            ssh = {
-              sd.enable = true;
-              xl.enable = true;
-            };
-          };
+#          secrets = {
+#            github = {
+#              xl.enable = false;
+#            };
+#            ssh = {
+#              sd.enable = true;
+#              xl.enable = true;
+#            };
+#          };
         };
       };
     };
