@@ -126,18 +126,18 @@
       {
         overlays = import ./overlays {inherit inputs;};
         homeConfigurations = {
-#          "xaviersdesktop.${gn}" = HomeConfiguration {
-#            extraSpecialArgs = {
-#              org = "xl";
-#              role = "workstation";
-#              hostname = "xaviersdesktop";
-#              username = gn;
-#              displays = 1;
-#              display_center = "DP-1";
-#              networkInterface = "wlp10s0";
-#              inherit inputs outputs;
-#            };
-#          };
+          "xavierdesktop.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "workstation";
+              hostname = "xaviersdesktop";
+              username = gn;
+              displays = 1;
+              display_center = "DP-1";
+              networkInterface = "enp6s0";
+              inherit inputs outputs;
+            };
+          };
 
           "newton.xl" = HomeConfiguration {
             extraSpecialArgs = {
