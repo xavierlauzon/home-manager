@@ -86,7 +86,7 @@ with lib;
   ## TODO - This should really become a module and only require resolutions, rate, and fingerprint
   programs = {
     autorandr = {
-      enable = true;
+      enable = false;
       profiles = {
         beef = {
           fingerprint = {
