@@ -64,7 +64,7 @@ with lib;
         xavier = {
           secrets = {
             github = {
-              xl.enable = true;
+              xl.enable = false;
             };
             ssh = {
               sd.enable = true;
