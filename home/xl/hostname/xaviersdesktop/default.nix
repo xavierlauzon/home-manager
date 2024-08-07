@@ -16,7 +16,6 @@ with lib;
         gnome-encfs-manager.enable = true;
         gnome-software.enable = true;
         hadolint.enable = true;
-        hugo.enable = false;
         lazygit.enable = true;
         mp3gain.enable = mkDefault true;
         nix-development_tools.enable = true;
