@@ -21,7 +21,7 @@ with lib;
         fi
       '';
     };
-    stateVersion = mkDefault "24.05";
+    stateVersion = mkDefault "23.11";
   };
 
   manual.manpages.enable = mkDefault false;
