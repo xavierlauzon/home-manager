@@ -33,7 +33,8 @@ with lib;
           defaultApplication.enable = mkDefault true;
         };
         ferdium.enable = mkDefault true;
-        firefox = {
+        firefox.enable = mkDefault true;
+        floorp = {
           enable = mkDefault true;
           defaultApplication.enable = mkDefault true;
         };

@@ -128,7 +128,7 @@
             extraSpecialArgs = {
               org = "xl";
               role = "workstation";
-              hostname = "xaviersdesktop";
+              hostname = "xavierdesktop";
               username = gn;
               displays = 1;
               display_center = "DP-1";
