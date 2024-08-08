@@ -7,13 +7,13 @@ with lib;
   host = {
     home = {
       applications = {
-        act.enable = mkDefault true;
+        act.enable = mkDefault false;
         avidemux.enable = true;
         cura.enable = false;
         czkawka.enable = mkDefault true;
         encfs.enable = false;
         github-client.enable = true;
-        gnome-encfs-manager.enable = true;
+        gnome-encfs-manager.enable = false;
         gnome-software.enable = true;
         hadolint.enable = true;
         lazygit.enable = true;
