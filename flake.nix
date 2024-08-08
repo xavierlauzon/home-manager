@@ -146,6 +146,16 @@
               inherit inputs outputs;
             };
           };
+
+          "sd111.${gnsn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "sd";
+              role = "server";
+              hostname = "sd111";
+              username = gnsn;
+              inherit inputs outputs;
+            };
+          };
       };
 
       inherit home-manager;
