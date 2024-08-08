@@ -26,7 +26,7 @@ with lib;
           cinnamon.mint-x-icons
           cinnamon.mint-y-icons
           cinnamon.muffin
-          cinnamon.nemo-with-extensions
+          nemo-with-extensions
           cinnamon.pix
           cinnamon.warpinator
           cinnamon.xapp
