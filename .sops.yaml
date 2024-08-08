@@ -1,17 +1,19 @@
 keys:
-  - &user_xavier 
+  - &user_xavier age1c68qgdn67fm244dzevutpz7kxy0g7dds2kdd5pcmxguv9yfyvqsqvj5h8y 
+  - &host_xavierdesktop age19lhdxrj9uzzg5gd4l73vsnud9m7wadm7t936cxhkfrlkh8d9dpgq6s8jju 
 creation_rules:
   - path_regex: secrets/.*
     key_groups:
     - age:
       - *user_xavier
-      - *host_xaviersdesktop
+      - *host_xavierdesktop
   - path_regex: home/*/secrets/.*
     key_groups:
     - age:
       - *user_xavier
-      - *host_xaviersdesktop
+      - *host_xavierdesktop
   - path_regex: home/xl/user/xavier/secrets/.*
     key_groups:
     - age:
       - *user_xavier
+      - *host_xavierdesktop

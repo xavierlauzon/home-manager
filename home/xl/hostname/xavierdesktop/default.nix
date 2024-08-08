@@ -13,7 +13,6 @@ with lib;
         czkawka.enable = mkDefault true;
         encfs.enable = false;
         github-client.enable = true;
-        gnome-encfs-manager.enable = false;
         gnome-software.enable = true;
         hadolint.enable = true;
         lazygit.enable = true;
@@ -60,7 +59,6 @@ with lib;
           windowManager = "hyprland";
         };
       };
-      service.decrypt_encfs_workspace.enable = false;
 #      user = {
 #        xavier = {
 #          secrets = {

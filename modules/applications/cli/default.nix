@@ -14,7 +14,6 @@ with lib;
     ./docker-compose.nix
     ./duf.nix
     ./dust.nix
-    ./encfs.nix
     ./file-compression.nix
     ./fzf.nix
     ./gh.nix

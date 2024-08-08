@@ -21,7 +21,6 @@ with lib;
     ./flameshot.nix
     ./floorp.nix
     ./geeqie.nix
-    ./gnomeencfsmanager.nix
     ./gnomesoftware.nix
     ./gnomesystemmonitor.nix
     ./gparted.nix
