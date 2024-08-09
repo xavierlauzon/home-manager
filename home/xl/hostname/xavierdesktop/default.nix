@@ -47,6 +47,7 @@ with lib;
           defaultApplication.enable = mkDefault true;
         };
         prismlauncher.enable = true;
+        discord.enable = true;
       };
       feature = {
         emulation = {

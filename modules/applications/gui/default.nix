@@ -11,6 +11,7 @@ with lib;
     ./cura.nix
     ./czkawka.nix
     ./diffuse.nix
+    ./discord.nix
     ./drawio.nix
     ./electrum.nix
     ./eog.nix
