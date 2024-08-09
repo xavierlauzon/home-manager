@@ -30,7 +30,6 @@ in
           {
             # CENTER
             "layer" = "top";
-            "output" = [ "DP-2" ];
             "height" = 30;
             "width" = null;
             "spacing"= 4;
@@ -42,12 +41,22 @@ in
             ];
             "modules-right" = [
                "custom/wl-gammarelay-temperature"
-               "idle_inhibitor"
-               "keyboard-state"
-               "pulseaudio"
                "custom/notification"
-               "clock"
+               "keyboard-state"
+               "idle_inhibitor"
                "tray"
+               "clock"
+               "pulseaudio"
+               "cpu"
+               "disk"
+               "memory"
+               "temperature"
+               "bluetooth"
+               "network"
+               "custom/weather"
+               "custom/cryptotrackingBTC"
+               "custom/cryptotrackingTRX"
+               "user"
             ];
             "hyprland/workspaces" = {
                "on-click" = "activate";
@@ -179,50 +188,6 @@ in
                 };
                 "on-click" = "pavucontrol";
             };
-          }
-          {
-            # RIGHT
-            "layer" = "top";
-            "output" = "HDMI-A-1";
-            "height" = 36;
-            "spacing" = 4;
-            "modules-left" = [
-              "hyprland/workspaces"
-            ];
-            "modules-center" = [
-              "hyprland/window"
-            ];
-            "modules-right" = [
-              "temperature"
-              "cpu"
-              "disk"
-              "memory"
-              "bluetooth"
-              "network"
-            ];
-            "hyprland/workspaces" = {
-              "on-click" = "activate";
-              "active-only" = "true";
-            };
-            "hyprland/window" = {
-               "max-length" = 200;
-               "separate-outputs" = true;
-            };
-            "wlr/taskbar" = {
-                "format" = "{icon} {title}";
-                "icon-size" = 28;
-                "icon-theme" = "Numix-Circle";
-                "tooltip-format" = "{title}";
-                "on-click" = "activate";
-                "on-click-middle" = "close";
-                "on-click-right" = "minimize";
-                "ignore-list" = [
-                   "Alacritty"
-                ];
-                "app_ids-mapping" = {
-                   "firefoxdeveloperedition" = "firefox-developer-edition";
-                };
-            };
             "cpu" = {
               "interval" = 10;
               "format" = "{load} {usage} {avg_frequency} ";
@@ -271,28 +236,6 @@ in
                "format-disconnected" = "Disconnected ⚠";
                "format-alt" = "{ifname}: {ipaddr}/{cidr}";
                "on-click-right" = "nmcli device wifi rescan && kitty sudo nmtui";
-            };
-          }
-          {
-            # LEFT
-            "layer" = "top";
-            "output" = "DP-3";
-            "spacing" = 8;
-            "modules-left" = [
-              "hyprland/workspaces"
-            ];
-            "modules-center" = [
-            ];
-            "modules-right" = [
-              "custom/weather"
-              "custom/cryptotrackingBTC"
-              "custom/cryptotrackingTRX"
-              "user"
-            ];
-            "height" = 30;
-            "hyprland/workspaces" = {
-               "on-click" = "activate";
-               "active-only" = "true";
             };
             "custom/weather" = {
                "format" = "{} °";

@@ -28,33 +28,10 @@ in
         settings = {
           splash = false;
 
-          preload = mkMerge [
-            (mkIf (displays >= 1) (mkAfter [
-              "~/.config/hypr/background/middle.jpg"
-            ]))
+          preload = "~/.config/hypr/background/middle.jpg";
 
-            (mkIf (displays >= 2) (mkAfter [
-              "~/.config/hypr/background/right.jpg"
-            ]))
+          wallpaper = "~/.config/hypr/background/middle.jpg";
 
-            (mkIf (displays >= 3) (mkAfter [
-              "~/.config/hypr/background/left.jpg"
-            ]))
-          ];
-
-          wallpaper = mkMerge [
-            (mkIf (displays >= 1) (mkAfter [
-              "${display_center},~/.config/hypr/background/middle.jpg"
-            ]))
-
-            (mkIf (displays >= 2) (mkAfter [
-              "${display_right},~/.config/hypr/background/right.jpg"
-            ]))
-
-            (mkIf (displays >= 3) (mkAfter [
-              "${display_left},~/.config/hypr/background/left.jpg"
-            ]))
-          ];
         };
       };
     };
