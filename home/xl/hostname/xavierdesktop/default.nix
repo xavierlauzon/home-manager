@@ -46,6 +46,7 @@ with lib;
           enable = mkDefault true;
           defaultApplication.enable = mkDefault true;
         };
+        zoom.enable = true;
         prismlauncher.enable = true;
         discord.enable = true;
       };

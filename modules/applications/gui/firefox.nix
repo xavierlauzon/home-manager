@@ -368,8 +368,9 @@ in with lib; {
             user_pref("media.rdd-vpx.enabled", true);
           '';
 
-          userContent = "\n";
         };
+      };
+    };
 
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
