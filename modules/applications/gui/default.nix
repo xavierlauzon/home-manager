@@ -51,5 +51,6 @@ with lib;
     ./vscode.nix
     ./wpsoffice.nix
     ./zoom.nix
+    ./prismlauncher.nix
   ];
 }

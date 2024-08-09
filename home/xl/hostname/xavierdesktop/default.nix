@@ -46,6 +46,7 @@ with lib;
           enable = mkDefault true;
           defaultApplication.enable = mkDefault true;
         };
+        prismlauncher.enable = true;
       };
       feature = {
         emulation = {
