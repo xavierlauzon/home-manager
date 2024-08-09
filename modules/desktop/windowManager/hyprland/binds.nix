@@ -39,6 +39,7 @@ with lib;
           "SUPER, 7, workspace, 7"
           "SUPER, 8, workspace, 8"
           "SUPER, 9, workspace, 9"
+          "SUPER, 0, workspace, 10"
 
           # Move active window to a workspace with mainMod + SHIFT + [0-9]
           "SUPER_SHIFT, 1, movetoworkspace, 1"
@@ -50,6 +51,7 @@ with lib;
           "SUPER_SHIFT, 7, movetoworkspace, 7"
           "SUPER_SHIFT, 8, movetoworkspace, 8"
           "SUPER_SHIFT, 9, movetoworkspace, 9"
+          "SUPER_SHIFT, 0, movetoworkspace, 10"
 
           # moving windows to other workspaces (silent)
           "SUPER_ALT, 1, movetoworkspacesilent,1"
@@ -61,6 +63,7 @@ with lib;
           "SUPER_ALT, 7, movetoworkspacesilent,7"
           "SUPER_ALT, 8, movetoworkspacesilent,8"
           "SUPER_ALT, 9, movetoworkspacesilent,9"
+          "SUPER_ALT, 10, movetoworkspacesilent,10"
 
           # moving windows around
           "SUPER_SHIFT, left, movewindow,l"
