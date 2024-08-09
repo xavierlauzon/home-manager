@@ -40,12 +40,9 @@ in
                 "hyprland/window"
             ];
             "modules-right" = [
+               "tray"
                "custom/wl-gammarelay-temperature"
                "custom/notification"
-               "keyboard-state"
-               "idle_inhibitor"
-               "tray"
-               "clock"
                "pulseaudio"
                "cpu"
                "disk"
@@ -53,10 +50,8 @@ in
                "temperature"
                "bluetooth"
                "network"
-               "custom/weather"
-               "custom/cryptotrackingBTC"
-               "custom/cryptotrackingTRX"
-               "user"
+               "idle_inhibitor"
+               "clock"
             ];
             "hyprland/workspaces" = {
                "on-click" = "activate";
@@ -81,6 +76,10 @@ in
                 "app_ids-mapping" = {
                    "firefoxdeveloperedition" = "firefox-developer-edition";
                 };
+            };
+            "tray" = {
+                "icon-size" = 22;
+                "spacing" = 10;
             };
             "custom/wl-gammarelay-temperature" = {
                "format" = "{} ";
@@ -113,59 +112,8 @@ in
                 "escape" = true ;
             };
             "hyprland/submap" = {};
-            "keyboard-state" = {
-               "numlock" = true;
-               "capslock" = true;
-               "scrollock" = true;
-               "format" = {
-                  "numlock" = "N {icon}";
-                  "capslock" = "C {icon}";
-                  "scrolllock" = "S {icon}";
-               };
-               "format-icons" = {
-                  "locked" = "";
-                  "unlocked" = "";
-               };
-               "device-path" = "event3";
-            };
-            "idle_inhibitor" = {
-                "format" = "{icon}";
-                "format-icons" = {
-                   "activated" = "";
-                   "deactivated" = "";
-                };
-            };
-            "tray" = {
-                "icon-size" = 22;
-                "spacing" = 10;
-            };
-            "clock" = {
-                "interval" = 1;
-                "format" = "{:%H:%M:%S}";
-                "format-alt" = "{:%Y-%m-%d}";
-                "tooltip-format" = "<tt><small>{calendar}</small></tt>";
-                "calendar" = {
-                    "mode" = "month";
-                    "mode-mon-col" = 2;
-                    "weeks-pos" = "";
-                    "on-scroll" = 1;
-                    "on-click-right" = "mode";
-                    "format" = {
-                       "months" = "<span color='#ffead3'><b>{}</b></span>";
-                       "days" = "<span color='#ecc6d9'><b>{}</b></span>";
-                       "weeks" = "<span color='#99ffdd'><b>W{}</b></span>";
-                       "weekdays" = "<span color='#ffcc66'><b>{}</b></span>";
-                       "today" = "<span color='#ff6699'><b><u>{}</u></b></span>";
-                    };
-                };
-                "actions" = {
-                   "on-click-right" = "mode";
-                   "on-click-forward" = "tz_up";
-                   "on-click-backward" = "tz_down";
-                   "on-scroll-up" = "shift_up";
-                   "on-scroll-down" = "shift_down";
-                };
-            };
+
+
             "pulseaudio" = {
                 "format" = "{volume}%  {icon}  {format_source}";
                 "format-bluetooth" = "{volume}% {icon} {format_source}";
@@ -237,29 +185,39 @@ in
                "format-alt" = "{ifname}: {ipaddr}/{cidr}";
                "on-click-right" = "nmcli device wifi rescan && kitty sudo nmtui";
             };
-            "custom/weather" = {
-               "format" = "{} °";
-               "tooltip" = true;
-               "interval" = 3600;
-               "exec" = "wttrbar";
-               "return-type" = "json";
+            "idle_inhibitor" = {
+                "format" = "{icon}";
+                "format-icons" = {
+                   "activated" = "";
+                   "deactivated" = "";
+                };
             };
-            "custom/cryptotrackingBTC" = {
-               "format" = "{}";
-               "exec" = "curl -sSL https://cryptoprices.cc/BTC";
-               "restart-interval" = 3600;
-            };
-            "custom/cryptotrackingTRX" = {
-               "format" = "{}";
-               "exec" = "curl -sSL https://cryptoprices.cc/TRX";
-               "restart-interval" = 3600;
-            };
-            "user" = {
-               "format" = "uptime {work_H} {work_M} {work_S} ↑)";
-               "interval" = 60;
-               "height" = 30;
-               "width" = 30;
-               "icon" = true;
+            "clock" = {
+                "interval" = 1;
+                "format" = "{:%H:%M:%S}";
+                "format-alt" = "{:%Y-%m-%d}";
+                "tooltip-format" = "<tt><small>{calendar}</small></tt>";
+                "calendar" = {
+                    "mode" = "month";
+                    "mode-mon-col" = 2;
+                    "weeks-pos" = "";
+                    "on-scroll" = 1;
+                    "on-click-right" = "mode";
+                    "format" = {
+                       "months" = "<span color='#ffead3'><b>{}</b></span>";
+                       "days" = "<span color='#ecc6d9'><b>{}</b></span>";
+                       "weeks" = "<span color='#99ffdd'><b>W{}</b></span>";
+                       "weekdays" = "<span color='#ffcc66'><b>{}</b></span>";
+                       "today" = "<span color='#ff6699'><b><u>{}</u></b></span>";
+                    };
+                };
+                "actions" = {
+                   "on-click-right" = "mode";
+                   "on-click-forward" = "tz_up";
+                   "on-click-backward" = "tz_down";
+                   "on-scroll-up" = "shift_up";
+                   "on-scroll-down" = "shift_down";
+                };
             };
           }
         ];
