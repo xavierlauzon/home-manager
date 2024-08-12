@@ -94,10 +94,10 @@ in
               alias hmswitch="home-manager switch --flake $HOME/src/home-manager/#$HOSTNAME.$USER --extra-experimental-features 'nix-command flakes' $@"
           fi
 
-          if [ -d "/home/$USER/src/nixos" ] ; then
-              alias nixos="cd ~/src/nixos"
-              alias nixosupdate="sudo nix flake update $HOME/src/nixos/ --extra-experimental-features 'nix-command flakes'"
-              alias nixswitch="sudo nixos-rebuild switch --flake $HOME/src/nixos/#$HOSTNAME $@"
+          if [ -d "/home/$USER/src/nixos-config" ] ; then
+              alias nixos="cd ~/src/nixos-config"
+              alias nixosupdate="sudo nix flake update $HOME/src/nixos-config/ --extra-experimental-features 'nix-command flakes'"
+              alias nixswitch="sudo nixos-rebuild switch --flake $HOME/src/nixos-config/#$HOSTNAME $@"
           fi
 
           if [ -d "/var/local/data" ] ; then
