@@ -24,7 +24,7 @@ with lib;
         })
         (mkIf (hostname == "xavierdesktop") {
           monitor = [
-            "$monitor_middle,7680x2160@240,0x0,1"
+            "$monitor_middle,7680x2160@120,auto,1"
           ];
         })
       ];

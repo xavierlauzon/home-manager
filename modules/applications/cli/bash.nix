@@ -90,7 +90,7 @@ in
 
           if [ -d "/home/$USER/src/home-manager" ] ; then
               alias hm="cd ~/src/home-manager"
-              alias hmupdate="nix flake update $HOME/src/home --extra-experimental-features 'nix-command flakes'"
+              alias hmupdate="nix flake update $HOME/src/home-manager --extra-experimental-features 'nix-command flakes'"
               alias hmswitch="home-manager switch --flake $HOME/src/home-manager/#$HOSTNAME.$USER --extra-experimental-features 'nix-command flakes' $@"
           fi
 

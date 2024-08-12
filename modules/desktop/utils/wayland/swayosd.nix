@@ -34,7 +34,7 @@ in
           ",XF86AudioLowerVolume, exec, swayosd-client --output-volume -1"
         ];
         exec-once = [
-          "swayosd-server --display=HDMI-A-1"
+          "swayosd-server --display=DP-2"
         ];
       };
     };
