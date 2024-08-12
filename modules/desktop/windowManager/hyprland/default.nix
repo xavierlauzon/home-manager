@@ -41,6 +41,7 @@ with lib;
     ./settings.nix
     ./startup.nix
     ./windowrules.nix
+    ./displays.nix
   ];
 
   config = mkIf (config.host.home.feature.gui.enable && displayServer == "wayland" && windowManager == "hyprland") {
