@@ -490,5 +490,8 @@ in
           servers.ccls.enable = true;
           servers.nixd.enable = true;
         };
+    };
+   };
   };
+ };
 }
