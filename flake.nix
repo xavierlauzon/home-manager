@@ -1,5 +1,5 @@
 {
-  description = "TOI Home Manager configuration";
+  description = "Xavier's Home Manager configuration";
 
   nixConfig = {
     experimental-features = [
