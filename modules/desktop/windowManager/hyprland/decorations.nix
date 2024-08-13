@@ -24,7 +24,7 @@ with lib;
         cursor = {
           # Cursor
           inactive_timeout = 60;
-          hide_on_key_press = true;
+          hide_on_key_press = false;
         };
 
         master = {
