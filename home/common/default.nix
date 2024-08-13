@@ -40,6 +40,7 @@ with lib;
           mtr.enable = mkDefault true;
           nano.enable = mkDefault true;
           neofetch.enable = mkDefault true;
+          fastfetch.enable = mkDefault true;
           ncdu.enable = mkDefault true;
           ranger.enable = mkDefault true;
           ripgrep.enable = mkDefault true;
