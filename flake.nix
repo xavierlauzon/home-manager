@@ -131,7 +131,7 @@
               hostname = "xavierdesktop";
               username = gn;
               displays = 1;
-              display_center = "DP-2";
+              display_center = "DP-3";
               networkInterface = "enp6s0";
               inherit inputs outputs;
             };

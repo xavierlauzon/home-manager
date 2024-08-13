@@ -26,7 +26,7 @@ with lib; {
           bars =
             let # # TODO This is used in multiple areas - move to top of configuration
               mon_left = "DP-3";
-              mon_center = "DP-2";
+              mon_center = "DP-3";
               mon_right = "HDMI-A-1";
             in [
               {
@@ -301,7 +301,7 @@ with lib; {
               always = false;
             } # Displays
             {
-              command = "sleep 5; way-displays -c ~/.config/waydisplays/cfg.yaml -s ORDER DP-3 DP-2 HDMI-A-1";
+              command = "sleep 5; way-displays -c ~/.config/waydisplays/cfg.yaml -s ORDER DP-3 DP-3 HDMI-A-1";
               always = false;
             }
           ];
@@ -311,7 +311,7 @@ with lib; {
           workspaceOutputAssign =
             let # # TODO This is used in multiple areas - move to top of configuration
               mon_left = "DP-3";
-              mon_center = "DP-2";
+              mon_center = "DP-3";
               mon_right = "HDMI-A-1";
             in [
               {

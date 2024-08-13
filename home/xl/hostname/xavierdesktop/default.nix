@@ -76,6 +76,4 @@ with lib;
 #      };
     };
   };
-
-  services.autorandr.enable = false;
 }
