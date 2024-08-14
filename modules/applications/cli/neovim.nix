@@ -36,9 +36,7 @@ in
           friendly-snippets.enable = true;
           hmts.enable = true;
           cmp_luasnip.enable = true;
-          popupmenu.enabled = false;
           lualine.enable = true;
-          ressing.enable = true;
           comment = {
             enable = true;
             settings.toggler.line = "<leader>/";
@@ -115,6 +113,33 @@ in
               preview_cutoff = 120;
             };
           };
+          lsp = {
+            enable = true;
+            servers.eslint.enable = true;
+            servers.graphql.enable = true;
+            servers.dockerls.enable = true;
+            servers.docker-compose-language-service.enable = true;
+            servers.denols = {
+              enable = true;
+              rootDir =
+                ''require('lspconfig').util.root_pattern("deno.json", "deno.jsonc")'';
+            };
+            servers.tsserver = {
+              enable = true;
+              extraOptions = { single_file_support = false; };
+              rootDir = ''require('lspconfig').util.root_pattern("package.json")'';
+            };
+            servers.cssls.enable = true;
+            servers.prismals.enable = true;
+            servers.bashls.enable = true;
+            servers.html.enable = true;
+            servers.tailwindcss.enable = true;
+            servers.svelte.enable = true;
+            servers.emmet-ls.enable = true;
+            servers.pyright.enable = true;
+            servers.ccls.enable = true;
+            servers.nixd.enable = true;
+          };
           cmp = {
             enable = true;
             settings = {
@@ -190,7 +215,9 @@ in
                     "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None";
                 };
               };
+
             };
+          };
         };
         keymaps = [
           {
@@ -448,50 +475,7 @@ in
             mode = "t";
           }
         ];
-        extraConfigVim = ''
-          let g:auto_session_pre_save_cmds = ["Neotree close"]
-        '';
-        extraConfigLua = ''
-          local cmp=require('cmp')
-          cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done { tex = false })
-        '';
-        cmp-nvim-lsp.enable = true;
-        lsp = {
-          enable = true;
-          servers.eslint.enable = true;
-          servers.graphql.enable = true;
-          servers.dockerls.enable = true;
-          servers.docker-compose-language-service.enable = true;
-          servers.denols = {
-            enable = true;
-            rootDir =
-              ''require('lspconfig').util.root_pattern("deno.json", "deno.jsonc")'';
-          };
-          servers.tsserver = {
-            enable = true;
-            extraOptions = { single_file_support = false; };
-            rootDir = ''require('lspconfig').util.root_pattern("package.json")'';
-          };
-          servers.cssls.enable = true;
-          servers.prismals.enable = true;
-          servers.bashls.enable = true;
-          servers.rust-analyzer = {
-            enable = true;
-            cargoPackage = fenix.stable.cargo;
-            rustcPackage = fenix.stable.rustc;
-            installCargo = false;
-            installRustc = false;
-          };
-          servers.html.enable = true;
-          servers.tailwindcss.enable = true;
-          servers.svelte.enable = true;
-          servers.emmet-ls.enable = true;
-          servers.pyright.enable = true;
-          servers.ccls.enable = true;
-          servers.nixd.enable = true;
-        };
+      };
     };
-   };
   };
- };
 }
