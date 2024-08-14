@@ -19,6 +19,7 @@ with lib;
         nix-development_tools.enable = true;
         neovim.enable = true;
         nmap.enable = mkDefault true;
+        obs.enable = true;
         obsidian.enable = true;
         opensnitch-ui.enable = true;
         shellcheck.enable = true;

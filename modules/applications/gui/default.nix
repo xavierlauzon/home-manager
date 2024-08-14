@@ -32,6 +32,7 @@ with lib;
     ./mate-calc.nix
     ./nemo.nix
     ./nextcloudclient.nix
+    ./obs.nix
     ./obsidian.nix
     ./opensnitch-ui.nix
     ./pinta.nix
