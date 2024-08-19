@@ -23,7 +23,7 @@ in
             deadnix                 # find and remove unused code in source files
             nix-du                  # determine with gc-roots take space in nix store
             nix-init                # quickly bootstrap a nix package definition from URLs
-            nix-melt                # ranger-like flake.lock viewer
+#            nix-melt                # ranger-like flake.lock viewer
             nix-output-monitor      # get additional information while building packages
             nix-tree                # interactively browse dependency graphs of Nix derivations
             nix-update              # swiss-knife for updating nix packages
