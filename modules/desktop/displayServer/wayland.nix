@@ -15,7 +15,7 @@ in
           nwg-displays.enable = true;
           slurp.enable = true;
           sway-notification-center.enable = true;
-          swayosd.enable = false; # someone did an oopsie- no longer builds
+          swayosd.enable = true;
           waybar.enable = true;
           wayprompt.enable = true;
           wdisplays.enable = true;
