@@ -19,7 +19,7 @@ with lib;
     ./swayidle.nix
     ./swaylock.nix
     ./swaync.nix
-    #./swayosd.nix
+    ./swayosd.nix
     ./waybar.nix
     ./wayprompt.nix
     ./wdisplays.nix
