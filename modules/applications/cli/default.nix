@@ -32,7 +32,6 @@ with lib;
     ./nano.nix
     ./ncdu.nix
     ./neofetch.nix
-    ./neovim.nix
     ./nix-developmenttools.nix
     ./nmap.nix
     ./python.nix

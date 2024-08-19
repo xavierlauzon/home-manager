@@ -14,6 +14,7 @@ with lib;
         github-client.enable = true;
         gnome-software.enable = true;
         hadolint.enable = true;
+        hyprshot.enable = true;
         lazygit.enable = true;
         mp3gain.enable = mkDefault true;
         nix-development_tools.enable = true;
