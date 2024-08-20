@@ -39,13 +39,13 @@ in
       roboto
       ubuntu_font_family
       weather-icons
-      # nerdfonts
-      (nerdfonts.override { fonts = [
-        "DroidSansMono"
-        "Hack"
-        "JetBrainsMono"
-        "Noto"
-      ];})
+      nerdfonts
+      #(nerdfonts.override { fonts = [
+      #  "DroidSansMono"
+      #  "Hack"
+      #  "JetBrainsMono"
+      #  "Noto"
+      #];})
     ];
   };
 }
