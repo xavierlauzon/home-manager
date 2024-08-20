@@ -56,7 +56,7 @@ in
           ## Editor Helpers
 
           ## Prettify / Formatting
-
+            catppuccin.catppuccin-vsc
 
           ## Remote
             ms-vscode-remote.remote-ssh               # Open any folder on remote system
@@ -209,7 +209,7 @@ in
         "files.trimTrailingWhitespace" = true;
         "files.useExperimentalFileWatcher" = true;
         "window.menuBarVisibility" = "compact";
-        "window.titleBarStyle" = "native";
+        "window.titleBarStyle" = "custom";
         "window.zoomLevel" = 1;
 
         ## Docker
@@ -233,7 +233,9 @@ in
         "editor.overviewRulerBorder" = false;
         "editor.renderControlCharacters" = true;
         "editor.scrollbar.vertical" = "auto";
+        "editor.semanticHighlighting.enabled" = true;
         "editor.tabSize" = 4 ;
+        "editor.fontSize" = 12;
         "editor.wordWrap" = "off";
         "workbench.editor.enablePreview" = false;
         "workbench.editor.enablePreviewFromQuickOpen" = false;
@@ -241,6 +243,22 @@ in
         "workbench.editor.highlightModifiedTabs" = true;
         "workbench.editor.showTabs" = "multiple";
         "workbench.startupEditor" = "none" ;
+        "workbench.colorTheme" = "Catppuccin Mocha";
+
+        ## Catppuccin
+        "catppuccin.accentColor" = "pink";
+        "catppuccin.colorOverrides" = [
+          "mocha" {
+            "base" = "#000000";
+            "mantle" = "#010101";
+            "crust" = "#020202";
+          }
+        ];
+        "catppuccin.customUIColors" = [
+          "mocha" {
+            "statusBar.foreground" = "accent";
+          }
+        ];
 
 
         ## Formatting
@@ -359,6 +377,7 @@ in
 
         ## Terminal
         "terminal.integrated.enableMultiLinePasteWarning" = false;
+        "terminal.integrated.minimumContrastRatio" = 1;
         "terminal.integrated.fontFamily" = "Hack Nerd Font";
 
         mutableExtensionsDir = false;
