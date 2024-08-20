@@ -70,11 +70,12 @@
       url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix";
     catppuccin-vsc.url = "https://flakehub.com/f/catppuccin/vscode/*.tar.gz";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, catppuccin, ... }@inputs:
     let
       inherit (self) outputs;
       gn = "xavier";
@@ -99,6 +100,7 @@
         modules = [
           (import ./home)
           (import ./modules)
+          catppuccin.homeManagerModules.catppuccin
         ];
         extraSpecialArgs = {
 
