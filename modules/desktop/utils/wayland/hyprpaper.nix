@@ -27,11 +27,8 @@ in
         enable = true;
         settings = {
           splash = false;
-
           preload = "~/.config/hypr/background/middle.jpg";
-
           wallpaper = "~/.config/hypr/background/middle.jpg";
-
         };
       };
     };
