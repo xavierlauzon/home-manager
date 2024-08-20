@@ -70,7 +70,7 @@
       url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    catppuccin-vsc.url = "https://flakehub.com/f/catppuccin/vscode/*.tar.gz";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
 
@@ -87,6 +87,7 @@
           inputs.nur.overlay
           inputs.nix-vscode-extensions.overlays.default
           inputs.nixpkgs-wayland.overlay
+          inputs.catppuccin-vsc.overlays.default
           outputs.overlays.additions
           outputs.overlays.modifications
           outputs.overlays.unstable-packages
