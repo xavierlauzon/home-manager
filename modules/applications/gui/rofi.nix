@@ -34,35 +34,35 @@ in
       ];
       terminal = "${pkgs.kitty}/bin/kitty";
       package = rofiPackage;
-      extraConfig = {
-        combi-modi = "run,drun";
-        cycle = true;
-        disable-history = false;
-        display-Network = " 󰤨  Network";
-        display-drun = "   Apps ";
-        display-run = "   Run ";
-        display-window = " 﩯  window";
-        drun-display-format = "{icon} {name}";
-        font = "Noto Sans 12";
-        hide-scrollbar = true;
-        icon-theme = "Papirus";
-        lines = 6;
-        modi = "window,drun,run,combi";
-        show-icons = true;
-        sidebar-mode = true;
-        sort = true;
-        ssh-client =  "ssh";
-      };
-      theme = "~/.config/rofi/themes/toi.rasi";
+#      extraConfig = {
+#        combi-modi = "run,drun";
+#        cycle = true;
+#        disable-history = false;
+#        display-Network = " 󰤨  Network";
+#        display-drun = "   Apps ";
+#        display-run = "   Run ";
+#        display-window = " 﩯  window";
+#        drun-display-format = "{icon} {name}";
+#        font = "Noto Sans 12";
+#        hide-scrollbar = true;
+#        icon-theme = "Papirus";
+#        lines = 6;
+#        modi = "window,drun,run,combi";
+#        show-icons = true;
+#        sidebar-mode = true;
+#        sort = true;
+#        ssh-client =  "ssh";
+#      };
+      theme = "~/.config/rofi/theme.rasi";
     };
 
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
         bind = [
-          "SUPER, R, exec, pkill rofi || ${config.programs.rofi.package}/bin/rofi -run-shell-command '${pkgs.kitty}/bin/kitty' -drun -show run"
-          "SUPER, D, exec, pkill rofi || ${config.programs.rofi.package}/bin/rofi  -show drun -modi drun -show-icons"
+          "SUPER, R, exec, pkill rofi || ${config.programs.rofi.package}/bin/rofi -show run -config '~/.config/rofi/styles/style.rasi' -run-shell-command '${pkgs.kitty}/bin/kitty' "
+          "SUPER, D, exec, pkill rofi || ${config.programs.rofi.package}/bin/rofi -show drun -config '~/.config/rofi/styles/style.rasi'"
           #"SUPER, D, exec, pkill rofi || ${config.programs.rofi.package}/bin/rofi -combi-modi window,drun,ssh,run -show combi -show-icons"
-          "SUPER, V, exec, ${pkgs.cliphist}'/bin/cliphist list | ${config.programs.rofi.package}/bin/rofi -dmenu | ${pkgs.cliphist}'/bin/cliphist decode | wl-copy"
+          "SUPER_SHIFT, V, exec, ${pkgs.cliphist}'/bin/cliphist list | ${config.programs.rofi.package}/bin/rofi -dmenu | ${pkgs.cliphist}'/bin/cliphist decode | wl-copy"
         ];
         windowrulev2 = [
           #"stayfocused,class:(Rofi)"
@@ -70,220 +70,358 @@ in
         ];
       };
     };
+    xdg.configFile."rofi/theme.rasi".text = ''
+          * {
+              main-bg:            #11111be6;
+              main-fg:            #cdd6f4ff;
+              main-br:            #cba6f7ff;
+              main-ex:            #f5e0dcff;
+              select-bg:          #b4befeff;
+              select-fg:          #11111bff;
+              separatorcolor:     transparent;
+              border-color:       transparent;
+          }
+        '';
 
-    xdg.configFile."rofi/themes/top-down.rasi".text = ''
-      * {
-          background:                     #EFF0F1FF;
-          background-alt:                 #00000000;
-          background-bar:                 #93CEE999;
-          foreground:                     #000000A6;
-          accent:                         #3DAEE9FF;
-
+    xdg.configFile."rofi/styles/style.rasi".text = ''
+      // Config //
+      configuration {
+          modi:                        "drun,filebrowser,window,run";
+          show-icons:                  true;
+          display-drun:                " ";
+          display-run:                 " ";
+          display-filebrowser:         " ";
+          display-window:              " ";
+          drun-display-format:         "{name}";
+          window-format:               "{w}{t}";
+          font:                        "JetBrainsMono Nerd Font 10";
+          icon-theme:                  "Tela-circle-dracula";
       }
 
+      @theme "~/.config/rofi/theme.rasi"
+
+      // Main //
       window {
-          transparency:                   "real";
-          background-color:               @background;
-          text-color:                     @foreground;
-          border:                         0px;
-          border-color:                   @border;
-          border-radius:                  0px;
-          width:                          38%;
-          location:                       north;
-          x-offset:                       0;
-          y-offset:                       0;
+          height:                      30em;
+          width:                       37em;
+          transparency:                "real";
+          fullscreen:                  false;
+          enabled:                     true;
+          cursor:                      "default";
+          spacing:                     0em;
+          padding:                     0em;
+          border-color:                @main-br;
+          background-color:            @main-bg;
       }
-
-      prompt {
-          enabled:                         true;
-          padding:                         0.30% 0.75% 0% -0.5%;
-          background-color:                @background-alt;
-          text-color:                      @foreground;
-          font:                            "Noto Sans 10";
-      }
-
-      entry {
-          background-color:               @background-alt;
-          text-color:                     @foreground;
-          placeholder-color:              @foreground;
-          expand:                         true;
-          horizontal-align:               0;
-          placeholder:                    "Search";
-          padding:                        -0.15% 0% 0% 0%;
-          blink:                          true;
-      }
-
-      inputbar {
-          children:                       [ prompt, entry ];
-          background-color:               @background;
-          text-color:                     @foreground;
-          expand:                         false;
-          border:                         0.1%;
-          border-radius:                  4px;
-          border-color:                   @accent;
-          margin:                         0% 0% 0% 0%;
-          padding:                        1%;
-      }
-
-      listview {
-          background-color:               @background-alt;
-          columns:                        1;
-          lines:                          9;
-          spacing:                        0.5%;
-          cycle:                          true;
-          dynamic:                        true;
-          layout:                         vertical;
-      }
-
       mainbox {
-          background-color:               @background-alt;
-          border:                         0% 0% 0% 0%;
-          border-radius:                  0% 0% 0% 0%;
-          border-color:                   @accent;
-          children:                       [ inputbar, listview ];
-          spacing:                        1%;
-          padding:                        1% 0.5% 1% 0.5%;
+          enabled:                     true;
+          spacing:                     0em;
+          padding:                     0em;
+          orientation:                 vertical;
+          children:                    [ "inputbar" , "dummybox" ];
+          background-color:            transparent;
+      }
+      dummybox {
+          padding:                     0.5em;
+          spacing:                     0em;
+          orientation:                 horizontal;
+          children:                    [ "mode-switcher" , "listbox" ];
+          background-color:            transparent;
+          background-image:            transparent;
       }
 
+
+      // Inputs //
+      inputbar {
+          enabled:                     false;
+      }
+
+
+      // Lists //
+      listbox {
+          padding:                     0em;
+          spacing:                     0em;
+          children:                    [ "dummy" , "listview" , "dummy" ];
+          background-color:            transparent;
+          background-image:            transparent;
+      }
+      listview {
+          padding:                     1em;
+          spacing:                     0em;
+          enabled:                     true;
+          columns:                     1;
+          lines:                       7;
+          cycle:                       true;
+          dynamic:                     true;
+          scrollbar:                   false;
+          layout:                      vertical;
+          reverse:                     false;
+          expand:                      false;
+          fixed-height:                true;
+          fixed-columns:               true;
+          cursor:                      "default";
+          background-color:            @main-bg;
+          text-color:                  @main-fg;
+          border-radius:               1.5em;
+      }
+      dummy {
+          background-color:            transparent;
+      }
+
+
+      // Modes //
+      mode-switcher {
+          orientation:                 vertical;
+          width:                       6.8em;
+          enabled:                     true;
+          padding:                     3.2em 1em 3.2em 1em;
+          spacing:                     1em;
+          background-color:            transparent;
+      }
+      button {
+          cursor:                      pointer;
+          border-radius:               3em;
+          background-color:            @main-bg;
+          text-color:                  @main-fg;
+      }
+      button selected {
+          background-color:            @main-fg;
+          text-color:                  @main-bg;
+      }
+
+
+      // Elements //
       element {
-          background-color:               @background-alt;
-          text-color:                     @foreground;
-          orientation:                    horizontal;
-          border-radius:                  0%;
-          padding:                        0.5%;
+          enabled:                     true;
+          spacing:                     1em;
+          padding:                     0.4em;
+          cursor:                      pointer;
+          background-color:            transparent;
+          text-color:                  @main-fg;
       }
-
+      element selected.normal {
+          background-color:            @select-bg;
+          text-color:                  @select-fg;
+      }
       element-icon {
-          background-color:               @background-alt;
-          text-color:                     inherit;
-          horizontal-align:               0.5;
-          vertical-align:                 0.5;
-          size:                           32px;
-          border:                         0px;
+          size:                        3em;
+          cursor:                      inherit;
+          background-color:            transparent;
+          text-color:                  inherit;
       }
-
       element-text {
-          background-color:               @background-alt;
-          text-color:                     inherit;
-          expand:                         true;
-          horizontal-align:               0;
-          vertical-align:                 0.5;
-          margin:                         0% 0% 0% 0.25%;
+          vertical-align:              0.5;
+          horizontal-align:            0.0;
+          cursor:                      inherit;
+          background-color:            transparent;
+          text-color:                  inherit;
       }
 
-      element selected {
-          background-color:               @background-bar;
-          text-color:                     @foreground;
-          border:                         0.1%;
-          border-radius:                  4px;
-          border-color:                   @accent;
+      // Error message //
+      error-message {
+          text-color:                  @main-fg;
+          background-color:            @main-bg;
+          text-transform:              capitalize;
+          children:                    [ "textbox" ];
+      }
+
+      textbox {
+          text-color:                  inherit;
+          background-color:            inherit;
+          vertical-align:              0.5;
+          horizontal-align:            0.5;
       }
     '';
 
-xdg.configFile."rofi/themes/toi.rasi".text = ''
+    xdg.configFile."rofi/quickapps.rasi".text = ''
+      // Config //
+      configuration {
+          modi:                        "drun";
+          show-icons:                  true;
+      }
+
+      @theme "~/.config/rofi/theme.rasi"
 
 
-* {
-    bg-col:  #1E1D2F;
-    bg-col-light: #1E1D2F;
-    border-col: #1E1D2F;
-    selected-col: #1E1D2F;
-    peach: #FAB387;
-    fg-col: #D9E0EE;
-    fg-col2: #F28FAD;
-    grey: #D9E0EE;
-    width: 600;
-}
+      // Main //
+      window {
+          transparency:                "real";
+          fullscreen:                  false;
+          enabled:                     true;
+          cursor:                      "default";
+          spacing:                     0em;
+          padding:                     0em;
+          background-color:            @main-bg;
+      }
+      mainbox {
+          enabled:                     true;
+          spacing:                     0em;
+          padding:                     0em;
+          orientation:                 horizontal;
+          children:                    [ "listbox" ];
+          background-color:            transparent;
+      }
 
-element-text, element-icon , mode-switcher {
-    background-color: inherit;
-    text-color:       inherit;
-}
 
-window {
-    height: 360px;
-    width: 30%;
-    border: 3px;
-    border-radius:6px;
-    background-color: @bg-col;
-    border-color:@peach;
-}
+      // Lists //
+      listbox {
+          padding:                     0em;
+          spacing:                     0em;
+          orientation:                 horizontal;
+          children:                    [ "listview" ];
+          background-color:            transparent;
+      }
+      listview {
+          padding:                     2px;
+          spacing:                     0em;
+          enabled:                     true;
+          columns:                     1;
+          cycle:                       true;
+          dynamic:                     true;
+          scrollbar:                   false;
+          flow:                        horizontal;
+          reverse:                     false;
+          fixed-height:                false;
+          fixed-columns:               false;
+          cursor:                      "default";
+          background-color:            transparent;
+      }
 
-mainbox {
-    background-color: @bg-col;
-}
 
-inputbar {
-    children: [prompt,entry];
-    background-color: @bg-col;
-    border-radius: 6px;
-    padding: 2px;
-}
-
-prompt {
-    background-color: @peach;
-    padding: 6px;
-    text-color: @bg-col;
-    border-radius: 6px;
-    margin: 20px 0px 0px 20px;
-}
-
-textbox-prompt-colon {
-    expand: false;
-    str: ":";
-}
-
-entry {
-    padding: 6px;
-    margin: 20px 10px 0px 10px;
-    text-color: @fg-col;
-    background-color: @bg-col;
-    border: 2px;
-    border-radius: 3px;
-    border-color: @peach;
-    placeholder:"Search";
-
-}
-
-listview {
-    border: 0px 0px 0px;
-    padding: 6px 0px 0px;
-    margin: 10px 0px 0px 20px;
-    columns: 2;
-    background-color: @bg-col;
-}
-
-element {
-    padding: 5px;
-    background-color: @bg-col;
-    text-color: @fg-col  ;
-}
-
-element-icon {
-    size: 25px;
-}
-
-element selected {
-    background-color:  @selected-col ;
-    text-color: @fg-col2  ;
-}
-
-mode-switcher {
-    spacing: 0;
-  }
-
-button {
-    padding: 10px;
-    background-color: @bg-col-light;
-    text-color: @grey;
-    vertical-align: 0.5;
-    horizontal-align: 0.5;
-}
-
-button selected {
-  background-color: @bg-col;
-  text-color: @peach;
-}
+      // Elements //
+      element {
+          orientation:                 vertical;
+          enabled:                     true;
+          spacing:                     0em;
+          padding:                     0em;
+          cursor:                      pointer;
+          background-color:            transparent;
+      }
+      element selected.normal {
+          background-color:            @main-fg;
+      }
+      element-icon {
+          cursor:                      inherit;
+          background-color:            transparent;
+      }
+      element-text {
+          enabled:                     false;
+      }
     '';
+
+    xdg.configFile."rofi/clipboard.rasi".text = ''
+          // Config //
+          configuration {
+              modi:                        "drun";
+              show-icons:                  false;
+          }
+
+          @theme "~/.config/rofi/theme.rasi"
+
+
+          // Main //
+          window {
+              width:                       23em;
+              height:                      30em;
+              transparency:                "real";
+              fullscreen:                  false;
+              enabled:                     true;
+              cursor:                      "default";
+              spacing:                     0em;
+              padding:                     0em;
+              border-color:                @main-br;
+              background-color:            @main-bg;
+          }
+          mainbox {
+              enabled:                     true;
+              spacing:                     0em;
+              padding:                     0.5em;
+              orientation:                 vertical;
+              children:                    [ "wallbox" , "listbox" ];
+              background-color:            transparent;
+          }
+          wallbox {
+              spacing:                     0em;
+              padding:                     0em;
+              expand:                      false;
+              orientation:                 horizontal;
+              background-color:            transparent;
+              children:                    [ "wallframe" , "inputbar" ];
+          }
+          wallframe {
+              width:                       5em;
+              spacing:                     0em;
+              padding:                     0em;
+              expand:                      false;
+              background-color:            @main-bg;
+              background-image:            url("~/.cache/hyde/wall.quad", width);
+          }
+
+
+          // Inputs //
+          inputbar {
+              enabled:                     true;
+              padding:                     0em;
+              children:                    [ "entry" ];
+              background-color:            @main-bg;
+              expand:                      true;
+          }
+          entry {
+              enabled:                     true;
+              padding:                     1.8em;
+              text-color:                  @main-fg;
+              background-color:            transparent;
+          }
+
+
+          // Lists //
+          listbox {
+              spacing:                     0em;
+              padding:                     0em;
+              orientation:                 vertical;
+              children:                    [ "dummy" , "listview" , "dummy" ];
+              background-color:            transparent;
+          }
+          listview {
+              enabled:                     true;
+              padding:                     0.5em;
+              columns:                     1;
+              lines:                       11;
+              cycle:                       true;
+              fixed-height:                true;
+              fixed-columns:               false;
+              expand:                      false;
+              cursor:                      "default";
+              background-color:            transparent;
+              text-color:                  @main-fg;
+          }
+          dummy {
+              spacing:                     0em;
+              padding:                     0em;
+              background-color:            transparent;
+          }
+
+
+          // Elements //
+          element {
+              enabled:                     true;
+              padding:                     0.5em;
+              cursor:                      pointer;
+              background-color:            transparent;
+              text-color:                  @main-fg;
+          }
+          element selected.normal {
+              background-color:            @select-bg;
+              text-color:                  @select-fg;
+          }
+          element-text {
+              vertical-align:              0.0;
+              horizontal-align:            0.0;
+              cursor:                      inherit;
+              background-color:            transparent;
+              text-color:                  inherit;
+          }
+      '';
+
   };
 }
