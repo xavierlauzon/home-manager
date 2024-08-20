@@ -22,39 +22,25 @@ in
 
   config = mkIf cfg.enable {
     colorscheme = inputs.nix-colors.colorSchemes.dracula;
-    gtk = mkIf ((username == "dave" || username == "media") && ( role == "workstation")) {
-      enable = true;
-      iconTheme = {
-        name = "Papirus";
-        package = pkgs.papirus-icon-theme;
-        #name = "BeautyLine";
-        #package = pkgs.beauty-line-icon-theme;
+    catppuccin = {
+      flavor = "mocha";
+      pointerCursor = {
+        enable = true;
+        flavor = "mocha";
       };
-      theme = {
-        name = "Zukitwo";
-        package = pkgs.zuki-themes;
-      };
+
     };
-
-    home = mkIf ((username == "dave" || username == "media") && ( role == "workstation")) {
-      packages = with pkgs;
-        [
-          lxappearance
-        ];
-
-      pointerCursor = mkIf ((username == "dave" || username == "media") && ( role == "workstation")) {
-        gtk.enable = true;
-        name = "Quintom_Snow";
-        package = pkgs.quintom-cursor-theme;
+    gtk = {
+      catppuccin = {
+        enable = true;
+        flavor = "mocha";
+        icon.enable = true;
       };
+      font.name = "Cantarell 10";
+#      cursorTheme.name = "Bibata-Modern-Ice";
     };
-
-    programs = mkIf ((username == "dave" || username == "media") && ( role == "workstation")) {
-      bash = {
-        sessionVariables = {
-          GTK2_RC_FILES = "$XDG_CONFIG_HOME/gtk-2.0/gtkrc";
-        };
-      };
+    programs = {
+        kitty.catppuccin.enable = true;
     };
   };
 }
