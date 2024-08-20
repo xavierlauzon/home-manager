@@ -36,12 +36,12 @@ with lib;
 
         master = {
           allow_small_split = true;
-          always_center_master = false;
+          always_center_master = true;
           drop_at_cursor = true;
           inherit_fullscreen = true;
           mfact = 0.50;
           new_on_top = true;
-          new_status = "master";
+          new_status = "slave";
           orientation = "center";
           smart_resizing = true;
         };

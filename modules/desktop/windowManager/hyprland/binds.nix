@@ -15,7 +15,7 @@ with lib;
           "SUPER, Return, exec, kitty"
           "SUPER, V, togglefloating,"
           "SUPER, mouse:274, killactive" # Middle Mouse
-          "SUPER, space, pseudo,"
+          "SUPER, space, layoutmsg, swapwithmaster"
 
           "SUPER_SHIFT, Q, killactive"
           "SUPER_SHIFT, R, exec, pkill rofi || kitty bash -c $(/nix/store/84d9n102xq8c5j3qlldi9gvglri25ixq-rofi-1.7.5+wayland3/bin/rofi -dmenu -p terminal)"
