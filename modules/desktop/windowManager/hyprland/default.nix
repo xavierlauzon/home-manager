@@ -58,7 +58,7 @@ with lib;
         applications = {
           hyprcursor.enable = mkDefault true;
           hyprdim.enable = mkDefault true;
-          hypridle.enable = mkDefault true;
+          hypridle.enable = mkDefault false;
           hyprlock.enable = true;
           hyprpaper.enable = mkDefault true;
           hyprpicker.enable = mkDefault true;
