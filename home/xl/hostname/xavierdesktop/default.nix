@@ -16,6 +16,7 @@ with lib;
         hadolint.enable = true;
         hyprshot.enable = true;
         lazygit.enable = true;
+        lutris.enable = true;
         mp3gain.enable = mkDefault true;
         nix-development_tools.enable = true;
         nmap.enable = mkDefault true;

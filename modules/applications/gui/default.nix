@@ -28,6 +28,7 @@ with lib;
     ./greenclip.nix
     ./kitty.nix
     ./libreoffice.nix
+    ./lutris.nix
     ./masterpdfeditor.nix
     ./mate-calc.nix
     ./nemo.nix
