@@ -47,6 +47,7 @@ with lib;
     ./szyszka.nix
     ./thunar.nix
     ./thunderbird.nix
+    ./tidal-hifi.nix
     ./veracrypt.nix
     ./virt-manager.nix
     ./vivaldi.nix
