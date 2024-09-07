@@ -34,7 +34,7 @@ in
 with lib;
 {
   imports = [
-    #inputs.hyprland.homeManagerModules.default
+    inputs.hyprland.homeManagerModules.default
     ./binds.nix
     ./decorations.nix
     ./input.nix
@@ -60,7 +60,7 @@ with lib;
           hyprdim.enable = mkDefault true;
           hypridle.enable = mkDefault false;
           hyprlock.enable = true;
-          hyprpaper.enable = mkDefault true;
+#          hyprpaper.enable = mkDefault true; Hyprpaper build no worky
           hyprpicker.enable = mkDefault true;
           hyprkeys.enable = mkDefault true;
           playerctl.enable = mkDefault true;
@@ -85,7 +85,7 @@ with lib;
         "org.freedesktop.portal.FileChooser" = [ "xdg-desktop-portal-gtk" ];
       };
       extraPortals = [
-        pkgs.xdg-desktop-portal-hyprland
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
         pkgs.xdg-desktop-portal-gtk
       ];
     };
