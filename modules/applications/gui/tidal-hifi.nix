@@ -1,7 +1,7 @@
 {config, lib, pkgs, ...}:
 
 let
-  cfg = config.host.home.applications.tidl-hifi;
+  cfg = config.host.home.applications.tidal-hifi;
 in
   with lib;
 {
