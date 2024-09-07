@@ -71,7 +71,6 @@ in
           # Bleeding Edge versions
           # For extensions not avaialble in https://search.nixos.org/packages?type=packages&query=vscode-extensions
           ## Bundles
-            lizebang.bash-extension-pack              # Bash shell
 
           ## CI
             github.vscode-github-actions              # Github actions helper
@@ -316,7 +315,6 @@ in
         "remote.SSH.enableRemoteCommand" = true;
         "remote.SSH.allowLocalServerDownload" = "off";
         "remote.SSH.defaultExtensions" = [ ## TODO - Merge this, this is mostly duplicates with exception of remote plugins
-           "lizebang.bash-extension-pack"
            "ms-azuretools.vscode-docker"
            "tyriar.sort-lines"
            "fabiospampinato.vscode-diff"
@@ -342,7 +340,6 @@ in
            "foxundermoon.shell-format"
            "redhat.vscode-yaml"
            "timonwong.shellcheck"
-           "lizebang.bash-extension-pack"
            "ms-azuretools.vscode-docker"
            "tyriar.sort-lines"
            "fabiospampinato.vscode-diff"
