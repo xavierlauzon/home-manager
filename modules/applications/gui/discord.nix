@@ -20,7 +20,9 @@ in
       packages = with pkgs;
         [
           vesktop
+          arrpc
         ];
     };
+      services.arrpc.enable = true;
   };
 }
