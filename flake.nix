@@ -136,6 +136,16 @@
             };
           };
 
+          "blackhawk.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "blackhawk";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
           "newton.xl" = HomeConfiguration {
             extraSpecialArgs = {
               org = "sd";
