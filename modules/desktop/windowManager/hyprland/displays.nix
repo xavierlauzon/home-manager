@@ -24,7 +24,7 @@ with lib;
         })
         (mkIf (hostname == "xavierdesktop") {
           monitor = [
-            "DP-3,7680x2160@240,0x0,1.0,bitdepth,10"
+            "DP-3,7680x2160@240,0x0,1.0,bitdepth,8"
           ];
         })
       ];
