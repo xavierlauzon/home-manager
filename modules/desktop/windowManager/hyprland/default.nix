@@ -60,7 +60,7 @@ with lib;
           hyprdim.enable = mkDefault true;
           hypridle.enable = mkDefault false;
           hyprlock.enable = true;
-#          hyprpaper.enable = mkDefault true; Hyprpaper build no worky
+          hyprpaper.enable = mkDefault true;
           hyprpicker.enable = mkDefault true;
           hyprkeys.enable = mkDefault true;
           playerctl.enable = mkDefault true;
