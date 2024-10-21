@@ -90,13 +90,13 @@ in
 
           if [ -d "/home/$USER/src/home-manager" ] ; then
               alias hm="cd ~/src/home-manager"
-              alias hmupdate="nix flake update $HOME/src/home-manager --extra-experimental-features 'nix-command flakes'"
+              alias hmupdate="nix flake update --flake $HOME/src/home-manager --extra-experimental-features 'nix-command flakes'"
               alias hmswitch="home-manager switch --flake $HOME/src/home-manager/#$HOSTNAME.$USER --extra-experimental-features 'nix-command flakes' $@"
           fi
 
           if [ -d "/home/$USER/src/nixos-config" ] ; then
               alias nixos="cd ~/src/nixos-config"
-              alias nixosupdate="sudo nix flake update $HOME/src/nixos-config/ --extra-experimental-features 'nix-command flakes'"
+              alias nixosupdate="sudo nix flake update --flake $HOME/src/nixos-config/ --extra-experimental-features 'nix-command flakes'"
               alias nixswitch="sudo nixos-rebuild switch --flake $HOME/src/nixos-config/#$HOSTNAME $@"
           fi
 
