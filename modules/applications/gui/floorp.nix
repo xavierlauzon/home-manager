@@ -47,6 +47,14 @@ in with lib; {
         ];
     };
 
+    wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
+      settings = {
+        exec-once = [
+          "floorp"
+        ];
+      };
+    };
+
     xdg.mimeApps.defaultApplications = mkIf cfg.defaultApplication.enable (
       lib.genAttrs cfg.defaultApplication.mimeTypes (_: "floorp.desktop")
     );
