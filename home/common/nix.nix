@@ -51,7 +51,7 @@ with lib;
       warn-dirty = mkDefault false;
     };
 
-    package = pkgs.nixVersions.latest;
+    package = pkgs.nixVersions.stable;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
   };
 

@@ -82,12 +82,14 @@ with lib;
         "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
         "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
         "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
-        "org.freedesktop.portal.FileChooser" = [ "xdg-desktop-portal-gtk" ];
+        "org.freedesktop.portal.FileChooser" = [ "xdg-desktop-portal-shana" ];
       };
       extraPortals = [
-        pkgs.xdg-desktop-portal-hyprland
+#        pkgs.xdg-desktop-portal-hyprland
+        inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
         pkgs.xdg-desktop-portal-gtk
         pkgs.xdg-desktop-portal-wlr
+        pkgs.xdg-desktop-portal-shana
       ];
     };
 
