@@ -27,20 +27,34 @@
     comma.url = "github:nix-community/comma";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    };
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
+    #hyprland = {
+    ##url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    #  type = "git";
+    #  submodules = true;
+    #  url = "https://github.com/hyprwm/Hyprland";
+    #  ref = "refs/tags/v0.43.0";
+    #  inputs.aquamarine.follows = "aquamarine";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
+#
+    #aquamarine = {
+    #  type = "git";
+    #  url = "https://github.com/hyprwm/aquamarine";
+    #  ref = "refs/tags/v0.4.0";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
+
+    #hyprland-contrib = {
+    #  url = "github:hyprwm/contrib";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
+    #hyprland-plugins = {
+    #  url = "github:hyprwm/hyprland-plugins";
+    #  inputs.hyprland.follows = "hyprland";
+    #};
     nix-colors = {
       url = "github:misterio77/nix-colors";
     };
@@ -55,10 +69,10 @@
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
     };
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+#    nixpkgs-wayland = {
+#      url = "github:nix-community/nixpkgs-wayland";
+#      inputs.nixpkgs.follows = "nixpkgs";
+#    };
     nur = {
       url = "github:nix-community/NUR";
     };
@@ -87,7 +101,7 @@
           inputs.comma.overlays.default
           inputs.nur.overlay
           inputs.nix-vscode-extensions.overlays.default
-          inputs.nixpkgs-wayland.overlay
+#          inputs.nixpkgs-wayland.overlay
           inputs.catppuccin-vsc.overlays.default
           outputs.overlays.additions
           outputs.overlays.modifications

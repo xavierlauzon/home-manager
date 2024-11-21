@@ -30,15 +30,6 @@ in
       };
 
     };
-    gtk = {
-      catppuccin = {
-        enable = true;
-        flavor = "mocha";
-        icon.enable = true;
-      };
-      font.name = "Cantarell 10";
-#      cursorTheme.name = "Bibata-Modern-Ice";
-    };
     programs = {
         kitty.catppuccin.enable = true;
     };

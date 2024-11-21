@@ -2,7 +2,7 @@
 
 let
   cfg = config.host.home.applications.hyprcursor;
-cursor = "HyprBibataModernClassicSVG";
+  cursor = "HyprBibataModernClassicSVG";
   cursorPackage = pkgs.pkg-bibata-hyprcursor;
   cursorSize = 24;
 in
