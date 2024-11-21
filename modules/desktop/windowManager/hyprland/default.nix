@@ -10,7 +10,6 @@ let
     if [ "$HYPRGAMEMODE" = 1 ] ; then
       hyprctl --batch "\
           keyword animations:enabled 0;\
-          keyword decoration:drop_shadow 0;\
           keyword decoration:blur 0;\
           keyword general:gaps_in 0;\
           keyword general:gaps_out 0;\
@@ -20,7 +19,6 @@ let
     else
       hyprctl --batch "\
           keyword animations:enabled 1;\
-          keyword decoration:drop_shadow 1;\
           keyword decoration:blur 1;\
           keyword general:gaps_in 1;\
           keyword general:gaps_out 1;\
@@ -62,6 +60,7 @@ with lib;
           hyprlock.enable = true;
           hyprpaper.enable = mkDefault true;
           hyprpicker.enable = mkDefault true;
+          hyprpolkitagent.enable = mkDefault true;
           hyprkeys.enable = mkDefault true;
           playerctl.enable = mkDefault true;
           satty.enable = mkDefault true;
@@ -72,6 +71,25 @@ with lib;
 
     wayland.windowManager.hyprland = {
       enable = true;
+      settings = {
+        env = [
+          "XDG_CURRENT_DESKTOP,Hyprland"
+          "XDG_SESSION_TYPE,wayland"
+          "XDG_SESSION_DEKSTOP,Hyprland"
+          "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+          "QT_QPA_PLATFORM,wayland;xcb"
+          "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+          "QT_QPA_PLATFORMTHEME,qt5ct"
+          "QT_QPA_PLATFORMTHEME,qt6ct"
+          "MOZ_ENABLE_WAYLAND,1"
+          "GDK_BACKEND,wayland,x11,*"
+          "SDL_VIDEODRIVER,wayland"
+          "CLUTTER_BACKEND,wayland"
+          "XDG_SESSION_TYPE,wayland"
+          "ELECTRON_OZONE_PLATFORM_HINT,auto"
+          "NIXOS_OZONE_WL,1"
+        ];
+      };
       xwayland.enable = mkDefault true;
     };
 
@@ -85,8 +103,8 @@ with lib;
         "org.freedesktop.portal.FileChooser" = [ "xdg-desktop-portal-shana" ];
       };
       extraPortals = [
-#        pkgs.xdg-desktop-portal-hyprland
-        inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+        pkgs.xdg-desktop-portal-hyprland
+#        inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
         pkgs.xdg-desktop-portal-gtk
         pkgs.xdg-desktop-portal-wlr
         pkgs.xdg-desktop-portal-shana
@@ -98,18 +116,19 @@ with lib;
       scriptPath = ".hm-xsession";
         #export NIXOS_OZONE_WL=1
         #export QT_QPA_PLATFORM=wayland;xcb
+        #
       windowManager.command = ''
-        export CLUTTER_BACKEND=gdk
-        export MOZ_ENABLE_WAYLAND=1
-        export QT_AUTO_SCREEN_SCALE_FACTOR=1
-        export QT_QPA_PLATFORM=wayland
-        export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-        export SDL_VIDEODRIVER=wayland
-        export WLR_RENDERER=vulkan
-        export XDG_CURRENT_DESKTOP=Hyprland
-        export XDG_SESSION_DESKTOP=Hyprland
-        export XDG_SESSION_TYPE=wayland
-        export _JAVA_AWT_WM_NONREPARENTING=1
+#        export CLUTTER_BACKEND=gdk
+#        export MOZ_ENABLE_WAYLAND=1
+#        export QT_AUTO_SCREEN_SCALE_FACTOR=1
+#        export QT_QPA_PLATFORM=wayland
+#        export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+#        export SDL_VIDEODRIVER=wayland
+#        export WLR_RENDERER=vulkan
+#        export XDG_CURRENT_DESKTOP=Hyprland
+#        export XDG_SESSION_DESKTOP=Hyprland
+#        export XDG_SESSION_TYPE=wayland
+#        export _JAVA_AWT_WM_NONREPARENTING=1
         Hyprland
       '';
     };
