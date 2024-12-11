@@ -2,7 +2,7 @@
 
 let
   inherit (specialArgs) username;
-  cfg = config.host.home.user.xavier.secrets.ssh.sd;
+  cfg = config.host.home.user.sam.secrets.ssh.xl;
   s = "xa";
   _p = "vi";
   _a = "er";
