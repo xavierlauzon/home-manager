@@ -166,7 +166,7 @@
               org = "xl";
               role = "server";
               hostname = "blackhawk";
-              username = sam;
+              username = "sam";
               inherit inputs outputs;
             };
           };
