@@ -16,7 +16,7 @@ in
 {
 
   options = {
-    host.home.user.sam.secrets.ssh.sd = {
+    host.home.user.sam.secrets.ssh.xl = {
       enable = mkOption {
         default = false;
         type = with types; bool;
