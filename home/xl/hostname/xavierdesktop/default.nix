@@ -9,14 +9,17 @@ with lib;
       applications = {
         act.enable = mkDefault false;
         avidemux.enable = true;
+        calibre.enable = false;
         cura.enable = false;
         czkawka.enable = mkDefault true;
+        floorp.defaultApplication.enable = true;
         github-client.enable = true;
         gnome-software.enable = true;
         hadolint.enable = true;
         hyprshot.enable = true;
         lazygit.enable = true;
         lutris.enable = true;
+        libreoffice.enable = false;
         mp3gain.enable = mkDefault true;
         nix-development_tools.enable = true;
         nmap.enable = mkDefault true;

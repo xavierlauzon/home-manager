@@ -81,8 +81,9 @@ in
         initExtra = ''
           if [ -d "/home/$USER/.config" ]; then alias src="cd $HOME/.config" ; fi
           if [ -d "/home/$USER/src" ]; then alias src="cd $HOME/src" ; fi
-          if [ -d "/home/$USER/src/gh" ]; then alias srcgh="cd $HOME/src/gh" ; fi
+          if [ -d "/home/$USER/src/gh" ]; then alias srcxl="cd $HOME/src/xl" ; fi
           if [ -d "/home/$USER/src/sd" ]; then alias srcsd="cd $HOME/src/sd" ; fi
+          if [ -d "/home/$USER/src/sd" ]; then alias srchl="cd $HOME/src/hl" ; fi
 
           if [ -f "/home/$USER/src/scripts/changelog/changelogger.sh" ] ; then
               alias changelog="/home/$USER/src/scripts/changelog/changelogger.sh"
@@ -94,9 +95,10 @@ in
               alias hmswitch="home-manager switch --flake $HOME/src/home-manager/#$HOSTNAME.$USER --extra-experimental-features 'nix-command flakes' $@"
           fi
 
-          if [ -d "/home/$USER/src/nixos-config" ] ; then
-              alias nixos="cd ~/src/nixos-config"
-              alias nixosupdate="sudo nix flake update --flake $HOME/src/nixos-config/ --extra-experimental-features 'nix-command flakes'"
+          if [ -d "/home/$USER/src/nixos-config" ] && [ -d "/home/$USER/src/nixos-modules" ]; then
+              alias nixconf="cd ~/src/nixos-config"
+              alias nixmod="cd ~/src/nixos-modules"
+              alias nixupdate="sudo nix flake update --flake $HOME/src/nixos-config/ && sudo nix flake update --flake $HOME/src/nixos-modules/"
               alias nixswitch="sudo nixos-rebuild switch --flake $HOME/src/nixos-config/#$HOSTNAME $@"
           fi
 

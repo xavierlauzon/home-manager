@@ -143,8 +143,9 @@
               role = "workstation";
               hostname = "xavierdesktop";
               username = gn;
-              displays = 1;
+              displays = 2;
               display_center = "DP-3";
+              display_top = "HDMI-A-1";
               networkInterface = "enp6s0";
               inherit inputs outputs;
             };

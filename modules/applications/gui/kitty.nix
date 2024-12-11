@@ -19,11 +19,11 @@ in
     programs = {
       kitty = {
         enable = true;
-        package = pkgs.unstable.kitty;
-        font = {
-          name = "Hack";
-          size = 11.0;
-        };
+        package = pkgs.kitty;
+#        font = {
+#          name = "hack";
+#          size = 11.0;
+#        };
         keybindings = {
           "ctrl+shift+c" = "copy_and_clear_or_interrupt";
           "ctrl+alt+enter" = "launch --location=neighbour";

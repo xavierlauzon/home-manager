@@ -39,13 +39,9 @@ in
       roboto
       ubuntu_font_family
       weather-icons
-      nerdfonts
-      #(nerdfonts.override { fonts = [
-      #  "DroidSansMono"
-      #  "Hack"
-      #  "JetBrainsMono"
-      #  "Noto"
-      #];})
+      nerd-fonts.hack
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.open-dyslexic
     ];
   };
 }

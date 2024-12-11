@@ -20,7 +20,11 @@ in
       packages = with pkgs;
         [
           vesktop
+          discord
+          discord-ptb
+          discord-canary
           arrpc
+          legcord
         ];
     };
 
