@@ -26,6 +26,7 @@ in
   programs = {
     git = {
       userEmail = email;
+      userName = "Samuel Pizette";
     };
   };
 }

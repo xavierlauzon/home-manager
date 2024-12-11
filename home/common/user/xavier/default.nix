@@ -6,11 +6,5 @@ with lib;
     ./secrets
   ];
 
-  config = {
-    programs = {
-      git = {
-        username = "Xavier Lauzon";
-      };
-    };
-  };
+
 }
