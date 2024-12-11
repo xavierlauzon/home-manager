@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{config, lib, pkgs, specialArgs, ...}:
 
 let
   cfg = config.host.home.applications.git;
@@ -19,7 +19,6 @@ in
     programs = {
       git = {
         enable = true;
-        userName = "Xavier Lauzon";
         ignores = [ "*~" ".direnv" ".env" ".rgignore" ];
         extraConfig = {
           init = { defaultBranch = "main"; };
