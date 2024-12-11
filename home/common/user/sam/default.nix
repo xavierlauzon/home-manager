@@ -9,7 +9,7 @@ with lib;
   config = {
     programs = {
       git = {
-        username = "Xavier Lauzon"
+        username = "Samuel Pizette";
       };
     };
   };
