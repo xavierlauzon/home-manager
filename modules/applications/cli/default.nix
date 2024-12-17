@@ -23,6 +23,7 @@ with lib;
     ./hadolint.nix
     ./htop.nix
     ./jq.nix
+    ./kubernetes.nix
     ./lazygit.nix
     ./less.nix
     ./liquidprompt.nix
