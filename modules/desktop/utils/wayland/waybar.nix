@@ -50,7 +50,6 @@ in
                "temperature"
                "bluetooth"
                "network"
-               "idle_inhibitor"
                "clock"
             ];
             "hyprland/workspaces" = {
@@ -185,13 +184,6 @@ in
                "format-alt" = "{ifname}: {ipaddr}/{cidr}";
                "on-click-right" = "nmcli device wifi rescan && kitty sudo nmtui";
             };
-            "idle_inhibitor" = {
-                "format" = "{icon}";
-                "format-icons" = {
-                   "activated" = "";
-                   "deactivated" = "";
-                };
-            };
             "clock" = {
                 "interval" = 1;
                 "format" = "{:%H:%M:%S}";
@@ -294,7 +286,6 @@ in
           #wireplumber,
           #custom-media,
           #mode,
-          #idle_inhibitor,
           #custom-notification,
           #scratchpad {
               padding: 0 20px;
@@ -406,15 +397,6 @@ in
               opacity: 1;
               transition-property: opacity;
               transition-duration: 0.25s;
-          }
-
-          #idle_inhibitor {
-              background-color: #287271;
-          }
-
-          #idle_inhibitor.activated {
-              background-color: #ecf0f1;
-              color: #2d3436;
           }
 
           #keyboard-state {
