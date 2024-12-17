@@ -19,7 +19,7 @@ with lib;
         hyprshot.enable = true;
         lazygit.enable = true;
         lutris.enable = true;
-        libreoffice.enable = false;
+        libreoffice.enable = true;
         mp3gain.enable = mkDefault true;
         nix-development_tools.enable = true;
         nmap.enable = mkDefault true;
