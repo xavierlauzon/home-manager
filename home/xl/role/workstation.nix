@@ -10,6 +10,7 @@ with lib;
         docker-compose.enable = mkDefault true;
         git.enable = mkDefault true;
         nextcloud-client.enable = mkDefault true;
+        kubernetes.enable = mkDefault true;
       };
       feature = {
       };
