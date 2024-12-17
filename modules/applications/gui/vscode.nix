@@ -207,6 +207,7 @@ in
         "explorer.confirmDelete" = false;
         "files.trimTrailingWhitespace" = true;
         "files.useExperimentalFileWatcher" = true;
+        "window.openWithoutArgumentsInNewWindow" = true;
         "window.menuBarVisibility" = "compact";
         "window.titleBarStyle" = "custom";
         "window.zoomLevel" = 1;
@@ -233,7 +234,7 @@ in
         "editor.renderControlCharacters" = true;
         "editor.scrollbar.vertical" = "auto";
         "editor.semanticHighlighting.enabled" = true;
-        "editor.tabSize" = 4 ;
+        "editor.tabSize" = 2 ;
         "editor.fontSize" = 12;
         "editor.wordWrap" = "off";
         "workbench.editor.enablePreview" = false;
