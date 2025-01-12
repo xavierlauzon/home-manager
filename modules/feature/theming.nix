@@ -24,14 +24,11 @@ in
     colorscheme = inputs.nix-colors.colorSchemes.dracula;
     catppuccin = {
       flavor = "mocha";
-      pointerCursor = {
+      cursors = {
         enable = true;
         flavor = "mocha";
       };
-
-    };
-    programs = {
-        kitty.catppuccin.enable = true;
+      kitty.enable  = true;
     };
   };
 }
