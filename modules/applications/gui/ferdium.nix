@@ -29,7 +29,7 @@ in
           "ferdium --ozone-platform=wayland --enable-features-WaylandWindowDecorations"
         ];
         windowrulev2 = [
-          "workspace 3,class:(^Ferdium)$"
+          "workspace 2,class:(^Ferdium)$"
         ];
       };
     };
