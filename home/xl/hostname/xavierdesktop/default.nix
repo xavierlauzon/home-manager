@@ -7,29 +7,6 @@ with lib;
   host = {
     home = {
       applications = {
-        act.enable = mkDefault false;
-        avidemux.enable = true;
-        calibre.enable = false;
-        cura.enable = false;
-        czkawka.enable = mkDefault true;
-        floorp.defaultApplication.enable = true;
-        github-client.enable = true;
-        gnome-software.enable = true;
-        hadolint.enable = true;
-        hyprshot.enable = true;
-        lazygit.enable = true;
-        lutris.enable = true;
-        libreoffice.enable = true;
-        mp3gain.enable = mkDefault true;
-        nix-development_tools.enable = true;
-        nmap.enable = mkDefault true;
-        tidal-hifi.enable = true;
-        obs.enable = true;
-        obsidian.enable = true;
-        opensnitch-ui.enable = true;
-        shellcheck.enable = true;
-        shfmt.enable = true;
-        smartgit.enable = false;
         ssh = {
           enable = true;
           ignore = {
@@ -37,35 +14,8 @@ with lib;
             "192.168.4.0/24" = true;
           };
         };
-        szyszka.enable = true;
-        thunderbird.enable = mkDefault true;
-        veracrypt.enable = true;
-        virt-manager.enable = mkDefault true;
-        visual-studio-code = {
-          enable = mkDefault true;
-          defaultApplication.enable = mkDefault true;
-        };
-        xmlstarlet.enable = true;
-        yq.enable = true;
-        xdg-ninja.enable = mkDefault true;
-        yt-dlp.enable = mkDefault true;
-        zathura = {
-          enable = mkDefault true;
-          defaultApplication.enable = mkDefault true;
-        };
-        zoom.enable = true;
-        prismlauncher.enable = true;
-        discord.enable = true;
       };
       feature = {
-        emulation = {
-          windows.enable = true;
-        };
-        gui = {
-          enable = true;
-          displayServer = "wayland";
-          windowManager = "hyprland";
-        };
       };
 #      user = {
 #        xavier = {
