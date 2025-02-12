@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 with lib;
 {
   imports = [
@@ -20,5 +20,5 @@ with lib;
       };
     };
   };
-  colorscheme = inputs.nix-colors.colorSchemes.dracula;
+  colorscheme = inputs.nix-colors.colorSchemes.dracula; # TODO make less messy
 }
