@@ -20,4 +20,5 @@ with lib;
       };
     };
   };
+  colorscheme = inputs.nix-colors.colorSchemes.dracula;
 }
