@@ -14,6 +14,7 @@ with lib;
         kubernetes.enable = mkDefault true;
       };
       feature = {
+        theming.enable = mkDefault false;
       };
       service = {
       };

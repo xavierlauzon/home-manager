@@ -13,7 +13,7 @@ in
   options = {
     host.home.feature.theming = {
       enable = mkOption {
-        default = true;
+        default = false;
         type = with types; bool;
         description = "Enable theming";
       };
