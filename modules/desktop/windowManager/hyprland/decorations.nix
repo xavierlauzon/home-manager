@@ -35,8 +35,7 @@ with lib;
         };
 
         master = {
-          allow_small_split = true;
-          always_center_master = true;
+          allow_small_split = false;
           drop_at_cursor = true;
           inherit_fullscreen = true;
           mfact = 0.50;
