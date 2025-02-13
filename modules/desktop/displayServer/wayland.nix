@@ -12,7 +12,7 @@ in
         applications = {
           cliphist.enable = true;
           grim.enable = true;
-          nwg-displays.enable = true;
+          nwg-displays.enable = mkDefault true;
           slurp.enable = true;
           sway-notification-center.enable = true;
           swayosd.enable = true;
