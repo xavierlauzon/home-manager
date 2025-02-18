@@ -75,6 +75,7 @@ with lib;
       settings = {
         env = [
           "XDG_CURRENT_DESKTOP,Hyprland"
+          "NIXOS_OZONE_WL,1"
           "XDG_SESSION_TYPE,wayland"
           "XDG_SESSION_DEKSTOP,Hyprland"
           "QT_AUTO_SCREEN_SCALE_FACTOR,1"
@@ -86,8 +87,6 @@ with lib;
           "GDK_BACKEND,wayland,x11,*"
           "SDL_VIDEODRIVER,wayland"
           "CLUTTER_BACKEND,wayland"
-          "XDG_SESSION_TYPE,wayland"
-          "NIXOS_OZONE_WL,1"
         ];
       };
       xwayland.enable = mkDefault true;
@@ -96,16 +95,18 @@ with lib;
     xdg.portal = {
       enable = true;
       xdgOpenUsePortal = true;
-      config.common = {
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-        #"org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
-        #"org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
-        #"org.freedesktop.portal.FileChooser" = [ "xdg-desktop-portal-shana" ];
+      config = {
+        common = {
+          default = ["gtk"];
+          "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+        };
+        hyprland = {
+          default = ["gtk" "hyprland"];
+        };
       };
-      extraPortals = [
-#        inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
-        pkgs.xdg-desktop-portal-hyprland
-        pkgs.xdg-desktop-portal-gtk
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-hyprland
       ];
     };
 
