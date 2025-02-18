@@ -21,10 +21,11 @@ with lib;
           "size 1290 800, title:^Open Files$"
 
           # ZoomPWA
-          "workspace 3,class:(^FFPWA-01HTZ7G5XDG9A8VH9ZNCBBS9RT$)"
+          "workspace 1,class:(^FFPWA-01HTZ7G5XDG9A8VH9ZNCBBS9RT$)"
           "size 1200 1155,class:(^FFPWA-01HTZ7G5XDG9A8VH9ZNCBBS9RT$)"
           "float,title:^My Meeting$"
           "float,class:(^FFPWA-01HTZ7G5XDG9A8VH9ZNCBBS9RT$)"
+
         ];
       };
     };
