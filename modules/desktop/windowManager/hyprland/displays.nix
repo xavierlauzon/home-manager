@@ -12,8 +12,8 @@ with lib;
       settings = mkMerge [
         (mkIf (hostname == "xavierdesktop") {
           monitor = [
-            "DP-3,7680x2160@240,0x0,1.0,bitdepth,8"
-            "HDMI-A-2,3840x1080@120,auto-up,1.0"
+            "desc:Samsung Electric Company Odyssey G95NC HNTWA00116, 7680x2160@240, 0x0, auto, vrr, 1, bitdepth, 8"
+            "desc:ASUSTek COMPUTER INC ASUS XG49V 0x0002DAE4, 3840x1080@120, 0x-1080, auto, vrr, 1, bitdepth, 8"
           ];
         })
       ];
