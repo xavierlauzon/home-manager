@@ -13,6 +13,7 @@ with lib;
           enable = mkDefault false;
           defaultApplication.enable = mkDefault true;
         };
+        bitwarden.enable = mkDefault true;
         bleachbit.enable = mkDefault true;
         blueman.enable = mkDefault true;
         calibre = {
