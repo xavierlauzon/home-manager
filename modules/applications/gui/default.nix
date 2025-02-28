@@ -4,6 +4,7 @@ with lib;
   imports = [
     ./ark.nix
     ./avidemux.nix
+    ./bitwarden.nix
     ./bleachbit.nix
     ./blueman.nix
     ./calibre.nix
