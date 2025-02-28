@@ -2,7 +2,7 @@
 
 let
   inherit (specialArgs) username;
-  cfg = config.host.home.user.sam.secrets.ssh.xl;
+  cfg = config.host.home.user.xavier.secrets.ssh.xl;
   s = "xa";
   _p = "vi";
   _a = "er";
@@ -16,7 +16,7 @@ in
 {
 
   options = {
-    host.home.user.sam.secrets.ssh.xl = {
+    host.home.user.xavier.secrets.ssh.xl = {
       enable = mkOption {
         default = false;
         type = with types; bool;
@@ -34,13 +34,13 @@ in
       #};
       "ssh/xl-id_ed25519" = {
         format = "binary";
-        sopsFile = ../../../../../../xl/user/sam/secrets/ssh/xl-id_ed25519.enc;
+        sopsFile = ../../../../../../xl/user/xavier/secrets/ssh/xl-id_ed25519.enc;
         path = config.home.homeDirectory+"/.ssh/keys/xl-id_ed25519";
         mode = "600";
       };
       "ssh/xl-id_ed25519.pub" = {
         format = "binary";
-        sopsFile = ../../../../../../xl/user/sam/secrets/ssh/xl-id_ed25519.pub.enc;
+        sopsFile = ../../../../../../xl/user/xavier/secrets/ssh/xl-id_ed25519.pub.enc;
         path = config.home.homeDirectory+"/.ssh/keys/xl-id_ed25519.pub";
         mode = "600";
       };

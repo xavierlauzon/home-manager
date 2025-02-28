@@ -27,11 +27,11 @@ in
 
   config = mkIf cfg.enable {
     sops.secrets = {
-      "bashrc.d/sd_remotehosts.sh" = {
-        format = "binary";
-        sopsFile = ../../../../../../sd/secrets/bash-sd_remotehosts.sh;
-        mode = "500";
-      };
+      #"bashrc.d/sd_remotehosts.sh" = {
+      #  format = "binary";
+      #  sopsFile = ../../../../../../sd/secrets/bash-sd_remotehosts.sh;
+      #  mode = "500";
+      #};
       "ssh/sd-id_ed25519" = {
         format = "binary";
         sopsFile = ../../../../../../sd/user/xavierlauzon/secrets/ssh/sd-id_ed25519.enc;
