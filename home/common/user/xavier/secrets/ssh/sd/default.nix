@@ -51,6 +51,7 @@ in
         enable = mkDefault true;
         matchBlocks = {
           "*.${s}${_p}${_a}${m}${t}${r}${a_}${p_}" = {
+            user = "xavierlauzon";
             identityFile = config.sops.secrets."ssh/sd-id_ed25519".path;
           };
         };

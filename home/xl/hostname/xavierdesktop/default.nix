@@ -9,7 +9,6 @@ with lib;
       applications = {
         ssh = {
           enable = true;
-          };
         };
       };
       feature = {
