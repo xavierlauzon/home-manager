@@ -171,6 +171,16 @@
             };
           };
 
+          "sd111.${gnsn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "sd";
+              role = "server";
+              hostname = "sd111";
+              username = gnsn;
+              inherit inputs outputs;
+            };
+          };
+
           "newton.xl" = HomeConfiguration {
             extraSpecialArgs = {
               org = "sd";
@@ -181,15 +191,16 @@
             };
           };
 
-          "sd111.${gnsn}" = HomeConfiguration {
+          "turing.xl" = HomeConfiguration {
             extraSpecialArgs = {
               org = "sd";
               role = "server";
-              hostname = "sd111";
-              username = gnsn;
+              hostname = "turing";
+              username = "xl";
               inherit inputs outputs;
             };
           };
+
       };
 
       inherit home-manager;
