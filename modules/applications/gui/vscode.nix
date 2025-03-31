@@ -66,7 +66,7 @@ in
               github.vscode-github-actions              # Github actions helper
 
             ## Docker
-              ms-azuretools.vscode-docker               # Docker containers, images, and volumes
+              ms-vscode-remote.remote-containers               # Docker containers, images, and volumes
 
             ## Editor Helpers
               tyriar.sort-lines                         # Sort Lines
@@ -89,8 +89,8 @@ in
               shakram02.bash-beautify                   # Bash
 
             ## Remote
-              ms-vscode-remote.remote-containers        # Access Docker Contaniers remotely
-              ms-vscode-remote.remote-ssh-edit          # Edit SSH Configuration Files
+              #ms-vscode-remote.remote-containers        # Access Docker Contaniers remotely
+              #ms-vscode-remote.remote-ssh-edit          # Edit SSH Configuration Files
               ms-vscode.remote-explorer                 # View remote machines for SSH and Tunnels
 
             ## Syntax Highlighting | File Support | Linting
