@@ -61,7 +61,7 @@
       pkgsForSystem = system: nixpkgsSource: import nixpkgsSource {
         overlays = [
           inputs.comma.overlays.default
-          inputs.nur.overlay
+          inputs.nur.overlays.default
           inputs.nix-vscode-extensions.overlays.default
           inputs.catppuccin-vsc.overlays.default
           outputs.overlays.additions
@@ -80,7 +80,7 @@
             modules = [
               (import ./home)
               (import ./modules)
-              catppuccin.homeManagerModules.catppuccin
+              catppuccin.homeModules.catppuccin
             ];
             extraSpecialArgs = {
               inherit (args) nixpkgs;
