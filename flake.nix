@@ -150,22 +150,22 @@
             };
           };
 
-          "newton.xl" = HomeConfiguration {
+          "newton.${gnsn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "sd";
               role = "server";
               hostname = "newton";
-              username = "xl";
+              username = gnsn;
               inherit inputs outputs;
             };
           };
 
-          "turing.xl" = HomeConfiguration {
+          "turing.${gnsn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "sd";
               role = "server";
               hostname = "turing";
-              username = "xl";
+              username = gnsn;
               inherit inputs outputs;
             };
           };
