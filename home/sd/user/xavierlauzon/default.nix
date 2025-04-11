@@ -18,6 +18,11 @@ in
     git = {
       userEmail = email;
       userName = "Xavier Lauzon";
+      extraConfig = {
+        safe = {
+          directory = "/srv/nixos-config";
+        };
+      };
     };
   };
 }
