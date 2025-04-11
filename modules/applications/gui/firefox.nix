@@ -60,7 +60,7 @@ in with lib; {
 
           search = {
             force = true;
-            default = "DuckDuckGo";
+            default = "ddg";
             engines = {
               "Home Manager Options" = {
                 urls = [{
@@ -119,17 +119,17 @@ in with lib; {
                   template =
                     "https://nixos.wiki/index.php?search={searchTerms}";
                 }];
-                iconUpdateURL = "https://nixos.wiki/favicon.png";
+                icon = "https://nixos.wiki/favicon.png";
                 updateInterval = 24 * 60 * 60 * 1000;
                 definedAliases = [ "@nw" ];
               };
 
-              "Wikipedia (en)".metaData.alias = "@wiki";
-              "Google".metaData.hidden = true;
+              "wikipedia".metaData.alias = "@wiki";
+              "google".metaData.hidden = true;
             };
           };
 
-          extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
             bitwarden
             #bypass-paywalls-clean
             clearurls
