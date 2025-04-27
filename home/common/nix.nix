@@ -47,6 +47,7 @@ with lib;
     settings = {
       auto-optimise-store = mkDefault true;
       experimental-features = [ "nix-command" "flakes" ];
+      download-buffer-size = mkDefault 524288000;
       use-xdg-base-directories = mkDefault true;
       warn-dirty = mkDefault false;
     };
