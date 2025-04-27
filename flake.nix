@@ -126,6 +126,26 @@
             };
           };
 
+          "ms1.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "ms1";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
+          "ms2.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "ms2";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
           "blackhawk.sam" = HomeConfiguration {
             extraSpecialArgs = {
               org = "xl";
