@@ -7,17 +7,6 @@ let
     _hypridle_logfile="$HOME/lock.log"
     HYPRIDLE_DEBUG=''${HYPRIDLE_DEBUG:-"FALSE"}
 
-    _hypridle_gamma() {
-        case "$1" in
-            get )
-                busctl --user get-property rs.wl-gammarelay / rs.wl.gammarelay Temperature > "$XDG_RUNTIME_DIR"/gamma.temp
-            ;;
-            set )
-                busctl --user get-property rs.wl-gammarelay / rs.wl.gammarelay Temperature > "$(cat "$XDG_RUNTIME_DIR"/gamma.temp)"
-            ;;
-        esac
-    }
-
     _hypridle_exec() {
         if [ "''${HYPRIDLE_DEBUG,,}" = "true" ]; then
             "$@" >> "$_hypridle_logfile"
@@ -39,13 +28,11 @@ let
             case "$2" in
                 before )
                     _hypridle_log "$(date +'%Y-%m-%d %H:%M:%s') [blank] [timeout] 'hyprctl dispatch dpms off'"
-                    gamma set
                     _hypridle_exec hyprctl dispatch dpms off
                 ;;
                 after )
                     _hypridle_log "$(date +'%Y-%m-%d %H:%M:%s') [blank] [resume] 'hyprctl dispatch dpms on'"
                     _hypridle_exec hyprctl dispatch dpms on
-                    gamma get
                 ;;
             esac
         ;;
@@ -75,13 +62,11 @@ let
             case "$2" in
                 before )
                     _hypridle_log "$(date +'%Y-%m-%d %H:%M:%s') [sleep] [before] 'loginctl lock-session'"
-                    gamma set
                     _hypridle_exec loginctl lock-session
                 ;;
                 after )
                     _hypridle_log "$(date +'%Y-%m-%d %H:%M:%s') [after] [after] 'hyprctl dispatch dpms on'"
                     _hypridle_exec hyprctl dispatch dpms on
-                    gamma get
                 ;;
             esac
         ;;
@@ -121,7 +106,6 @@ in
             {
               timeout = 600;                                                       # 10min
               on-timeout = "$HOME/.local/state/nix/profile/bin/hypridle-companion lock before";                       # lock screen when timeout has passed
-              on-resume = "$HOME/.local/state/nix/profile/bin/hypridle-companion lock after";                         # reset gamma
             }
             {
               timeout = 660;                                                       # 11min
@@ -131,7 +115,6 @@ in
             {
               timeout = 900;                                                       # 15min
               on-timeout = "$HOME/.local/state/nix/profile/bin/hypridle-companion suspend before";                    # suspend pc
-              on-resume = "$HOME/.local/state/nix/profile/bin/hypridle-companion suspend after";                      # reset gamma
             }
           ];
         };

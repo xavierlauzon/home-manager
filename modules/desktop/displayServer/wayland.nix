@@ -21,7 +21,6 @@ in
           wdisplays.enable = true;
           wev.enable = true;
           wl-clipboard.enable = true;
-          wl-gammarelay-rs.enable = true;
           wlogout.enable = true;
           wlr-randr.enable = true;
         };

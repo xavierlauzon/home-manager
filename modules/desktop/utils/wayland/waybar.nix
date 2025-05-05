@@ -41,7 +41,6 @@ in
             ];
             "modules-right" = [
                "tray"
-               "custom/wl-gammarelay-temperature"
                "custom/notification"
                "pulseaudio"
                "cpu"
@@ -79,15 +78,6 @@ in
             "tray" = {
                 "icon-size" = 22;
                 "spacing" = 10;
-            };
-            "custom/wl-gammarelay-temperature" = {
-               "format" = "{} ";
-               "exec" = "wl-gammarelay-rs watch {t}";
-               "on-click" = "busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 3000";
-               "on-click-middle" = "busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 5000";
-               "on-click-right" = "busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q 6500";
-               "on-scroll-up" = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n +500";
-               "on-scroll-down" = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n -500";
             };
             "custom/notification" = {
                 "tooltip" = false;
@@ -388,15 +378,6 @@ in
               color: #2a5c45;
               padding: 0 20px;
               min-width: 100px;
-          }
-
-          #custom-wl-gammarelay-temperature {
-              background: #264653;
-              color: #ffffff;
-              padding: 0 20px;
-              opacity: 1;
-              transition-property: opacity;
-              transition-duration: 0.25s;
           }
 
           #keyboard-state {
