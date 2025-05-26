@@ -28,5 +28,10 @@ in
       userEmail = email;
       userName = "Xavier Lauzon";
     };
+    direnv = {
+      enable = true;
+      enableBashIntegration = true; # see note on other shells below
+      nix-direnv.enable = true;
+    };
   };
 }
