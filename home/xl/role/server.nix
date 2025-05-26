@@ -10,7 +10,8 @@ with lib;
       };
       feature = {
       };
-      service = {
+      services = {
+        vscode-server.enable = mkDefault true;
       };
     };
   };
