@@ -62,6 +62,7 @@ with lib;
           enable = mkDefault true;
           defaultApplication.enable = mkDefault true;
         };
+        satisfactorymodmanager.enable = mkDefault true;
         seahorse.enable = mkDefault true;
         smartgit.enable = mkDefault true;
         tea.enable = mkDefault true;

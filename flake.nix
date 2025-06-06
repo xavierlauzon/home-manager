@@ -190,6 +190,16 @@
             };
           };
 
+          "pasteur.${gnsn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "sd";
+              role = "server";
+              hostname = "pasteur";
+              username = gnsn;
+              inherit inputs outputs;
+            };
+          };
+
       };
 
       inherit home-manager;

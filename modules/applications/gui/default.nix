@@ -41,6 +41,7 @@ with lib;
     ./pulsemixer.nix
     ./remmina.nix
     ./rofi.nix
+    ./satisfactorymodmanager.nix
     ./seahorse.nix
     ./smartgit.nix
     ./smplayer.nix

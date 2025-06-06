@@ -71,9 +71,9 @@ in
         };
       };
 
-      bash.shellAliases = {
-        ls = "lsd --hyperlink=auto" ; # directory list alternative
-      };
+      #bash.shellAliases = {
+      #  ls = "lsd --hyperlink=auto" ; # directory list alternative
+      #};
     };
   };
 }
