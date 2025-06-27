@@ -16,17 +16,15 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    comma.url = "github:nix-community/comma";
-    flake-utils.url = "github:numtide/flake-utils";
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    nix-colors = {
-      url = "github:misterio77/nix-colors";
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
@@ -36,22 +34,21 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-    };
-    nur = {
-      url = "github:nix-community/NUR";
-    };
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    comma.url = "github:nix-community/comma";
+    flake-utils.url = "github:numtide/flake-utils";
+    nur.url = "github:nix-community/NUR";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-colors.url = "github:misterio77/nix-colors";
     catppuccin.url = "github:catppuccin/nix";
     catppuccin-vsc.url = "https://flakehub.com/f/catppuccin/vscode/*.tar.gz";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, flake-utils, home-manager, catppuccin, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, flake-utils, home-manager-stable, home-manager-unstable, catppuccin, ... }@inputs:
     let
       inherit (self) outputs;
       gn = "xavier";
@@ -74,9 +71,10 @@
 
       HomeConfiguration = args:
         let
-          nixpkgs = args.nixpkgs or nixpkgs-stable;
+          nixpkgsInput = args.nixpkgs or nixpkgs-stable;
+          hmInput = if nixpkgsInput == nixpkgs-unstable then home-manager-unstable else home-manager-stable;
         in
-          home-manager.lib.homeManagerConfiguration {
+          hmInput.lib.homeManagerConfiguration {
             modules = [
               (import ./home)
               (import ./modules)
@@ -87,6 +85,7 @@
             } // args.extraSpecialArgs;
             pkgs = pkgsForSystem (args.system or "x86_64-linux") nixpkgs;
           };
+
     in flake-utils.lib.eachSystem [
         "x86_64-linux"
         "aarch64-linux"
@@ -97,11 +96,6 @@
       }) // {
         overlays = import ./overlays {inherit inputs;};
         homeConfigurations = {
-
-          ###########
-          # ORG: XL #
-          ###########
-
           "xavierdesktop.${gn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "xl";
@@ -202,7 +196,7 @@
 
       };
 
-      inherit home-manager;
-      inherit (home-manager) packages;
+      inherit home-manager-stable home-manager-unstable;
+      inherit (home-manager-stable) packages;
     };
 }

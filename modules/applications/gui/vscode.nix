@@ -1,9 +1,13 @@
-{ config, inputs, lib, nix-vscode-extensions, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 let
   cfg = config.host.home.applications.visual-studio-code;
-in
-  with lib;
-{
+  pkgs-ext = import inputs.nixpkgs {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+    overlays = [ inputs.nix-vscode-extensions.overlays.default ];
+  };
+  marketplace = pkgs-ext.vscode-marketplace;
+in with lib; {
   options = {
     host.home.applications.visual-studio-code = {
       enable = mkOption {
@@ -50,6 +54,10 @@ in
         extensions = (with pkgs.vscode-extensions; [
             # From NixPkgs
             # Older Stable versions
+            ## AI
+            github.copilot
+            github.copilot-chat
+
             ## CI
 
             ## Docker
@@ -66,16 +74,16 @@ in
 
             ## Syntax Highlighting | File Support | Linting
 
-          ]) ++ (with inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace-release; [
-            # Release versions
-            # For extensions not avaialble in https://search.nixos.org/packages?type=packages&query=vscode-extensions
-
-          ]) ++ (with inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
+          ]) ++ (with marketplace; [
             # Bleeding Edge versions
             # For extensions not avaialble in https://search.nixos.org/packages?type=packages&query=vscode-extensions
 
             ## CI
               github.vscode-github-actions              # Github actions helper
+
+            ## Code
+            golang.go
+            ms-vscode.makefile-tools                    # Makefile Tools
 
             ## Docker
               ms-azuretools.vscode-docker               # Docker containers, images, and volumes
@@ -101,8 +109,6 @@ in
               shakram02.bash-beautify                   # Bash
 
             ## Remote
-              #ms-vscode-remote.remote-containers        # Access Docker Contaniers remotely
-              #ms-vscode-remote.remote-ssh-edit          # Edit SSH Configuration Files
               ms-vscode.remote-explorer                 # View remote machines for SSH and Tunnels
 
             ## Syntax Highlighting | File Support | Linting
@@ -219,11 +225,12 @@ in
           "window.zoomLevel" = 1;
 
           ## Docker
-          "docker.commands.attach" = "$${containerCommand} exec -it $${containerId} $${shellCommand}" ;
-          "docker.containers.description" = ["ContainerName" "Status" ] ;
-          "docker.containers.label" = "ContainerName" ;
-          "docker.containers.sortBy" = "Label" ;
-          "docker.volumes.label" = "VolumeName" ;
+          "docker.commands.attach" =
+            "$\${containerCommand} exec -it $\${containerId} $\${shellCommand}";
+          "docker.containers.description" = [ "ContainerName" "Status" ];
+          "docker.containers.label" = "ContainerName";
+          "docker.containers.sortBy" = "Label";
+          "docker.volumes.label" = "VolumeName";
 
           ## Editor
           "editor.bracketPairColorization.enabled" = true;
@@ -266,20 +273,31 @@ in
               }
             ];
 
+          ## Copilot
+          "github.copilot.editor.enableCodeActions" = true;
+          "github.copilot.chat.followUps" = "never";
+
           ## Formatting
-          "[dockerfile]" = { "editor.defaultFormatter" = "foxundermoon.shell-format" ;};
-          "[html]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode" ;};
-          "[json]" = { "editor.defaultFormatter" = "vscode.json-language-features" ;};
-          "[jsonc]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode" ;};
-          "[markdown]" = { "editor.defaultFormatter" = "yzhang.markdown-all-in-one" ;};
-          "[shellscript]" = { "editor.defaultFormatter" = "foxundermoon.shell-format" ;};
-          "[yaml]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode" ;};
+          "[dockerfile]" = {
+            "editor.defaultFormatter" = "foxundermoon.shell-format";
+          };
+          "[html]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+          "[json]" = {
+            "editor.defaultFormatter" = "vscode.json-language-features";
+          };
+          "[jsonc]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+          "[markdown]" = {
+            "editor.defaultFormatter" = "yzhang.markdown-all-in-one";
+          };
+          "[shellscript]" = {
+            "editor.defaultFormatter" = "foxundermoon.shell-format";
+          };
+          "[yaml]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
           "markdown.extension.print.imgToBase64" = true;
           "markdown.extension.toc.levels" = "2..6";
+          "markdown.extension.toc.updateOnSave" = false;
           "shellcheck.enableQuickFix" = true;
-          "shellcheck.exclude" = [
-             "SC1008"
-          ];
+          "shellcheck.exclude" = [ "SC1008" ];
           "syntax.highlightLanguages" = [
             "c"
             "cpp"
@@ -316,38 +334,42 @@ in
           "security.workspace.trust.untrustedFiles" = "open";
 
           ## SSH
-          "remote.downloadExtensionsLocally" = true;
-          "remote.SSH.configFile"= "~/.ssh/vscode_remote_ssh_config";
+          "remote.SSH.configFile" = "~/.ssh/vscode_remote_ssh_config";
+          "remote.SSH.defaultExtensions" =
+            [ # # TODO - Merge this, this is mostly duplicates with exception of remote plugins
+              "bbenoist.nix"
+              "bierner.markdown-mermaid"
+              "brettm12345.nixfmt-vscode"
+              "davidanson.vscode-markdownlint"
+              "dunstontc.vscode-docker-syntax"
+              "esbenp.prettier-vscode"
+              "evgeniypeshkov.syntax-highlighter"
+              "fabiospampinato.vscode-diff"
+              "foxundermoon.shell-format"
+              "github.copilot"
+              "github.copilot-chat"
+              "github.vscode-github-actions"
+              "hilleer.yaml-plus-json"
+              "jinhyuk.replace-curly-quotes"
+              "ms-azuretools.vscode-docker"
+              "ms-vscode.copilot-mermaid-diagram"
+              "nickdemayo.vscode-json-editor"
+              "pinage404.bash-extension-pack"
+              "redhat.vscode-yaml"
+              "richie5um2.vscode-sort-json"
+              "rpinski.shebang-snippets"
+              "shakram02.bash-beautify"
+              "shd101wyy.markdown-preview-enhanced"
+              "timonwong.shellcheck"
+              "tombonnike.vscode-status-bar-format-toggle"
+              "tyriar.sort-lines"
+              "uyiosa-enabulele.reopenclosedtab"
+              "yzhang.markdown-all-in-one"
+              "ziyasal.vscode-open-in-github"
+            ];
           "remote.SSH.enableRemoteCommand" = true;
-          "remote.SSH.allowLocalServerDownload" = "off";
-          "remote.SSH.defaultExtensions" = [ ## TODO - Merge this, this is mostly duplicates with exception of remote plugins
-            "bbenoist.nix"
-            "bierner.markdown-mermaid"
-            "brettm12345.nixfmt-vscode"
-            "davidanson.vscode-markdownlint"
-            "dunstontc.vscode-docker-syntax"
-            "esbenp.prettier-vscode"
-            "evgeniypeshkov.syntax-highlighter"
-            "fabiospampinato.vscode-diff"
-            "foxundermoon.shell-format"
-            "github.vscode-github-actions"
-            "hilleer.yaml-plus-json"
-            "jinhyuk.replace-curly-quotes"
-            "ms-azuretools.vscode-docker"
-            "nickdemayo.vscode-json-editor"
-            "pinage404.bash-extension-pack"
-            "redhat.vscode-yaml"
-            "richie5um2.vscode-sort-json"
-            "rpinski.shebang-snippets"
-            "shakram02.bash-beautify"
-            "shd101wyy.markdown-preview-enhanced"
-            "timonwong.shellcheck"
-            "tombonnike.vscode-status-bar-format-toggle"
-            "tyriar.sort-lines"
-            "uyiosa-enabulele.reopenclosedtab"
-            "yzhang.markdown-all-in-one"
-            "ziyasal.vscode-open-in-github"
-          ];
+          "remote.SSH.localServerDownload" = "off";
+          "remote.downloadExtensionsLocally" = true;
 
           ## Telemetry
           "redhat.telemetry.enabled" = false;
@@ -355,9 +377,16 @@ in
           "update.mode" = "none";
 
           ## Terminal
-          "terminal.integrated.enableMultiLinePasteWarning" = false;
-          "terminal.integrated.minimumContrastRatio" = 1;
+          "terminal.integrated.enableMultiLinePasteWarning" = "never";
           "terminal.integrated.fontFamily" = "Hack Nerd Font";
+
+          "terminal.integrated.profiles.linux" = {
+             "bash" = {
+               "path" = "/usr/bin/bash";
+               "args" = ["--login"];
+               "icon" = "terminal-bash";
+             };
+          };
 
           ## SOPS
           "sops.creationEnabled" = true;
@@ -366,8 +395,10 @@ in
         };
       };
     };
-    xdg.mimeApps.defaultApplications = mkIf cfg.defaultApplication.enable (
-      lib.genAttrs cfg.defaultApplication.mimeTypes (_: "code.desktop")
-    );
+
+    xdg = {
+      mimeApps.defaultApplications = mkIf cfg.defaultApplication.enable
+        (lib.genAttrs cfg.defaultApplication.mimeTypes (_: "code.desktop"));
+    };
   };
 }

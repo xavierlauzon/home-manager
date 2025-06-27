@@ -3,6 +3,14 @@
 let
   inherit (specialArgs) username;
   cfg = config.host.home.applications.floorp;
+
+  # Pin floorp to specific commit
+  pinnedPkgs = import (builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/dc7c5e0b377ec264e3484c65ab934207e80327e4.tar.gz";
+    sha256 = "0asvl62rc98vm616klssi85gvv201vafw666in4y5al3li6g3f1g"; # You'll need to add the correct hash here
+  }) { inherit (pkgs) system; };
+
+  pinnedFloorp = pinnedPkgs.floorp;
 in with lib; {
   options = {
     host.home.applications.floorp = {
@@ -43,7 +51,7 @@ in with lib; {
     home = {
       packages = with pkgs;
         [
-          floorp
+          pinnedFloorp
         ];
     };
 
