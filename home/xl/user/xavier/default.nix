@@ -27,6 +27,7 @@ in
     git = {
       userEmail = email;
       userName = "Xavier Lauzon";
+      lfs.enable = true;
     };
     direnv = {
       enable = true;
