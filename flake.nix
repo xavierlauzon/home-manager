@@ -120,21 +120,31 @@
             };
           };
 
-          "ms1.${gn}" = HomeConfiguration {
+          "paveway.${gn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "xl";
               role = "server";
-              hostname = "ms1";
+              hostname = "paveway";
               username = gn;
               inherit inputs outputs;
             };
           };
 
-          "ms2.${gn}" = HomeConfiguration {
+          "hellfire.${gn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "xl";
               role = "server";
-              hostname = "ms2";
+              hostname = "hellfire";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
+          "maverick.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "maverick";
               username = gn;
               inherit inputs outputs;
             };
