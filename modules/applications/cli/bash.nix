@@ -79,7 +79,7 @@ in
         '';
 
         initExtra = ''
-          alias hmpull="home-manager switch --flake github:/xavierlauzon/home-manager/#$HOSTNAME.$USER $@"
+          alias hmpull="home-manager switch --flake github:xavierlauzon/home-manager/#\$HOSTNAME.\$USER --extra-experimental-features 'nix-command flakes'"
 
           if [ -d "/home/$USER/.config" ]; then alias src="cd $HOME/.config" ; fi
           if [ -d "/home/$USER/src" ]; then alias src="cd $HOME/src" ; fi
