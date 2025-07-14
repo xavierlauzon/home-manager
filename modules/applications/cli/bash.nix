@@ -83,9 +83,12 @@ in
 
           if [ -d "/home/$USER/.config" ]; then alias src="cd $HOME/.config" ; fi
           if [ -d "/home/$USER/src" ]; then alias src="cd $HOME/src" ; fi
-          if [ -d "/home/$USER/src/gh" ]; then alias srcxl="cd $HOME/src/xl" ; fi
+          if [ -d "/home/$USER/src/gh" ]; then alias srcgh="cd $HOME/src/gh" ; fi
+          if [ -d "/home/$USER/src/xl" ]; then alias srcxl="cd $HOME/src/xl" ; fi
           if [ -d "/home/$USER/src/sd" ]; then alias srcsd="cd $HOME/src/sd" ; fi
-          if [ -d "/home/$USER/src/sd" ]; then alias srchl="cd $HOME/src/hl" ; fi
+          if [ -d "/home/$USER/src/sd" ]; then alias sd="code  $HOME/src/sd" ; fi
+          if [ -d "/home/$USER/src/lumae" ]; then alias srclm="cd $HOME/src/lumae" ; fi
+          if [ -d "/home/$USER/src/lumae" ]; then alias lumae="code $HOME/src/lumae" ; fi
 
           if [ -f "/home/$USER/src/scripts/changelog/changelogger.sh" ] ; then
               alias changelog="/home/$USER/src/scripts/changelog/changelogger.sh"

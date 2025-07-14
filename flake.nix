@@ -164,16 +164,6 @@
           # ORG: SD #
           ###########
 
-          "sd111.${gnsn}" = HomeConfiguration {
-            extraSpecialArgs = {
-              org = "sd";
-              role = "server";
-              hostname = "sd111";
-              username = gnsn;
-              inherit inputs outputs;
-            };
-          };
-
           "newton.${gnsn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "sd";
@@ -199,6 +189,16 @@
               org = "sd";
               role = "server";
               hostname = "pasteur";
+              username = gnsn;
+              inherit inputs outputs;
+            };
+          };
+
+          "banting.${gnsn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "sd";
+              role = "server";
+              hostname = "banting";
               username = gnsn;
               inherit inputs outputs;
             };
