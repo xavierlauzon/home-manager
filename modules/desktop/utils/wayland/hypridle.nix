@@ -227,12 +227,12 @@ in
                 on-resume = "$HOME/.local/state/nix/profile/bin/hypridle-companion lock after";                         # reset gamma
               }
               {
-                timeout = 660;                                                                                          # 11min
+                timeout = 900;                                                                                          # 15min
                 on-timeout = "$HOME/.local/state/nix/profile/bin/hypridle-companion display blank before";              # screen off when timeout has passed
                 on-resume = "$HOME/.local/state/nix/profile/bin/hypridle-companion display blank after";                # screen on when activity is detected after timeout has fired.
               }
               {
-                timeout = 900;                                                                                          # 15min
+                timeout = 1800;                                                                                         # 30min
                 on-timeout = "$HOME/.local/state/nix/profile/bin/hypridle-companion suspend before";                    # suspend pc
                 on-resume = "$HOME/.local/state/nix/profile/bin/hypridle-companion suspend after";                      # reset gamma
               }
