@@ -19,33 +19,35 @@ in
     home = {
       packages = with pkgs;
         [
-          satty
+          unstable.satty
         ];
     };
 
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
         #"SUPER_SHIFT, S, exec, pkill satty || hyprshot -s -r -m region | satty  -f -"
-        #"SUPER_SHIFT, S, exec, pkill satty || grim -c -g \"$(${pkgs.slurp}/bin/slurp)\" - | satty -f -"
         bind = [
-          "SUPER, Print, exec, hyprshot -s -r -z -m region - | satty -f -"
-          "SUPER_SHIFT, Print, exec, hyprshot -s -r -z -m active -m window - | satty -f -"
+          "SUPER, Print, exec, ${config.host.home.feature.uwsm.prefix}pkill satty || ${config.host.home.feature.uwsm.prefix}grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${config.host.home.feature.uwsm.prefix}satty --disable-notifications -f -"
         ];
-        windowrulev2 = [
+        windowrule = [
           "float,class:^(com.gabm.satty)$"
           "pin,class:^(com.gabm.satty)$"
         ];
       };
     };
 
+
+      #actions-on-enter = [ "save-to-clipboard" "save-to-file" ]
+
     xdg.configFile."satty/config.toml".text = ''
       [general]
       fullscreen = false
       early-exit = true
-      initial-tool = "arrow" # [pointer, crop, line, arrow, rectangle, text, marker, blur, brush]
+      initial-tool = "blur" # [pointer, crop, line, arrow, rectangle, text, marker, blur, brush]
       copy-command = "wl-copy"
-      output-filename = "/tmp/screenshot-%Y-%m-%d_%H:%M:%S.png"
-      save-after-copy = false
+      output-filename = "${config.home.homeDirectory}/Nextcloud/screenshots/screenshot-%Y-%m-%d_%H:%M:%S.png"
+      save-after-copy = true
+      actions-on-enter = [ "save-to-file","save-to-clipboard" ]
 
       [font]
       family = "Roboto"

@@ -14,6 +14,7 @@ with lib;
     ./hyprpicker.nix
     ./hyprpolkitagent.nix
     ./hyprshot.nix
+    ./hyprsunset.nix
     ./nwg-displays.nix
     ./satty.nix
     ./slurp.nix

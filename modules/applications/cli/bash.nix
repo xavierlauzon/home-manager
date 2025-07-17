@@ -40,7 +40,6 @@ in
         '';
       };
       packages = with pkgs; [
-        argc
         bashInteractive
       ];
     };
@@ -48,7 +47,7 @@ in
     programs = {
       bash = {
         enable = true;
-        enableCompletion = false; # enable word completion by <tab>
+        enableCompletion = true; # enable word completion by <tab>
         enableVteIntegration = true; # track working directory
         bashrcExtra = ''
           ## History - Needs to be at the top in the event that running a shell command rewriter such as Liquidprompt
@@ -166,11 +165,27 @@ in
             }
           fi
 
+          if command -v "rg" &>/dev/null; then
+              sir() {
+                  if [ -z $1 ] || [ -z $2 ] ; then echo "Search inside Replace: sir <find_string_named> <sring_replaced>" ; return 1 ; fi
+                  for file in $(rg -l $1) ; do
+                      sed -i "s|$1|$2|g" "$file"
+                  done
+              }
+          fi
+
           if [ -d "$XDG_RUNTIME_DIR/secrets/bashrc.d" ] ; then
             for script in $XDG_RUNTIME_DIR/secrets/bashrc.d/* ; do
                 source $script
             done
           fi
+
+          far() {
+                if [ -z $1 ] || [ -z $2 ] ; then echo "Rename files: far <find_file_named> <file_renamed>" ; return 1 ; fi
+                for file in $(find -name "$1") ; do
+                    mv "$file" $(dirname "$file")/$2
+                done
+          }
 
           man() {
               LESS_TERMCAP_md=$'\e[01;31m' \
@@ -180,6 +195,7 @@ in
               LESS_TERMCAP_ue=$'\e[0m' \
               LESS_TERMCAP_us=$'\e[01;32m' \
               command man "$@"
+          }mmand man "$@"
           }
 
           # Quickly run a pkg run nixpkgs - Add a second argument to it otherwise it will simply run the command - Can also use ',' which is a nix-community project.
@@ -250,21 +266,6 @@ in
                 ;;
               esac
           }
-
-          _argc_completer() {
-            local words=( ''${COMP_LINE:0:''${COMP_POINT}} )
-            local cur="''${COMP_WORDS[COMP_CWORD]}"
-            if [[ "$cur" == "" ]]; then
-              words+=( "" )
-            fi
-
-            export COMP_WORDBREAKS
-            while IFS=$'\n' read -r line; do
-              COMPREPLY+=( "$line" )
-            done < <(argc --argc-compgen bash "" "''${words[@]}" 2>/dev/null)
-          }
-
-          complete -F _argc_completer -o nospace -o nosort argc
         '';
 
         inherit shellAliases;

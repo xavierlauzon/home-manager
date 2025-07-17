@@ -1,7 +1,5 @@
-{ config, inputs, lib, pkgs, specialArgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 let
-  inherit (specialArgs) displays display_center display_left display_right role;
-
   displayServer = config.host.home.feature.gui.displayServer ;
   windowManager = config.host.home.feature.gui.windowManager ;
 
@@ -56,67 +54,101 @@ with lib;
         applications = {
           hyprcursor.enable = mkDefault true;
           hyprdim.enable = mkDefault true;
-          hypridle.enable = mkDefault false;
-          hyprlock.enable = mkDefault true;
-          hyprpaper.enable = mkDefault true;
+          hypridle = {
+            enable = mkDefault true;
+            service.enable = mkDefault true;
+          };
+          hyprlock.enable = true;
+          hyprpaper = {
+            enable = mkDefault false;
+            service.enable = mkDefault false;
+          };
           hyprpicker.enable = mkDefault true;
-          hyprpolkitagent.enable = mkDefault true;
+          hyprpolkitagent = {
+            enable = mkDefault true;
+            service.enable = mkDefault true;
+          };
+          hyprsunset = {
+            enable = mkDefault true;
+            service.enable = mkDefault true;
+          };
           hyprkeys.enable = mkDefault true;
           playerctl.enable = mkDefault true;
           satty.enable = mkDefault true;
-          hyprshot.enable = mkDefault true;
           rofi.enable = mkDefault true;
+          sway-notification-center = {
+            enable = mkDefault true;
+            service.enable = mkDefault true;
+          };
+          swayosd = {
+            enable = mkDefault true;
+            service.enable = mkDefault true;
+          };
+          waybar = {
+            enable = mkDefault true;
+            service.enable = mkDefault true;
+          };
+        };
+        feature = {
+          uwsm.enable = mkDefault true;
         };
       };
     };
 
     wayland.windowManager.hyprland = {
       enable = true;
+      package = pkgs.hyprland;
       settings = {
-        env = [
-          "NIXOS_OZONE_WL,1"
-          "XDG_SESSION_TYPE,wayland"
+        env = mkIf (! config.host.home.feature.uwsm.enable) [
           "XDG_CURRENT_DESKTOP,Hyprland"
+          "XDG_SESSION_TYPE,wayland"
           "XDG_SESSION_DEKSTOP,Hyprland"
           "QT_AUTO_SCREEN_SCALE_FACTOR,1"
           "QT_QPA_PLATFORM,wayland;xcb"
           "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-          "QT_QPA_PLATFORMTHEME,qt5ct"
           "QT_QPA_PLATFORMTHEME,qt6ct"
           "MOZ_ENABLE_WAYLAND,1"
           "GDK_BACKEND,wayland,x11,*"
           "SDL_VIDEODRIVER,wayland"
           "CLUTTER_BACKEND,wayland"
-          "WLR_RENDERER,vulkan"
+          "XDG_SESSION_TYPE,wayland"
+          "ELECTRON_OZONE_PLATFORM_HINT,auto"
+          "NIXOS_OZONE_WL,1"
         ];
       };
+      systemd.enable = mkDefault false;
       xwayland.enable = mkDefault true;
     };
 
-    xdg.portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-      config = {
-        common = {
-          default = ["gtk"];
+    xdg = {
+      configFile."uwsm/env".text = mkIf config.host.home.feature.uwsm.enable
+        ''
+          export CLUTTER_BACKEND="wayland"
+          export GDK_BACKEND="wayland,x11,*"
+          export MOZ_ENABLE_WAYLAND=1
+          export QT_AUTO_SCREEN_SCALE_FACTOR=1
+          export QT_QPA_PLATFORM="wayland;xcb"
+          export QT_QPA_PLATFORMTHEME=qt6ct
+          export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+          export SDL_VIDEODRIVER="wayland"
+          export NIXOS_OZONE_WL=1
+          export ELECTRON_OZONE_PLATFORM_HINT="wayland"
+          export ELECTRON_ENABLE_WAYLAND="1"
+          export WLR_RENDERER="vulkan"
+        '';
+      portal = {
+        enable = true;
+        xdgOpenUsePortal = true;
+        configPackages = [ pkgs.xdg-desktop-portal-hyprland ];
+        config.common = {
           "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+          "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
         };
-        hyprland = {
-          default = ["hyprland"];
-        };
+        extraPortals = [
+          pkgs.xdg-desktop-portal-hyprland
+          pkgs.xdg-desktop-portal-gtk
+        ];
       };
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-hyprland
-      ];
-    };
-
-    xsession = {
-      enable = true;
-      scriptPath = ".hm-xsession";
-      windowManager.command = ''
-        Hyprland
-      '';
     };
   };
 }

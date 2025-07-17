@@ -276,6 +276,13 @@ in with lib; {
           ## Copilot
           "github.copilot.editor.enableCodeActions" = true;
           "github.copilot.chat.followUps" = "never";
+          "github.copilot.advanced" = {
+            "debug.overrideEngine" = "copilot-chat";
+            "debug.useNodeFetcher" = false;
+          };
+          "github.copilot.chat.terminalProfile" = "bash-no-liquidprompt";
+          "github.copilot.chat.shellIntegration.enabled" = true;
+          "github.copilot.chat.terminalCwd.enabled" = true;
 
           ## Formatting
           "[dockerfile]" = {
@@ -386,7 +393,27 @@ in with lib; {
                "args" = ["--login"];
                "icon" = "terminal-bash";
              };
+             "bash-no-liquidprompt" = {
+               "path" = "/usr/bin/bash";
+               "args" = ["--login"];
+               "icon" = "terminal-bash";
+               "env" = {
+                 "LP_MARK_GIT" = "$ ";
+                 "LP_MARK_DEFAULT" = "$ ";
+                 "LP_MARK_BRACKET_OPEN" = "";
+                 "LP_MARK_BRACKET_CLOSE" = "";
+                 "LP_MARK_PERM" = "";
+                 "LP_ENABLE_SHORTEN_PATH" = "0";
+                 "LP_ENABLE_VCS_ROOT" = "0";
+                 "LP_MARK_PREFIX" = "";
+                 "LP_PS1_PREFIX" = "";
+                 "LP_PS1_POSTFIX" = "";
+               };
+             };
           };
+
+          # Keep regular terminals with liquidprompt, but copilot can use the plain profile
+          "terminal.integrated.defaultProfile.linux" = "bash";
 
           ## SOPS
           "sops.creationEnabled" = true;

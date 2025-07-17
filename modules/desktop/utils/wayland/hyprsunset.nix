@@ -1,16 +1,16 @@
 {config, lib, pkgs, ...}:
 
 let
-  cfg = config.host.home.applications.wl-gammarelay-rs;
+  cfg = config.host.home.applications.hyprsunset;
 in
   with lib;
 {
   options = {
-    host.home.applications.wl-gammarelay-rs = {
+    host.home.applications.hyprsunset = {
       enable = mkOption {
         default = false;
         type = with types; bool;
-        description = "Wayland Monitor Gamma Adjustment";
+        description = "Application to enable a blue-light filter on Hyprland";
       };
       service.enable = mkOption {
         default = false;
@@ -24,19 +24,19 @@ in
     home = {
       packages = with pkgs;
         [
-          wl-gammarelay-rs
+          hyprsunset
         ];
     };
 
-    systemd.user.services.wl-gammarelay-rs = mkIf cfg.service.enable {
+    systemd.user.services.hyprsunset = mkIf cfg.service.enable {
       Unit = {
-        Description = "A simple program that provides DBus interface to control display temperature and brightness under wayland without flickering.";
-        Documentation = "https://github.com/MaxVerevkin/wl-gammarelay-rs";
+        Description = "Control display temperature and brightness under wayland";
+        Documentation = "https://github.com/hyprwm/hyprsunset";
         After = [ "graphical-session.target" ];
       };
 
       Service = {
-        ExecStart = "${pkgs.wl-gammarelay-rs}/bin/wl-gammarelay-rs run";
+        ExecStart = "${pkgs.hyprsunset}/bin/hyprsunset";
         Restart = "on-failure";
       };
 

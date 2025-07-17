@@ -21,13 +21,6 @@ with lib;
           resize_on_border = true;
         };
 
-#        group = {
-#           col.border_active = "rgba(ca9ee6ff) rgba(f2d5cfff) 45deg";
-#           col.border_inactive = "rgba(b4befecc) rgba(6c7086cc) 45deg";
-#           col.border_locked_active = "rgba(ca9ee6ff) rgba(f2d5cfff) 45deg";
-#           col.border_locked_inactive = "rgba(b4befecc) rgba(6c7086cc) 45deg";
-#        };
-
         cursor = {
           # Cursor
           inactive_timeout = 60;
@@ -68,8 +61,6 @@ with lib;
           dim_strength = 0.2;
           rounding = 5;
         };
-
-
 
         animations = {
           enabled = true;

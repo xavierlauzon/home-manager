@@ -27,7 +27,8 @@ in
       bash = {
         initExtra = ''
           # Only load Liquidprompt in interactive shells, not from a script or from scp
-          if [[ $- = *i* ]] ; then
+          # Also respect LIQUIDPROMPT_DISABLE environment variable
+          if [[ $- = *i* && -z "$LIQUIDPROMPT_DISABLE" ]] ; then
              if [ -f /home/$USER/.nix-profile/bin/liquidprompt ]; then
                 source /home/$USER/.nix-profile/bin/liquidprompt
              elif [ -f /home/$USER/.local/state/nix/profile/bin/liquidprompt ]; then
@@ -194,6 +195,11 @@ in
       # will be disabled
       LP_DISABLED_VCS_PATH=""
 
+      LP_ENABLE_ENV_VARS=1
+      LP_ENV_VARS=(
+        # Display "D" if DIRENV_ACTIVE set is set, nothing if it's unset.
+        "DIRENV_ACTIVE D"
+      )
     '';
 
   };

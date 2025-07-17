@@ -477,12 +477,12 @@ with lib;
 
           alias container-tool=container_tool
           alias dpull='$dsudo docker pull'                                                                                                 # Docker Pull
-          alias dcpull='$dsudo docker compose pull'                                                                                        # Docker-Compose Pull
-          alias dcu='$dsudo docker compose up'                                                                                   # Docker-Compose Up
-          alias dcud='$dsudo docker compose up -d'                                                                               # Docker-Compose Daemonize
-          alias dcd='$dsudo docker compose down --timeout $DOCKER_COMPOSE_TIMEOUT'                                               # Docker-Compose Down
-          alias dcl='$dsudo docker compose logs -f'                                                                              # Docker Compose Logs
-          alias dcrecycle='$dsudo docker compose down --timeout $DOCKER_COMPOSE_TIMEOUT ; $dsudo docker compose up -d' # Docker Compose Restart
+          alias dcpull='$dsudo docker-compose pull'                                                                                        # Docker-Compose Pull
+          alias dcu='$dsudo $docker_compose_location up'                                                                                   # Docker-Compose Up
+          alias dcud='$dsudo $docker_compose_location up -d'                                                                               # Docker-Compose Daemonize
+          alias dcd='$dsudo $docker_compose_location down --timeout $DOCKER_COMPOSE_TIMEOUT'                                               # Docker-Compose Down
+          alias dcl='$dsudo $docker_compose_location logs -f'                                                                              # Docker Compose Logs
+          alias dcrecycle='$dsudo $docker_compose_location down --timeout $DOCKER_COMPOSE_TIMEOUT ; $dsudo $docker_compose_location up -d' # Docker Compose Restart
 
           if [ -n "$1" ] && [ "$1" = "container_tool" ] ; then
               arg=$(echo "$@" | sed "s|^$1||g")

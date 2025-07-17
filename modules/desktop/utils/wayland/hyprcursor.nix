@@ -20,6 +20,10 @@ in
 
   config = mkIf cfg.enable {
     home = {
+      file = {
+        ".icons/${cursor}".source = "${cursorPackage}/share/icons/${cursor}";
+      };
+
       packages = with pkgs;
         [
           hyprcursor
@@ -34,20 +38,29 @@ in
       };
     };
 
-    home.file.".icons/${cursor}".source = "${cursorPackage}/share/icons/${cursor}";
-    xdg.dataFile."icons/${cursor}".source = "${cursorPackage}/share/icons/${cursor}";
+    xdg = {
+      configFile =
+        { "uwsm/env".text = mkIf config.host.home.feature.uwsm.enable
+            ''
+              export HYPRCURSOR_THEME="${cursor}"
+              export HYPRCURSOR_SIZE="${toString cursorSize}"
+            '';
+        };
+        dataFile = {
+          "icons/${cursor}".source = "${cursorPackage}/share/icons/${cursor}";
+        };
+    };
 
     wayland.windowManager.hyprland = {
       settings = {
-        env = [
+        env = mkIf (! config.host.home.feature.uwsm.enable) [
           "HYPRCURSOR_THEME,${cursor}"
           "HYPRCURSOR_SIZE,${toString cursorSize}"
         ];
 
         exec-once = [
-          "hyprctl setcursor ${cursor} ${toString cursorSize}"
+          "${config.host.home.feature.uwsm.prefix}hyprctl setcursor ${cursor} ${toString cursorSize}"
         ];
-
       };
     };
   };

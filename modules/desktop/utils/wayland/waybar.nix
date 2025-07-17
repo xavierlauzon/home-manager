@@ -12,6 +12,11 @@ in
         type = with types; bool;
         description = "Status bar for Wayland";
       };
+      service.enable = mkOption {
+        default = false;
+        type = with types; bool;
+        description = "Auto start on user session start";
+      };
     };
   };
 
@@ -26,6 +31,8 @@ in
     programs = {
       waybar = {
         enable = true;
+        package = pkgs.waybar;
+        systemd.enable = false;
         settings = [
           {
             # CENTER
@@ -448,15 +455,33 @@ in
       };
     };
 
+    systemd.user.services.waybar = mkIf cfg.service.enable {
+      Unit = {
+        Description = "Highly customizable Wayland bar for Sway and Wlroots based compositors.";
+        Documentation = "man:waybar(5)";
+        After = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        Type = "exec";
+        ExecStart = "${pkgs.waybar}/bin/waybar";
+        ExecReload = "kill -SIGUSR2 $MAINPID";
+        Restart = "on-failure";
+        Slice = "app-graphical.slice";
+      };
+
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
+
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
-        exec-once = [
-          "waybar"
-        ];
         bind = [
-          "SUPER_SHIFT, W, exec, pkill waybar || waybar"
+          "SUPER_SHIFT, W, exec, ${config.host.home.feature.uwsm.prefix}systemctl --user restart waybar.service"
         ];
       };
     };
+
   };
 }

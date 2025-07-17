@@ -1,16 +1,16 @@
 {config, lib, pkgs, ...}:
 
 let
-  cfg = config.host.home.applications.slurp;
+  cfg = config.host.home.applications.claude-code;
 in
   with lib;
 {
   options = {
-    host.home.applications.slurp = {
+    host.home.applications.claude-code = {
       enable = mkOption {
         default = false;
         type = with types; bool;
-        description = "Wayland screenshot tool";
+        description = "Generative Coding Agent";
       };
     };
   };
@@ -19,7 +19,7 @@ in
     home = {
       packages = with pkgs;
         [
-          slurp
+          claude-code
         ];
     };
   };

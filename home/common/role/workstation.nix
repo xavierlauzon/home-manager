@@ -53,7 +53,6 @@ with lib;
         nextcloud-client.enable = mkDefault true;
         nix-development_tools.enable = true;
         nmap.enable = mkDefault true;
-        nwg-displays.enable = false;
         obsidian.enable = mkDefault true;
         opensnitch-ui.enable = mkDefault true;
         prismlauncher.enable = mkDefault true;

@@ -19,8 +19,9 @@ in
     programs = {
       direnv = {
         enable = true;
-        enableBashIntegration = true;
-        nix-direnv.enable = true;
+        enableBashIntegration = mkDefault true;
+        nix-direnv.enable = mkDefault true;
+        silent = mkDefault true;
       };
     };
   };
