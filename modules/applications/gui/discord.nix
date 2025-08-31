@@ -40,13 +40,9 @@ in
     home = {
       packages = with pkgs;
         [
-          krisp-patcher
-          vesktop
-          discord
-          discord-ptb
-          discord-canary
-          webcord
-          legcord
+          unstable.vesktop
+          unstable.discord
+          unstable.legcord
         ];
     };
 
