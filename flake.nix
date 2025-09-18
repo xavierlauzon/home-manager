@@ -78,12 +78,11 @@
             modules = [
               (import ./home)
               (import ./modules)
-              catppuccin.homeModules.catppuccin
             ];
             extraSpecialArgs = {
               inherit (args) nixpkgs;
             } // args.extraSpecialArgs;
-            pkgs = pkgsForSystem (args.system or "x86_64-linux") nixpkgs;
+            pkgs = pkgsForSystem (args.system or "x86_64-linux") nixpkgsInput;
           };
 
     in flake-utils.lib.eachSystem [
@@ -97,6 +96,7 @@
         overlays = import ./overlays {inherit inputs;};
         homeConfigurations = {
           "xavierdesktop.${gn}" = HomeConfiguration {
+            nixpkgs = nixpkgs-unstable;
             extraSpecialArgs = {
               org = "xl";
               role = "workstation";
