@@ -15,7 +15,7 @@ in
             service.enable = true;
           };
           grim.enable = true;
-          nwg-displays.enable = true;
+          nwg-displays.enable = false;
           slurp.enable = true;
           wayprompt.enable = false;
           wdisplays.enable = true;
