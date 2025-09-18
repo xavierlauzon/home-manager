@@ -8,6 +8,7 @@ in
 {
   imports = [
     inputs.nix-colors.homeManagerModule
+    inputs.catppuccin.homeModules.catppuccin
   ];
 
   options = {
@@ -28,7 +29,8 @@ in
         enable = true;
         flavor = "mocha";
       };
-      kitty.enable  = true;
+      kitty.enable = true;
+      floorp.enable = true;
     };
   };
 }
