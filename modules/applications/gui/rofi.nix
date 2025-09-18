@@ -3,10 +3,6 @@
 let
   cfg = config.host.home.applications.rofi;
   displayServer = config.host.home.feature.gui.displayServer ;
-  rofiPackage =
-    if displayServer == "wayland"
-    then pkgs.rofi-wayland
-    else pkgs.rofi;
 in
 {
   options = {
@@ -20,12 +16,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    home = {
-      packages = with pkgs;
-        [
-        ];
-    };
-
     programs.rofi = {
       enable = true;
       plugins = with pkgs; [
@@ -33,7 +23,6 @@ in
         rofi-calc
       ];
       terminal = "${pkgs.kitty}/bin/kitty";
-      package = rofiPackage;
 #      extraConfig = {
 #        combi-modi = "run,drun";
 #        cycle = true;
