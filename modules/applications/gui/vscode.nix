@@ -50,6 +50,7 @@ in with lib; {
   config = mkIf cfg.enable {
     programs.vscode =  {
       enable = true;
+      package = pkgs.vscode;
       profiles.default = {
         extensions = (with pkgs.vscode-extensions; [
             # From NixPkgs
@@ -77,6 +78,9 @@ in with lib; {
           ]) ++ (with marketplace; [
             # Bleeding Edge versions
             # For extensions not avaialble in https://search.nixos.org/packages?type=packages&query=vscode-extensions
+
+            ## AI
+
 
             ## CI
               github.vscode-github-actions              # Github actions helper
