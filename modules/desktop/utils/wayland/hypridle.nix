@@ -222,19 +222,9 @@ in
 
             (mkAfter [
               {
-                timeout = 600;                                                                                          # 10min
+                timeout = 1000;                                                                                          # 10min
                 on-timeout = "$HOME/.local/state/nix/profile/bin/hypridle-companion lock before";                       # lock screen when timeout has passed
                 on-resume = "$HOME/.local/state/nix/profile/bin/hypridle-companion lock after";                         # reset gamma
-              }
-              {
-                timeout = 900;                                                                                          # 15min
-                on-timeout = "$HOME/.local/state/nix/profile/bin/hypridle-companion display blank before";              # screen off when timeout has passed
-                on-resume = "$HOME/.local/state/nix/profile/bin/hypridle-companion display blank after";                # screen on when activity is detected after timeout has fired.
-              }
-              {
-                timeout = 1800;                                                                                         # 30min
-                on-timeout = "$HOME/.local/state/nix/profile/bin/hypridle-companion suspend before";                    # suspend pc
-                on-resume = "$HOME/.local/state/nix/profile/bin/hypridle-companion suspend after";                      # reset gamma
               }
             ])
           ];

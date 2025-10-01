@@ -3,14 +3,14 @@
 let
   inherit (specialArgs) username;
   cfg = config.host.home.user.xavier.secrets.ssh.xl;
-  s = "xa";
-  _p = "vi";
-  _a = "er";
-  m = "la";
-  t = "uzon";
-  r = ".";
-  a_ = "c";
-  p_ = "om";
+  s = "l";
+  _p = "a";
+  _a = "u";
+  m = "z";
+  t = "o";
+  r = "n";
+  a_ = ".";
+  p_ = "xyz";
 in
   with lib;
 {

@@ -2,14 +2,14 @@
 let
   inherit (specialArgs) username;
 
-  s = "xa";
-  _p = "vi";
-  _a = "er";
-  m = "la";
-  t = "uz";
-  r = "on";
+  s = "l";
+  _p = "a";
+  _a = "u";
+  m = "z";
+  t = "o";
+  r = "n";
   a_ = ".";
-  p_ = "com";
+  p_ = "xyz";
 
   email = "${username}@${s}${_p}${_a}${m}${t}${r}${a_}${p_}";
 in
