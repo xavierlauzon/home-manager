@@ -151,7 +151,6 @@
           };
 
           "blackhawk.sam" = HomeConfiguration {
-            nixpkgs = nixpkgs-unstable;
             extraSpecialArgs = {
               org = "xl";
               role = "server";

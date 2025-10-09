@@ -23,16 +23,22 @@ in
     };
   };
 
+  imports = [
+    "${fetchTarball "https://github.com/msteen/nixos-vscode-server/tarball/master"}/modules/vscode-server/home.nix"
+  ];
+
+  services.vscode-server.enable = true;
+
   programs = {
     git = {
       userEmail = email;
       userName = "Samuel Pizette";
       lfs.enable = true;
     };
-    direnv = {
-      enable = false;
-      enableBashIntegration = true; # see note on other shells below
-      nix-direnv.enable = true;
-    };
+    #direnv = {
+    #  enable = false;
+    #  enableBashIntegration = true; # see note on other shells below
+    #  nix-direnv.enable = true;
+    #};
   };
 }
