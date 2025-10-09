@@ -30,7 +30,7 @@ in
       lfs.enable = true;
     };
     direnv = {
-      enable = true;
+      enable = false;
       enableBashIntegration = true; # see note on other shells below
       nix-direnv.enable = true;
     };
