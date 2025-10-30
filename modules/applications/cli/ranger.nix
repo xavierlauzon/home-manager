@@ -25,7 +25,7 @@ in
           file                # Determine file types
           imagemagick_light   # Auto rotate images for previews
           mupdf               # Textual PDF previews
-          poppler_utils       # PDF image previews
+          poppler-utils       # PDF image previews
           ranger              # The actual file manager
           w3m                 # Web previews
         ];

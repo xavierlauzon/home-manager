@@ -37,7 +37,7 @@ in
       noto-fonts-color-emoji
       open-sans
       roboto
-      ubuntu_font_family
+      ubuntu-classic
       weather-icons
       nerd-fonts.hack
       nerd-fonts.jetbrains-mono
