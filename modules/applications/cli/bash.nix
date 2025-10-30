@@ -198,23 +198,6 @@ in
           }mmand man "$@"
           }
 
-          # Quickly run a pkg run nixpkgs - Add a second argument to it otherwise it will simply run the command - Can also use ',' which is a nix-community project.
-          pkgrun () {
-              if [ -n $1 ] ; then
-                 local pkg
-                 pkg=$1
-                 if [ "$2" != "" ] ; then
-                     shift
-                     local args
-                     args="$@"
-                 else
-                     args=$pkg
-                 fi
-
-                 nix-shell -p $pkg.out --run "$args"
-              fi
-          }
-
           system_update() {
               update_system() {
                   if command -v "nixos-rebuild" &>/dev/null; then

@@ -97,10 +97,10 @@ in
           }
 
           if [ -n "$KITTY_WINDOW_ID" ]; then
-              alias ssh="kitty +kitten ssh"
-              alias sssh="/run/current-system/sw/bin/ssh"
+              alias sssh="kitty +kitten ssh"
+              alias ssh="/run/current-system/sw/bin/ssh"
           fi
-        '';
+        ''; # Temporarily changed shell integration as it's been fucky
       };
     };
   };
