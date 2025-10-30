@@ -34,7 +34,7 @@ in
       material-design-icons
       merriweather
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       open-sans
       roboto
       ubuntu_font_family
