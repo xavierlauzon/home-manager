@@ -120,6 +120,26 @@
             };
           };
 
+          "falcon.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "falcon";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
+          "spectre.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "spectre";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
           "paveway.${gn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "xl";
