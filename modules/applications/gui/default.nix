@@ -1,62 +1,25 @@
-{lib, ...}:
-with lib;
-{
-  imports = [
-    ./ark.nix
-    ./avidemux.nix
-    ./bitwarden.nix
-    ./bleachbit.nix
-    ./blueman.nix
-    ./calibre.nix
-    ./chromium.nix
-    ./cura.nix
-    ./czkawka.nix
-    ./diffuse.nix
-    ./discord.nix
-    ./drawio.nix
-    ./electrum.nix
-    ./eog.nix
-    ./feh.nix
-    ./ferdium.nix
-    ./file-roller.nix
-    ./firefox.nix
-    ./flameshot.nix
-    ./floorp.nix
-    ./geeqie.nix
-    ./gnomesoftware.nix
-    ./gnomesystemmonitor.nix
-    ./gparted.nix
-    ./greenclip.nix
-    ./kitty.nix
-    ./libreoffice.nix
-    ./lutris.nix
-    ./masterpdfeditor.nix
-    ./mate-calc.nix
-    ./nemo.nix
-    ./nextcloudclient.nix
-    ./obs.nix
-    ./obsidian.nix
-    ./opensnitch-ui.nix
-    ./pinta.nix
-    ./pulsemixer.nix
-    ./remmina.nix
-    ./rofi.nix
-    ./satisfactorymodmanager.nix
-    ./seahorse.nix
-    ./smartgit.nix
-    ./smplayer.nix
-    ./sqlitebrowser.nix
-    ./szyszka.nix
-    ./thunar.nix
-    ./thunderbird.nix
-    ./tidal-hifi.nix
-    ./veracrypt.nix
-    ./virt-manager.nix
-    ./vivaldi.nix
-    ./vlc.nix
-    ./vscode.nix
-    ./wpsoffice.nix
-    ./zoom.nix
-    ./prismlauncher.nix
+{ lib, ... }:
+
+let
+  dir = ./.;
+  files = builtins.readDir dir;
+  ignoreList = [
   ];
+  importable = lib.filterAttrs (name: type:
+    (type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix" && !(lib.elem name ignoreList))
+    || (
+      type == "directory"
+      && name != "default.nix"
+      && !(lib.elem name ignoreList)
+      && builtins.pathExists (dir + "/${name}/default.nix")
+    )
+  ) files;
+  imports = lib.mapAttrsToList (name: type:
+    if type == "regular"
+    then ./${name}
+    else ./${name}/default.nix
+  ) importable;
+in
+{
+  imports = imports;
 }

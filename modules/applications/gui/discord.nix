@@ -43,6 +43,7 @@ in
           unstable.vesktop
           unstable.discord
           unstable.legcord
+          stable.equicord
         ];
     };
 
