@@ -11,7 +11,7 @@ let
   a_ = ".";
   p_ = "xyz";
 
-  email = "${username}@${s}${_p}${_a}${m}${t}${r}${a_}${p_}";
+  email = [ "${username}@${s}${_p}${_a}${m}${t}${r}${a_}${p_}" ];
 in
   with lib;
 {
