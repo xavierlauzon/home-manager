@@ -25,7 +25,7 @@ in
   programs = {
     git = {
       userEmail = email;
-      userName = "Samuel Pizette";
+      userName = "Cinder";
       lfs.enable = true;
     };
     #direnv = {

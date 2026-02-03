@@ -31,7 +31,6 @@ in
       };
       kitty.enable = true;
       floorp.enable = true;
-      # Disable anki theming - programs.anki doesn't exist in home-manager 25.05 (stable)
       anki.enable = false;
     };
   };

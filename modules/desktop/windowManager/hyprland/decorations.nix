@@ -30,7 +30,6 @@ with lib;
         master = {
           allow_small_split = false;
           drop_at_cursor = true;
-          inherit_fullscreen = true;
           mfact = 0.50;
           new_on_top = true;
           new_status = "slave";

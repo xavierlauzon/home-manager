@@ -53,9 +53,9 @@ in
           #"SUPER, D, exec, pkill rofi || ${config.programs.rofi.package}/bin/rofi -combi-modi window,drun,ssh,run -show combi -show-icons"
           "SUPER_SHIFT, V, exec, ${pkgs.cliphist}'/bin/cliphist list | ${config.programs.rofi.package}/bin/rofi -dmenu | ${pkgs.cliphist}'/bin/cliphist decode | wl-copy"
         ];
-        windowrulev2 = [
-          #"stayfocused,class:(Rofi)"
-          #"forceinput,class:(Rofi)"
+        windowrule = [
+          #"stay_focused on, match:class ^(Rofi)$"
+          #"allows_input on, match:class ^(Rofi)$"
         ];
       };
     };

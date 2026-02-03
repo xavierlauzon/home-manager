@@ -10,6 +10,13 @@ with lib;
         ssh = {
           enable = true;
         };
+        visual-studio-code = {
+          enable = true;
+          llamaCoder = {
+            enable =  true;
+            ollamaUrl = "https://o.lauzon.xyz";
+          };
+        };
       };
       feature = {
       };

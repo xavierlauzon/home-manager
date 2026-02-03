@@ -14,6 +14,7 @@ with lib;
           disable_splash_rendering = true;
           force_default_wallpaper = -3;
           middle_click_paste = false;
+          on_focus_under_fullscreen = true;
         };
       };
     };

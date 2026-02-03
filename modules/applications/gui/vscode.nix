@@ -44,6 +44,18 @@ in with lib; {
           ];
         };
       };
+      llamaCoder = {
+        enable = mkOption {
+          description = "Enable Llama Coder extension";
+          type = with types; bool;
+          default = false;
+        };
+        ollamaUrl = mkOption {
+          description = "Ollama server URL for Llama Coder";
+          type = with types; str;
+          default = "http://localhost:11434";
+        };
+      };
     };
   };
 
@@ -80,7 +92,8 @@ in with lib; {
             # For extensions not avaialble in https://search.nixos.org/packages?type=packages&query=vscode-extensions
 
             ## AI
-
+            ] ++ lib.optionals cfg.llamaCoder.enable [
+              ex3ndr.llama-coder                        # Llama Coder - AI code completion
 
             ## CI
               github.vscode-github-actions              # Github actions helper
@@ -288,6 +301,13 @@ in with lib; {
           "github.copilot.chat.shellIntegration.enabled" = true;
           "github.copilot.chat.terminalCwd.enabled" = true;
 
+          ## Llama Coder
+        } // lib.optionalAttrs cfg.llamaCoder.enable {
+          "inference.endpoint" = cfg.llamaCoder.ollamaUrl;
+          "inference.model" = "deepseek-coder:33b-base-q4_K_M";
+          "inference.custom.format" = "deepseek";
+        } // {
+
           ## Formatting
           "[dockerfile]" = {
             "editor.defaultFormatter" = "foxundermoon.shell-format";
@@ -346,41 +366,41 @@ in with lib; {
 
           ## SSH
           "remote.SSH.configFile" = "~/.ssh/vscode_remote_ssh_config";
-          "remote.SSH.defaultExtensions" =
-            [ # # TODO - Merge this, this is mostly duplicates with exception of remote plugins
-              "bbenoist.nix"
-              "bierner.markdown-mermaid"
-              "brettm12345.nixfmt-vscode"
-              "davidanson.vscode-markdownlint"
-              "dunstontc.vscode-docker-syntax"
-              "esbenp.prettier-vscode"
-              "evgeniypeshkov.syntax-highlighter"
-              "fabiospampinato.vscode-diff"
-              "foxundermoon.shell-format"
-              "github.copilot"
-              "github.copilot-chat"
-              "github.vscode-github-actions"
-              "hilleer.yaml-plus-json"
-              "jinhyuk.replace-curly-quotes"
-              "ms-azuretools.vscode-docker"
-              "ms-vscode.copilot-mermaid-diagram"
-              "nickdemayo.vscode-json-editor"
-              "pinage404.bash-extension-pack"
-              "redhat.vscode-yaml"
-              "richie5um2.vscode-sort-json"
-              "rpinski.shebang-snippets"
-              "shakram02.bash-beautify"
-              "shd101wyy.markdown-preview-enhanced"
-              "timonwong.shellcheck"
-              "tombonnike.vscode-status-bar-format-toggle"
-              "tyriar.sort-lines"
-              "uyiosa-enabulele.reopenclosedtab"
-              "yzhang.markdown-all-in-one"
-              "ziyasal.vscode-open-in-github"
-            ];
+          #"remote.SSH.defaultExtensions" =
+          #  [ # # TODO - Merge this, this is mostly duplicates with exception of remote plugins
+          #    "bbenoist.nix"
+          #    "bierner.markdown-mermaid"
+          #    "brettm12345.nixfmt-vscode"
+          #    "davidanson.vscode-markdownlint"
+          #    "dunstontc.vscode-docker-syntax"
+          #    "esbenp.prettier-vscode"
+          #    "evgeniypeshkov.syntax-highlighter"
+          #    "fabiospampinato.vscode-diff"
+          #    "foxundermoon.shell-format"
+          #    "github.copilot"
+          #    "github.copilot-chat"
+          #    "github.vscode-github-actions"
+          #    "hilleer.yaml-plus-json"
+          #    "jinhyuk.replace-curly-quotes"
+          #    "ms-azuretools.vscode-docker"
+          #    "ms-vscode.copilot-mermaid-diagram"
+          #    "nickdemayo.vscode-json-editor"
+          #    "pinage404.bash-extension-pack"
+          #    "redhat.vscode-yaml"
+          #    "richie5um2.vscode-sort-json"
+          #    "rpinski.shebang-snippets"
+          #    "shakram02.bash-beautify"
+          #    "shd101wyy.markdown-preview-enhanced"
+          #    "timonwong.shellcheck"
+          #    "tombonnike.vscode-status-bar-format-toggle"
+          #    "tyriar.sort-lines"
+          #    "uyiosa-enabulele.reopenclosedtab"
+          #    "yzhang.markdown-all-in-one"
+          #    "ziyasal.vscode-open-in-github"
+          #  ];
           "remote.SSH.enableRemoteCommand" = true;
           "remote.SSH.localServerDownload" = "off";
-          "remote.downloadExtensionsLocally" = true;
+          "remote.downloadExtensionsLocally" = false;
 
           ## Telemetry
           "redhat.telemetry.enabled" = false;
@@ -397,26 +417,7 @@ in with lib; {
                "args" = ["--login"];
                "icon" = "terminal-bash";
              };
-             "bash-no-liquidprompt" = {
-               "path" = "/usr/bin/bash";
-               "args" = ["--login"];
-               "icon" = "terminal-bash";
-               "env" = {
-                 "LP_MARK_GIT" = "$ ";
-                 "LP_MARK_DEFAULT" = "$ ";
-                 "LP_MARK_BRACKET_OPEN" = "";
-                 "LP_MARK_BRACKET_CLOSE" = "";
-                 "LP_MARK_PERM" = "";
-                 "LP_ENABLE_SHORTEN_PATH" = "0";
-                 "LP_ENABLE_VCS_ROOT" = "0";
-                 "LP_MARK_PREFIX" = "";
-                 "LP_PS1_PREFIX" = "";
-                 "LP_PS1_POSTFIX" = "";
-               };
-             };
           };
-
-          # Keep regular terminals with liquidprompt, but copilot can use the plain profile
           "terminal.integrated.defaultProfile.linux" = "bash";
 
           ## SOPS
