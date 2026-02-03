@@ -20,11 +20,10 @@ in
       git = {
         enable = true;
         ignores = [ "*~" ".direnv" ".env" ".rgignore" ];
-        extraConfig = {
+        settings = {
           init = { defaultBranch = "main"; };
           pull = { ff = "only"; };
-        };
-        aliases = {
+          alias = {
           ci = "commit";
           co = "checkout";
           di = "diff";
@@ -45,6 +44,7 @@ in
           al =
             "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'";
           pub = "push -u origin HEAD";
+          };
         };
       };
 

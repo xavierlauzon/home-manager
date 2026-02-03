@@ -25,8 +25,8 @@ in
 
   programs = {
     git = {
-      userEmail = email;
-      userName = "Xavier Lauzon";
+      settings.user.email = email;
+      settings.user.name = "Xavier Lauzon";
       lfs.enable = true;
     };
     direnv = {
