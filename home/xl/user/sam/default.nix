@@ -24,8 +24,8 @@ in
   };
   programs = {
     git = {
-      userEmail = email;
-      userName = "Cinder";
+      settings.email = email;
+      settings.name = "Cinder";
       lfs.enable = true;
     };
     #direnv = {
