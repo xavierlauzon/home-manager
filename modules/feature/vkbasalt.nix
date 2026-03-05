@@ -25,19 +25,18 @@ in
       texturePath = "${config.home.homeDirectory}/.local/share/reshade/SweetFX/Textures/SweetFX";
     in ''
       # ============================================
-      # vkBasalt - Arc Raiders - Phase 1
+      # vkBasalt - Arc Raiders - Phase 2
       # ============================================
       # Lift shadows, add bright-window bloom, sharpen
 
       toggleKey = Home
       enableOnLaunch = True
 
-      # Effects applied left to right
-      effects = liftgammagain:fakehdr:cas
+      # Effects applied in order
+      effects = liftgammagain:levels:fakehdr:curves:tonemap:vibrance:cas:lumasharpen
 
-      # --- Contrast Adaptive Sharpening (built-in) ---
-      # Lower = sharper. 0.4 is moderate, fights any softness from FakeHDR.
-      casSharpness = 0.4
+      # --- Built-in Effects ---
+      casSharpness = 0.5
 
       # --- ReShade FX Paths ---
       reshadeTexturePath = ${texturePath}
@@ -45,7 +44,12 @@ in
 
       # --- Shader Aliases ---
       liftgammagain = ${shaderPath}/LiftGammaGain.fx
+      levels = ${shaderPath}/Levels.fx
       fakehdr = ${shaderPath}/FakeHDR.fx
+      curves = ${shaderPath}/Curves.fx
+      tonemap = ${shaderPath}/Tonemap.fx
+      vibrance = ${shaderPath}/Vibrance.fx
+      lumasharpen = ${shaderPath}/LumaSharpen.fx
 
       # --- Include ---
       reshadeIncludePath = ${config.home.homeDirectory}/.local/share/reshade/reshade-shaders/Shaders
