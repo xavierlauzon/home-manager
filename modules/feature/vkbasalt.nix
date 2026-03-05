@@ -33,7 +33,7 @@ in
       enableOnLaunch = True
 
       # Effects applied in order
-      effects = liftgammagain:levels:fakehdr:curves:tonemap:vibrance:cas:lumasharpen
+      effects = liftgammagain:levels:fakehdr:curves:tonemap:vibrance:clarity:cas:lumasharpen
 
       # --- Built-in Effects ---
       casSharpness = 0.5
@@ -49,6 +49,7 @@ in
       curves = ${shaderPath}/Curves.fx
       tonemap = ${shaderPath}/Tonemap.fx
       vibrance = ${shaderPath}/Vibrance.fx
+      clarity = ${shaderPath}/Clarity.fx
       lumasharpen = ${shaderPath}/LumaSharpen.fx
 
       # --- Include ---
