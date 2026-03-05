@@ -8,5 +8,6 @@ with lib;
     ./mime-defaults.nix
     ./theming.nix
     ./uwsm.nix
+    ./vkbasalt.nix
   ];
 }

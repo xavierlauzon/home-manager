@@ -19,6 +19,7 @@ with lib;
         };
       };
       feature = {
+        vkbasalt.enable = true;
       };
       user = {
         xavier = {
