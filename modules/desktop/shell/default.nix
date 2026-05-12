@@ -3,7 +3,6 @@
 with lib;
 {
   imports = [
-    ./agnostic
-    ./wayland
+    ./dms.nix
   ];
 }

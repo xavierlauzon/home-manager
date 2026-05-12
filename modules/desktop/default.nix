@@ -10,6 +10,7 @@ with lib;
     ./displayServer
     ./windowManager
     ./utils
+    ./shell
   ];
 
   options = {
@@ -21,15 +22,15 @@ with lib;
       };
 
       displayServer = mkOption {
-        type = types.enum ["x" "wayland" null];
+        type = types.enum ["wayland" null];
         default = null;
         description = "Type of displayServer";
       };
 
       windowManager = mkOption {
-        type = types.enum ["cinnamon" "hyprland" "i3" "sway" ];
+        type = types.enum ["hyprland"];
         default = null;
-        description = "Type of window manager (yes, I know some are desktop environments)";
+        description = "Type of window manager";
       };
     };
   };

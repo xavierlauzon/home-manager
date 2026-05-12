@@ -45,49 +45,56 @@ with lib;
       packages = with pkgs;
         [
           gameMode
-          #hyprland-share-picker     # If this works outside of Hyprland modularize
         ];
     };
 
     host = {
       home = {
         applications = {
+          dms.enable = mkDefault true;
           hyprcursor.enable = mkDefault true;
           hyprdim.enable = mkDefault true;
-          hypridle = {
-            enable = mkDefault true;
-            service.enable = mkDefault true;
-          };
+
           hyprlock.enable = true;
-          hyprpaper = {
-            enable = mkDefault false;
-            service.enable = mkDefault false;
-          };
+
           hyprpicker.enable = mkDefault true;
-          hyprpolkitagent = {
-            enable = mkDefault true;
-            service.enable = mkDefault true;
-          };
-          hyprsunset = {
-            enable = mkDefault true;
-            service.enable = mkDefault true;
-          };
+
           hyprkeys.enable = mkDefault true;
           playerctl.enable = mkDefault true;
           satty.enable = mkDefault true;
-          rofi.enable = mkDefault true;
+
+
+
+          rofi.enable = mkDefault false;
+          hypridle = {
+            enable = mkDefault true;
+            service.enable = mkDefault false;
+          };
+          hyprpaper = {
+            enable = mkDefault true;
+            service.enable = mkDefault false;
+          };
+          hyprpolkitagent = {
+            enable = mkDefault true;
+            service.enable = mkDefault false;
+          };
+          hyprsunset = {
+            enable = mkDefault true;
+            service.enable = mkDefault false;
+          };
           sway-notification-center = {
             enable = mkDefault true;
-            service.enable = mkDefault true;
+            service.enable = mkDefault false;
           };
           swayosd = {
             enable = mkDefault true;
-            service.enable = mkDefault true;
+            service.enable = mkDefault false;
           };
           waybar = {
             enable = mkDefault true;
-            service.enable = mkDefault true;
+            service.enable = mkDefault false;
           };
+
         };
         feature = {
           uwsm.enable = mkDefault true;
@@ -97,7 +104,8 @@ with lib;
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = pkgs.hyprland;
+      package = pkgs.unstable.hyprland;
+      portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
       settings = {
         env = mkIf (! config.host.home.feature.uwsm.enable) [
           "XDG_CURRENT_DESKTOP,Hyprland"
@@ -139,13 +147,13 @@ with lib;
       portal = {
         enable = true;
         xdgOpenUsePortal = true;
-        configPackages = [ pkgs.xdg-desktop-portal-hyprland ];
+        configPackages = [ pkgs.unstable.xdg-desktop-portal-hyprland ];
         config.common = {
           "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
           "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
         };
         extraPortals = [
-          pkgs.xdg-desktop-portal-hyprland
+          pkgs.unstable.xdg-desktop-portal-hyprland
           pkgs.xdg-desktop-portal-gtk
         ];
       };

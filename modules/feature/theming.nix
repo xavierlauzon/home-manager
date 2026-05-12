@@ -25,6 +25,7 @@ in
     colorscheme = inputs.nix-colors.colorSchemes.dracula;
     catppuccin = {
       flavor = "mocha";
+      cache.enable = true;
       cursors = {
         enable = true;
         flavor = "mocha";

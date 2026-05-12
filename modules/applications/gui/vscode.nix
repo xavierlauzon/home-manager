@@ -2,7 +2,7 @@
 let
   cfg = config.host.home.applications.visual-studio-code;
   pkgs-ext = import inputs.nixpkgs {
-    inherit (pkgs) system;
+    system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
     overlays = [ inputs.nix-vscode-extensions.overlays.default ];
   };
@@ -44,18 +44,6 @@ in with lib; {
           ];
         };
       };
-      llamaCoder = {
-        enable = mkOption {
-          description = "Enable Llama Coder extension";
-          type = with types; bool;
-          default = false;
-        };
-        ollamaUrl = mkOption {
-          description = "Ollama server URL for Llama Coder";
-          type = with types; str;
-          default = "http://localhost:11434";
-        };
-      };
     };
   };
 
@@ -67,79 +55,66 @@ in with lib; {
         extensions = (with pkgs.vscode-extensions; [
             # From NixPkgs
             # Older Stable versions
-            ## AI
-            github.copilot
             github.copilot-chat
-
-            ## CI
-
-            ## Docker
-              ms-vscode-remote.remote-containers
-
-            ## Editor Helpers
-
-            ## Prettify / Formatting
-              catppuccin.catppuccin-vsc
-
             ## Remote
               ms-vscode-remote.remote-ssh               # Open any folder on remote system
               ms-vscode-remote.remote-ssh-edit
-
-            ## Syntax Highlighting | File Support | Linting
 
           ]) ++ (with marketplace; [
             # Bleeding Edge versions
             # For extensions not avaialble in https://search.nixos.org/packages?type=packages&query=vscode-extensions
 
             ## AI
-            ] ++ lib.optionals cfg.llamaCoder.enable [
-              ex3ndr.llama-coder                        # Llama Coder - AI code completion
+            #github.copilot-chat
+            rooveterinaryinc.roo-cline
 
             ## CI
-              github.vscode-github-actions              # Github actions helper
+            github.vscode-github-actions              # Github actions helper
 
             ## Code
             golang.go
             ms-vscode.makefile-tools                    # Makefile Tools
 
             ## Docker
-              ms-azuretools.vscode-docker               # Docker containers, images, and volumes
+            ms-azuretools.vscode-docker               # Docker containers, images, and volumes
+            ms-azuretools.vscode-containers
 
             ## Editor Helpers
-              tyriar.sort-lines                         # Sort Lines
-              shd101wyy.markdown-preview-enhanced       # Better Markdown Preview
-              fabiospampinato.vscode-diff               # Show differences between files
-              hilleer.yaml-plus-json                    # JSON <> YAML converter
-              jinhyuk.replace-curly-quotes              # Replace all ` with '
-              nickdemayo.vscode-json-editor             # JSON Editor
-              rpinski.shebang-snippets                  # Shebang helpers when typing #!
-              tombonnike.vscode-status-bar-format-toggle # Toggle formatting with a single click
-              uyiosa-enabulele.reopenclosedtab          # Reopen last tab
-              ziyasal.vscode-open-in-github             # Jump to a source code line in Github, Bitbucket, Gitlab, VisualStudio.com
+            tyriar.sort-lines                         # Sort Lines
+            shd101wyy.markdown-preview-enhanced       # Better Markdown Preview
+            fabiospampinato.vscode-diff               # Show differences between files
+            hilleer.yaml-plus-json                    # JSON <> YAML converter
+            jinhyuk.replace-curly-quotes              # Replace all ` with '
+            nickdemayo.vscode-json-editor             # JSON Editor
+            rpinski.shebang-snippets                  # Shebang helpers when typing #!
+            tombonnike.vscode-status-bar-format-toggle # Toggle formatting with a single click
+            uyiosa-enabulele.reopenclosedtab          # Reopen last tab
+            ziyasal.vscode-open-in-github             # Jump to a source code line in Github, Bitbucket, Gitlab, VisualStudio.com
 
             ## Prettify / Formatting
-              brettm12345.nixfmt-vscode                 # Nix TODO: Split and force programs to be installed
-              davidanson.vscode-markdownlint            # Markdown
-              esbenp.prettier-vscode                    # JavaScript TypeScript Flow JSX JSON CSS SCSS Less HTML Vue Angular HANDLEBARS Ember Glimmer GraphQL Markdown YAML
-              yzhang.markdown-all-in-one                # Markown
-              richie5um2.vscode-sort-json               # JSON
-              shakram02.bash-beautify                   # Bash
+            brettm12345.nixfmt-vscode                 # Nix TODO: Split and force programs to be installed
+            catppuccin.catppuccin-vsc
+            davidanson.vscode-markdownlint            # Markdown
+            esbenp.prettier-vscode                    # JavaScript TypeScript Flow JSX JSON CSS SCSS Less HTML Vue Angular HANDLEBARS Ember Glimmer GraphQL Markdown YAML
+            yzhang.markdown-all-in-one                # Markown
+            richie5um2.vscode-sort-json               # JSON
+            shakram02.bash-beautify                   # Bash
 
             ## Remote
-              ms-vscode.remote-explorer                 # View remote machines for SSH and Tunnels
+            ms-vscode.remote-explorer                 # View remote machines for SSH and Tunnels
 
             ## Syntax Highlighting | File Support | Linting
-              dunstontc.vscode-docker-syntax            # DockerFile
-              evgeniypeshkov.syntax-highlighter         # C++, C, Python, TypeScript, TypeScriptReact, JavaScript, Go, Rust, Php, Ruby, ShellScript, Bash, OCaml, Lua
-              bbenoist.nix                              # Nix
-              bierner.markdown-mermaid                  # MermaidJS in MarkDown
-              foxundermoon.shell-format                 # Bash
-              redhat.vscode-yaml                        # YAML
-              timonwong.shellcheck                      # Bash TODO: Split and force shellcheck binary to be installed
-              signageos.signageos-vscode-sops           # SOPS
+            dunstontc.vscode-docker-syntax            # DockerFile
+            evgeniypeshkov.syntax-highlighter         # C++, C, Python, TypeScript, TypeScriptReact, JavaScript, Go, Rust, Php, Ruby, ShellScript, Bash, OCaml, Lua
+            bbenoist.nix                              # Nix
+            bierner.markdown-mermaid                  # MermaidJS in MarkDown
+            foxundermoon.shell-format                 # Bash
+            redhat.vscode-yaml                        # YAML
+            timonwong.shellcheck                      # Bash TODO: Split and force shellcheck binary to be installed
+            signageos.signageos-vscode-sops           # SOPS
 
             ## Development
-              mkhl.direnv
+            mkhl.direnv
         ]);
         keybindings = [
           ## Favorites
@@ -235,21 +210,23 @@ in with lib; {
            ## Default
           "explorer.confirmDelete" = false;
           "files.trimTrailingWhitespace" = true;
-          "files.useExperimentalFileWatcher" = true;
-          "window.openWithoutArgumentsInNewWindow" = true;
           "window.menuBarVisibility" = "compact";
           "window.titleBarStyle" = "custom";
           "window.zoomLevel" = 1;
 
           ## Docker
-          "docker.commands.attach" =
-            "$\${containerCommand} exec -it $\${containerId} $\${shellCommand}";
-          "docker.containers.description" = [ "ContainerName" "Status" ];
-          "docker.containers.label" = "ContainerName";
-          "docker.containers.sortBy" = "Label";
-          "docker.volumes.label" = "VolumeName";
+          "containers.commands.attach" = "$\${containerCommand} exec -it $\${containerId} $\${shellCommand}";
+          "containers.containers.description" = [ "ContainerName" "Status" ];
+          "containers.containers.label" = "ContainerName";
+          "containers.containers.sortBy" = "Label";
+          "containers.images.sortBy" = "Label";
+          "containers.networks.sortBy" = "Label";
+          "containers.volumes.label" = "VolumeName";
+          "containers.volumes.sortBy" = "Label";
+          "containers.enableComposeLanguageService" = false;
 
           ## Editor
+            "editor.accessibilitySupport" = "off";
           "editor.bracketPairColorization.enabled" = true;
           "editor.copyWithSyntaxHighlighting" = false ;
           "editor.detectIndentation" = false ;
@@ -293,20 +270,8 @@ in with lib; {
           ## Copilot
           "github.copilot.editor.enableCodeActions" = true;
           "github.copilot.chat.followUps" = "never";
-          "github.copilot.advanced" = {
-            "debug.overrideEngine" = "copilot-chat";
-            "debug.useNodeFetcher" = false;
-          };
-          "github.copilot.chat.terminalProfile" = "bash-no-liquidprompt";
           "github.copilot.chat.shellIntegration.enabled" = true;
           "github.copilot.chat.terminalCwd.enabled" = true;
-
-          ## Llama Coder
-        } // lib.optionalAttrs cfg.llamaCoder.enable {
-          "inference.endpoint" = cfg.llamaCoder.ollamaUrl;
-          "inference.model" = "deepseek-coder:33b-base-q4_K_M";
-          "inference.custom.format" = "deepseek";
-        } // {
 
           ## Formatting
           "[dockerfile]" = {
@@ -366,41 +331,42 @@ in with lib; {
 
           ## SSH
           "remote.SSH.configFile" = "~/.ssh/vscode_remote_ssh_config";
-          #"remote.SSH.defaultExtensions" =
-          #  [ # # TODO - Merge this, this is mostly duplicates with exception of remote plugins
-          #    "bbenoist.nix"
-          #    "bierner.markdown-mermaid"
-          #    "brettm12345.nixfmt-vscode"
-          #    "davidanson.vscode-markdownlint"
-          #    "dunstontc.vscode-docker-syntax"
-          #    "esbenp.prettier-vscode"
-          #    "evgeniypeshkov.syntax-highlighter"
-          #    "fabiospampinato.vscode-diff"
-          #    "foxundermoon.shell-format"
-          #    "github.copilot"
-          #    "github.copilot-chat"
-          #    "github.vscode-github-actions"
-          #    "hilleer.yaml-plus-json"
-          #    "jinhyuk.replace-curly-quotes"
-          #    "ms-azuretools.vscode-docker"
-          #    "ms-vscode.copilot-mermaid-diagram"
-          #    "nickdemayo.vscode-json-editor"
-          #    "pinage404.bash-extension-pack"
-          #    "redhat.vscode-yaml"
-          #    "richie5um2.vscode-sort-json"
-          #    "rpinski.shebang-snippets"
-          #    "shakram02.bash-beautify"
-          #    "shd101wyy.markdown-preview-enhanced"
-          #    "timonwong.shellcheck"
-          #    "tombonnike.vscode-status-bar-format-toggle"
-          #    "tyriar.sort-lines"
-          #    "uyiosa-enabulele.reopenclosedtab"
-          #    "yzhang.markdown-all-in-one"
-          #    "ziyasal.vscode-open-in-github"
-          #  ];
+            "remote.SSH.defaultExtensions" =
+              [ # # TODO - Merge this, this is mostly duplicates with exception of remote plugins
+                "bbenoist.nix"
+                "bierner.markdown-mermaid"
+                "brettm12345.nixfmt-vscode"
+                "davidanson.vscode-markdownlint"
+                "dunstontc.vscode-docker-syntax"
+                "esbenp.prettier-vscode"
+                "evgeniypeshkov.syntax-highlighter"
+                "fabiospampinato.vscode-diff"
+                "foxundermoon.shell-format"
+                "github.copilot"
+                "github.copilot-chat"
+                "github.vscode-github-actions"
+                "hilleer.yaml-plus-json"
+                "jinhyuk.replace-curly-quotes"
+                "ms-azuretools.vscode-docker"
+                "ms-azuretools.vscode-containers"
+                #"ms-vscode.copilot-mermaid-diagram"
+                "nickdemayo.vscode-json-editor"
+                "pinage404.bash-extension-pack"
+                "redhat.vscode-yaml"
+                "richie5um2.vscode-sort-json"
+                "rpinski.shebang-snippets"
+                "shakram02.bash-beautify"
+                "shd101wyy.markdown-preview-enhanced"
+                "timonwong.shellcheck"
+                "tombonnike.vscode-status-bar-format-toggle"
+                "tyriar.sort-lines"
+                "uyiosa-enabulele.reopenclosedtab"
+                "yzhang.markdown-all-in-one"
+                "ziyasal.vscode-open-in-github"
+              ];
           "remote.SSH.enableRemoteCommand" = true;
           "remote.SSH.localServerDownload" = "off";
-          "remote.downloadExtensionsLocally" = false;
+          "remote.downloadExtensionsLocally" = true;
 
           ## Telemetry
           "redhat.telemetry.enabled" = false;
@@ -423,7 +389,14 @@ in with lib; {
           ## SOPS
           "sops.creationEnabled" = true;
 
-          mutableExtensionsDir = false;
+          "chat.tools.terminal.autoApprove" = {
+            "git commit" = false;
+            ".*/" = true;
+            "nix" = true;
+            "rm" = false;
+          };
+          chat.agent.maxRequests = 50;
+          chat.viewSessions.orientation = "stacked";
         };
       };
     };

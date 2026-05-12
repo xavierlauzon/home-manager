@@ -18,7 +18,7 @@ with lib;
           gaps_out = 8;
           layout = "master";
           resize_corner = 2;
-          resize_on_border = true;
+          resize_on_border = false;
         };
 
         cursor = {

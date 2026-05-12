@@ -19,7 +19,7 @@ in
     home = {
       packages = with pkgs;
         [
-          mate.mate-calc
+          pkgs.mate-calc
         ];
     };
   };

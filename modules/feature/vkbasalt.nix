@@ -33,7 +33,7 @@ in
       enableOnLaunch = True
 
       # Effects applied in order
-      effects = liftgammagain:levels:fakehdr:curves:tonemap:vibrance:clarity:cas:lumasharpen
+      effects = liftgammagain:levels:curves:tonemap:cas
 
       # --- Built-in Effects ---
       casSharpness = 0.5
@@ -45,12 +45,8 @@ in
       # --- Shader Aliases ---
       liftgammagain = ${shaderPath}/LiftGammaGain.fx
       levels = ${shaderPath}/Levels.fx
-      fakehdr = ${shaderPath}/FakeHDR.fx
       curves = ${shaderPath}/Curves.fx
       tonemap = ${shaderPath}/Tonemap.fx
-      vibrance = ${shaderPath}/Vibrance.fx
-      clarity = ${shaderPath}/Clarity.fx
-      lumasharpen = ${shaderPath}/LumaSharpen.fx
 
       # --- Include ---
       reshadeIncludePath = ${config.home.homeDirectory}/.local/share/reshade/reshade-shaders/Shaders

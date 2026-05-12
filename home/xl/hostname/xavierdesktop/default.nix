@@ -10,12 +10,9 @@ with lib;
         ssh = {
           enable = true;
         };
+        neofetch.enable = false;
         visual-studio-code = {
           enable = true;
-          llamaCoder = {
-            enable =  true;
-            ollamaUrl = "https://o.lauzon.xyz";
-          };
         };
       };
       feature = {
