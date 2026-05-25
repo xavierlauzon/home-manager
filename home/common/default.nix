@@ -39,7 +39,6 @@ with lib;
           liquidprompt.enable = mkDefault true;
           mtr.enable = mkDefault true;
           nano.enable = mkDefault true;
-          neofetch.enable = mkDefault true;
           fastfetch.enable = mkDefault true;
           ncdu.enable = mkDefault true;
           ranger.enable = mkDefault true;
