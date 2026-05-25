@@ -16,6 +16,7 @@ in
 {
   programs = {
     git = {
+      lfs.enable = true;
       userEmail = email;
       userName = "Xavier Lauzon";
       extraConfig = {
