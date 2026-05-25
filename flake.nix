@@ -217,6 +217,7 @@
           };
 
           "pasteur.${gnsn}" = HomeConfiguration {
+            nixpkgs = nixpkgs-unstable;
             extraSpecialArgs = {
               org = "sd";
               role = "server";
