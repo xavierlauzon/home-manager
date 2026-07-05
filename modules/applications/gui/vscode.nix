@@ -47,8 +47,6 @@ in with lib; {
     };
   };
 
-
-
   config = mkIf cfg.enable {
     programs.vscode =  {
       enable = true;
@@ -57,7 +55,6 @@ in with lib; {
         extensions = (with pkgs.vscode-extensions; [
             # From NixPkgs
             # Older Stable versions
-            #kilocode.kilo-code
             ## Remote
               ms-vscode-remote.remote-ssh               # Open any folder on remote system
               ms-vscode-remote.remote-ssh-edit
@@ -262,12 +259,6 @@ in with lib; {
               }
             ];
 
-          ## Copilot
-          "github.copilot.editor.enableCodeActions" = true;
-          "github.copilot.chat.followUps" = "never";
-          "github.copilot.chat.shellIntegration.enabled" = true;
-          "github.copilot.chat.terminalCwd.enabled" = true;
-
           ## Formatting
           "[dockerfile]" = {
             "editor.defaultFormatter" = "foxundermoon.shell-format";
@@ -390,6 +381,7 @@ in with lib; {
             "nix" = true;
             "rm" = false;
           };
+          "chat.disableAIFeatures" = true;
           chat.agent.maxRequests = 50;
           chat.viewSessions.orientation = "stacked";
         };

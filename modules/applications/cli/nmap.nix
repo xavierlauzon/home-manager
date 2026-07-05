@@ -1,7 +1,7 @@
 {config, lib, pkgs, ...}:
 
 let
-  cfg = config.host.home.applications.act;
+  cfg = config.host.home.applications.nmap;
 in
   with lib;
 {
