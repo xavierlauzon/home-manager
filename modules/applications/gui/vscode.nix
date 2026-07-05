@@ -244,21 +244,6 @@ in with lib; {
           "workbench.startupEditor" = "none" ;
           "workbench.colorTheme" = "Catppuccin Mocha";
 
-            ## Catppuccin
-            "catppuccin.accentColor" = "pink";
-            "catppuccin.colorOverrides" = [
-              "mocha" {
-                "base" = "#000000";
-                "mantle" = "#010101";
-                "crust" = "#020202";
-              }
-            ];
-            "catppuccin.customUIColors" = [
-              "mocha" {
-                "statusBar.foreground" = "accent";
-              }
-            ];
-
           ## Formatting
           "[dockerfile]" = {
             "editor.defaultFormatter" = "foxundermoon.shell-format";
