@@ -47,6 +47,8 @@ in with lib; {
     };
   };
 
+
+
   config = mkIf cfg.enable {
     programs.vscode =  {
       enable = true;
@@ -55,7 +57,7 @@ in with lib; {
         extensions = (with pkgs.vscode-extensions; [
             # From NixPkgs
             # Older Stable versions
-            github.copilot-chat
+            #kilocode.kilo-code
             ## Remote
               ms-vscode-remote.remote-ssh               # Open any folder on remote system
               ms-vscode-remote.remote-ssh-edit
@@ -63,13 +65,6 @@ in with lib; {
           ]) ++ (with marketplace; [
             # Bleeding Edge versions
             # For extensions not avaialble in https://search.nixos.org/packages?type=packages&query=vscode-extensions
-
-            ## AI
-            #github.copilot-chat
-            rooveterinaryinc.roo-cline
-
-            ## CI
-            github.vscode-github-actions              # Github actions helper
 
             ## Code
             golang.go

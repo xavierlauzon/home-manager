@@ -23,9 +23,9 @@ in
         ];
     };
 
-    #nixpkgs.config.permittedInsecurePackages = [
-    #    "electron-25.9.0" ## TODO - Added 2023-12-20 due to Electron being marked as Insecure
-    #];
+    nixpkgs.config.permittedInsecurePackages = [
+        "electron-39.8.10"
+    ];
 
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {

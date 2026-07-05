@@ -24,7 +24,7 @@ in
 
     home.packages = with pkgs; [
       caladea
-      cantarell-fonts
+#      cantarell-fonts
       carlito
       courier-prime
       dejavu_fonts

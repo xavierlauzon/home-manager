@@ -78,6 +78,11 @@ with lib;
           # Scroll through existing workspaces with mainMod + scroll
           "SUPER, mouse_down, workspace, e+1"
           "SUPER, mouse_up, workspace, e-1"
+
+          # PTT
+          #", F24, pass, class:^(com\\.github\\.Vencord\\.Vesktop)$"
+          #", F24, pass, class:^Vesktop"
+          ", F24, sendshortcut, F24, class:^vesktop"
         ];
 
         binde = [
