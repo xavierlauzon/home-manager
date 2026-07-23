@@ -34,7 +34,6 @@ in
           "cache --timeout=86400"
           "oauth"
         ];
-        credential."https://git.lauzon.xyz".oauthClientId = "824ecc6e-a8f9-4984-aa67-01516b65d32d";
         credential."https://git.lauzon.xyz".oauthScopes = "read_repository write_repository";
         credential."https://git.lauzon.xyz".oauthAuthURL = "/login/oauth/authorize";
         credential."https://git.lauzon.xyz".oauthTokenURL = "/login/oauth/access_token";

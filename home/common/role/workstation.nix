@@ -54,6 +54,7 @@ with lib;
         nix-development_tools.enable = true;
         nmap.enable = mkDefault true;
         obsidian.enable = mkDefault true;
+        opencode.enable = mkDefault true;
         opensnitch-ui.enable = mkDefault true;
         prismlauncher.enable = mkDefault true;
         pulsemixer.enable = mkDefault true;
