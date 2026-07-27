@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 {
   imports = [
@@ -7,10 +7,11 @@ with lib;
   host = {
     home = {
       applications = {
+        opencode.enable = mkDefault true;
       };
       feature = {
       };
-      service = {
+      services = {
       };
     };
   };
