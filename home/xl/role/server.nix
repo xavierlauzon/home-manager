@@ -13,7 +13,7 @@ with lib;
       };
       feature = {
       };
-      services = {
+      service = {
       };
     };
   };
