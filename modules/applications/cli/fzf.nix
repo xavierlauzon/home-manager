@@ -2,6 +2,7 @@
 
 let
   cfg = config.host.home.applications.fzf;
+  hasPalette = config.colorScheme.palette != {};
 in
   with lib;
 {
@@ -20,7 +21,7 @@ in
       fzf = {
         enable = true;
         enableBashIntegration = true;
-        colors = {
+        colors = mkIf hasPalette {
           "bg+" = "#${config.colorScheme.palette.base01}";
           "fg+" = "#${config.colorScheme.palette.base06}";
           "hl+" = "#${config.colorScheme.palette.base0D}";
@@ -38,12 +39,12 @@ in
           "--height 40%"
           "--border"
         ];
-        fileWidgetOptions = [
-          "--preview 'head {}'"
-        ];
-        historyWidgetOptions = [
-          "--sort"
-        ];
+        fileWidget = {
+          options = [ "--preview 'head {}'" ];
+        };
+        historyWidget = {
+          options = [ "--sort" ];
+        };
       };
     };
   };
