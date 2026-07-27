@@ -17,5 +17,4 @@ with lib;
       };
     };
   };
-  colorscheme = inputs.nix-colors.colorSchemes.dracula; # TODO make less messy
 }
