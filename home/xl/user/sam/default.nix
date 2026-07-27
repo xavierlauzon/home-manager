@@ -31,7 +31,7 @@ in
       settings = {
         credential.helper = [
           "cache --timeout=86400"
-          "oauth"
+          "oauth -device"
         ];
         credential."https://git.lauzon.xyz".oauthScopes = "read_repository write_repository";
         credential."https://git.lauzon.xyz".oauthAuthURL = "/login/oauth/authorize";
