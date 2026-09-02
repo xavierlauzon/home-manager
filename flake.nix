@@ -132,6 +132,17 @@
             };
           };
 
+          "raptor.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "raptor";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
+
           "falcon.${gn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "xl";
