@@ -91,7 +91,7 @@ with lib;
             service.enable = mkDefault false;
           };
           waybar = {
-            enable = mkDefault true;
+            enable = mkDefault false;
             service.enable = mkDefault false;
           };
 

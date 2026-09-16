@@ -155,13 +155,13 @@ with lib;
           ", XF86AudioNext, exec, dms ipc call mpris next"
         ];
         source = [
-          "../../src/home-manager/dotfiles/hypr/hyprland.conf"
+          #"../../src/home-manager/dotfiles/hypr/hyprland.conf"
           #"./dms/binds.conf"
-          "./dms/colors.conf"
+          #"./dms/colors.conf"
           #"./dms/cursor.conf"
-          "./dms/layout.conf"
+          #"./dms/layout.conf"
           #"./dms/outputs.conf"
-          "./dms/windowrules.conf"
+          #"./dms/windowrules.conf"
         ];
         layerrule = [
           "no_anim on, match:namespace ^dms:.*"
