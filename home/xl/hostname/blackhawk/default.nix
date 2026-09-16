@@ -1,4 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, specialArgs, ...}:
+let
+  inherit (specialArgs) displays display_center display_left display_right role;
+in
 with lib;
 {
   imports = [
@@ -7,7 +10,6 @@ with lib;
   host = {
     home = {
       applications = {
-        opencode.enable = mkDefault true;
       };
       feature = {
       };

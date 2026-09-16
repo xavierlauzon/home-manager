@@ -55,7 +55,7 @@ with lib;
           defaultApplication.enable = mkDefault true;
         };
         seahorse.enable = mkDefault true;
-        smartgit.enable = mkDefault true;
+        ssh.enable = mkDefault true;
         tea.enable = mkDefault true;
         thunderbird.enable = mkDefault true;
         veracrypt.enable = mkDefault true;

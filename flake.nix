@@ -125,14 +125,32 @@
           "blackhawk.${gn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "xl";
-              role = "server";
+              role = "workstation";
               hostname = "blackhawk";
+              displays = 1;
+              display_center = "HDMI-A-1";
+              networkInterface = "public";
               username = gn;
               inherit inputs outputs;
             };
           };
 
+          "blackhawk.sam" = HomeConfiguration {
+            nixpkgs = nixpkgs-unstable;
+            extraSpecialArgs = {
+              org = "xl";
+              role = "workstation";
+              hostname = "blackhawk";
+              displays = 1;
+              display_center = "HDMI-A-1";
+              networkInterface = "public";
+              username = "sam";
+              inherit inputs outputs;
+            };
+          };
+
           "raptor.${gn}" = HomeConfiguration {
+            system = "aarch64-linux";
             extraSpecialArgs = {
               org = "xl";
               role = "server";
@@ -142,6 +160,16 @@
             };
           };
 
+          "trident.${gn}" = HomeConfiguration {
+            system = "aarch64-linux";
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "raptor";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
 
           "falcon.${gn}" = HomeConfiguration {
             extraSpecialArgs = {
@@ -189,17 +217,6 @@
               role = "server";
               hostname = "maverick";
               username = gn;
-              inherit inputs outputs;
-            };
-          };
-
-          "blackhawk.sam" = HomeConfiguration {
-            nixpkgs = nixpkgs-unstable;
-            extraSpecialArgs = {
-              org = "xl";
-              role = "server";
-              hostname = "blackhawk";
-              username = "sam";
               inherit inputs outputs;
             };
           };

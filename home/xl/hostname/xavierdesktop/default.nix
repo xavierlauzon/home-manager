@@ -7,13 +7,6 @@ with lib;
   host = {
     home = {
       applications = {
-        ssh = {
-          enable = true;
-        };
-        neofetch.enable = false;
-        visual-studio-code = {
-          enable = true;
-        };
       };
       feature = {
         vkbasalt.enable = true;
