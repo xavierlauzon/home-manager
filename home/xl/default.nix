@@ -1,7 +1,7 @@
 { config, lib, pkgs, specialArgs, ...}:
 let
   inherit (specialArgs) hostname role username;
-  inherit (pkgs.stdenv) isLinux isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 
   if-exists = f: builtins.pathExists f;
   existing-imports = imports: builtins.filter if-exists imports;

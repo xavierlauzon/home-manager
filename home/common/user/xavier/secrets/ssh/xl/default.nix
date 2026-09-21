@@ -49,11 +49,9 @@ in
     programs = {
       ssh = {
         enable = mkDefault true;
-        matchBlocks = {
-          "*.${s}${_p}${_a}${m}${t}${r}${a_}${p_}" = {
-            user = "xavier";
-            identityFile = config.sops.secrets."ssh/xl-id_ed25519".path;
-          };
+        settings."*.${s}${_p}${_a}${m}${t}${r}${a_}${p_}" = {
+          User = "xavier";
+          IdentityFile = config.sops.secrets."ssh/xl-id_ed25519".path;
         };
       };
     };

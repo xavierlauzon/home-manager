@@ -11,7 +11,7 @@ let
     mkdir = "mkdir -p"; # no error, create parents
     scstart = "systemctl start $@"; # systemd service start
     scstop = "systemctl stop $@"; # systemd service stop
-    scenable = "systemctl disable $@"; # systemd service enable
+    scenable = "systemctl enable $@"; # systemd service enable
     scdisable = "systemctl disable $@"; # systemd service disable
   };
 in
@@ -195,7 +195,6 @@ in
               LESS_TERMCAP_ue=$'\e[0m' \
               LESS_TERMCAP_us=$'\e[01;32m' \
               command man "$@"
-          }mmand man "$@"
           }
 
           system_update() {

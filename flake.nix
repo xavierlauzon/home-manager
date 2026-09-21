@@ -122,6 +122,7 @@
           };
 
           "blackhawk.${gn}" = HomeConfiguration {
+            nixpkgs = nixpkgs-unstable;
             extraSpecialArgs = {
               org = "xl";
               role = "workstation";
@@ -164,7 +165,7 @@
             extraSpecialArgs = {
               org = "xl";
               role = "server";
-              hostname = "raptor";
+              hostname = "trident";
               username = gn;
               inherit inputs outputs;
             };

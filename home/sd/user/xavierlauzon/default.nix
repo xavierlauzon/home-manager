@@ -17,12 +17,10 @@ in
   programs = {
     git = {
       lfs.enable = true;
-      userEmail = email;
-      userName = "Xavier Lauzon";
-      extraConfig = {
-        safe = {
-          directory = "/srv/nixos-config";
-        };
+      settings = {
+        user.email = email;
+        user.name = "Xavier Lauzon";
+        safe.directory = "/srv/nixos-config";
       };
     };
   };
