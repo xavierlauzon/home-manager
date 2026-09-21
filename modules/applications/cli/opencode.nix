@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{config, inputs, lib, pkgs, ...}:
 
 let
   cfg = config.host.home.applications.opencode;
@@ -17,11 +17,12 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [
-      pkgs.opencode-desktop
+      inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode-desktop
     ];
 
     programs.opencode = {
       enable = true;
+      package = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
       enableMcpIntegration = true;
       settings = {
         tools = {
