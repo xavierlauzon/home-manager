@@ -1,6 +1,7 @@
 { config, inputs, lib, pkgs, ... }:
 let
   cfg = config.host.home.applications.hyprlock;
+  lua = lib.generators.mkLuaInline;
 
  script_displayhelper_hyprlock = pkgs.writeShellScriptBin "displayhelper_hyprlock" ''
     _get_display_name() {
@@ -113,7 +114,7 @@ in
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
         bind = [
-          "SUPER_SHIFT, X, exec, ${config.host.home.feature.uwsm.prefix}hyprlock"
+          { _args = [ "SUPER + SHIFT + X" (lua "hl.dsp.exec_cmd(\"hyprlock\")") ]; }
         ];
       };
     };

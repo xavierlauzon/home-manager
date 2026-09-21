@@ -2,10 +2,6 @@
 
 let
   cfg = config.host.home.applications.swayosd;
-  prefixUWSM =
-    if config.host.network.firewall.fail2ban.enable
-    then "VERBOSE"
-    else "INFO";
 in
   with lib;
 {
@@ -52,20 +48,7 @@ in
     };
 
     ## TODO Make this work for dynamic Display (monitor_primary)
-    wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
-      settings = {
-        bindl = [
-          ",XF86AudioMute, exec, ${config.host.home.feature.uwsm.prefix}swayosd-client --output-volume mute-toggle"
-        ];
-        bindle = [
-          ",XF86AudioRaiseVolume, exec, ${config.host.home.feature.uwsm.prefix}swayosd-client --output-volume +1 --max-volume=100"
-          ",XF86AudioLowerVolume, exec, ${config.host.home.feature.uwsm.prefix}swayosd-client --output-volume -1"
-        ];
-      };
-    };
-
-    xdg.
-      configFile = {
+    xdg.configFile = {
         "swayosd/style.css" = {
           text = ''
             window {

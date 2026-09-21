@@ -9,47 +9,42 @@ with lib;
     wayland.windowManager.hyprland = {
       settings = {
         ## See more in modules/applications/* and modules/desktop/utils/*
-        windowrule = [
-          # IDLE inhibit while watching videos
-          #"idle_inhibit focus, match:class (mpv|.+exe)"
-          #"idle_inhibit focus, match:class firefox, match:title .*YouTube.*"
-          #"idle_inhibit fullscreen, match:class firefox"
-
+        window_rule = [
           # XDG-Portal-GTK File Picker annoyances
-          "dim_around on, match:title ^(Open Files)$"
-          "float on, match:title ^(Open Files)$"
-          "size 1290 800, match:title ^(Open Files)$"
+          { match = { title = "^(Open Files)$"; }; dim_around = true; }
+          { match = { title = "^(Open Files)$"; }; float = true; }
+          { match = { title = "^(Open Files)$"; }; size = "1290x800"; }
 
           # Generics
-          "float on, match:class ^(xdg-desktop-portal-hyprland)$"
-          "float on, match:class ^()$, match:title ^(File Operation Progress)$"
-          "suppress_event maximize, match:class .*"
+          { match = { class = "^(xdg-desktop-portal-hyprland)$"; }; float = true; }
+          { match = { class = "^()$"; title = "^(File Operation Progress)$"; }; float = true; }
+          { match = { class = ".*"; }; suppress_event = "maximize"; }
 
           # Position
-          "float on, match:class ^(Viewnior)$"
-          "float on, match:class ^(confirm)$"
-          "float on, match:class ^(confirmreset)$"
-          "float on, match:class ^(dialog)$"
-          "float on, match:class ^(download)$"
-          "float on, match:class ^(error)$"
-          "float on, match:class ^(file_progress)$"
-          "float on, match:class ^(notification)$"
-          "float on, match:class ^(org.kde.polkit-kde-authentication-agent-1)$"
-          "float on, match:class ^(pavucontrol)$"
-          "float on, match:title ^(Confirm to replace files)"
-          "float on, match:title ^(DevTools)$"
-          "float on, match:title ^(File Operation Progress)"
-          "float on, match:title ^(Media viewer)$"
-          "float on, match:title ^(Open File)$"
-          "float on, match:title ^(Picture-in-Picture)$"
-          "float on, match:title ^(Volume Control)$"
-          "float on, match:title ^(branchdialog)$"
+          { match = { class = "^(Viewnior)$"; }; float = true; }
+          { match = { class = "^(confirm)$"; }; float = true; }
+          { match = { class = "^(confirmreset)$"; }; float = true; }
+          { match = { class = "^(dialog)$"; }; float = true; }
+          { match = { class = "^(download)$"; }; float = true; }
+          { match = { class = "^(error)$"; }; float = true; }
+          { match = { class = "^(file_progress)$"; }; float = true; }
+          { match = { class = "^(notification)$"; }; float = true; }
+          { match = { class = "^(org.kde.polkit-kde-authentication-agent-1)$"; }; float = true; }
+          { match = { class = "^(pavucontrol)$"; }; float = true; }
+          { match = { title = "^(Confirm to replace files)"; }; float = true; }
+          { match = { title = "^(DevTools)$"; }; float = true; }
+          { match = { title = "^(File Operation Progress)"; }; float = true; }
+          { match = { title = "^(Media viewer)$"; }; float = true; }
+          { match = { title = "^(Open File)$"; }; float = true; }
+          { match = { title = "^(Picture-in-Picture)$"; }; float = true; }
+          { match = { title = "^(Volume Control)$"; }; float = true; }
+          { match = { title = "^(branchdialog)$"; }; float = true; }
 
           # Size
-          "size 800 600, match:class ^(download)$"
-          "size 800 600, match:title ^(Open File)$"
-          "size 800 600, match:title ^(Save File)$"
-          "size 800 600, match:title ^(Volume Control)$"
+          { match = { class = "^(download)$"; }; size = "800x600"; }
+          { match = { title = "^(Open File)$"; }; size = "800x600"; }
+          { match = { title = "^(Save File)$"; }; size = "800x600"; }
+          { match = { title = "^(Volume Control)$"; }; size = "800x600"; }
         ];
       };
     };

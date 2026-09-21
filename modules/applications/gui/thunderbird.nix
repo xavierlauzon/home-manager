@@ -32,12 +32,12 @@ in
 
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
-        windowrule = [
-          "workspace 1, match:class ^(thunderbird)$"
-          "float on, match:class ^(thunderbird)$, match:title ^(.*)(Reminder)(.*)$"
-          "float on, match:class ^(thunderbird)$, match:title ^About(.*)$"
-          "float on, match:class ^(thunderbird)$, match:title ^(Check Spelling)$"
-          "size 525 335, match:class ^(thunderbird)$, match:title ^(Check Spelling)$"
+        window_rule = [
+          { match = { class = "^(thunderbird)$"; }; workspace = "1"; }
+          { match = { class = "^(thunderbird)$"; title = "^(.*)(Reminder)(.*)$"; }; float = true; }
+          { match = { class = "^(thunderbird)$"; title = "^About(.*)$"; }; float = true; }
+          { match = { class = "^(thunderbird)$"; title = "^(Check Spelling)$"; }; float = true; }
+          { match = { class = "^(thunderbird)$"; title = "^(Check Spelling)$"; }; size = "525x335"; }
         ];
       };
     };

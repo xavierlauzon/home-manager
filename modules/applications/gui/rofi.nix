@@ -2,6 +2,7 @@
   with lib;
 let
   cfg = config.host.home.applications.rofi;
+  lua = lib.generators.mkLuaInline;
   displayServer = config.host.home.feature.gui.displayServer ;
 in
 {
@@ -48,14 +49,10 @@ in
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
         bind = [
-          "SUPER, R, exec, pkill rofi || ${config.programs.rofi.package}/bin/rofi -show run -config '~/.config/rofi/styles/style.rasi' -run-shell-command '${pkgs.kitty}/bin/kitty' "
-          "SUPER, D, exec, pkill rofi || ${config.programs.rofi.package}/bin/rofi -show drun -config '~/.config/rofi/styles/style.rasi'"
-          #"SUPER, D, exec, pkill rofi || ${config.programs.rofi.package}/bin/rofi -combi-modi window,drun,ssh,run -show combi -show-icons"
-          "SUPER_SHIFT, V, exec, ${pkgs.cliphist}'/bin/cliphist list | ${config.programs.rofi.package}/bin/rofi -dmenu | ${pkgs.cliphist}'/bin/cliphist decode | wl-copy"
-        ];
-        windowrule = [
-          #"stay_focused on, match:class ^(Rofi)$"
-          #"allows_input on, match:class ^(Rofi)$"
+          { _args = [ "SUPER + R" (lua "hl.dsp.exec_cmd(\"pkill rofi || ${config.programs.rofi.package}/bin/rofi -show run -config '~/.config/rofi/styles/style.rasi' -run-shell-command '${pkgs.kitty}/bin/kitty' \")") ]; }
+          { _args = [ "SUPER + D" (lua "hl.dsp.exec_cmd(\"pkill rofi || ${config.programs.rofi.package}/bin/rofi -show drun -config '~/.config/rofi/styles/style.rasi'\")") ]; }
+          #{ _args = [ "SUPER + D" (lua "hl.dsp.exec_cmd(\"pkill rofi || ${config.programs.rofi.package}/bin/rofi -combi-modi window,drun,ssh,run -show combi -show-icons\")") ]; }
+          { _args = [ "SUPER + SHIFT + V" (lua "hl.dsp.exec_cmd(\"${pkgs.cliphist}/bin/cliphist list | ${config.programs.rofi.package}/bin/rofi -dmenu | ${pkgs.cliphist}/bin/cliphist decode | wl-copy\")") ]; }
         ];
       };
     };

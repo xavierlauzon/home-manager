@@ -39,32 +39,32 @@ in
 
    wayland.windowManager.hyprland = {
       settings = {
-        windowrule = [
-          "size 360 690, match:title ^Zoom - Licensed Account$, match:class ^(Zoom)$"
-          "float on, match:title ^Zoom - Licensed Account$"
-          "no_anim on, match:class ^(Zoom)$"
-          "no_dim on, match:class ^(Zoom)$"
-          "no_blur on, match:class ^(Zoom)$"
-          "float on, match:title ^as_toolbar$, match:class ^(Zoom)$"
-          "decorate off, match:title ^as_toolbar$, match:class ^(Zoom)$"
-          "no_shadow on, match:title ^as_toolbar$, match:class ^(Zoom)$"
-          "no_blur on, match:title ^as_toolbar$, match:class ^(Zoom)$"
-          "min_size 1 1, match:title ^(Zoom Workplace.*)$, match:class ^(Zoom Workplace)$"
-          "min_size 1 1, match:title ^(menu window)$, match:class ^(Zoom Workplace)$"
-          "min_size 1 1, match:title ^(meeting bottombar popup)$, match:class ^(Zoom Workplace)$"
-          "min_size 1 1, match:title ^(Zoom Workplace.*)$, match:class ^(zoom)$"
-          "min_size 1 1, match:title ^(menu window)$, match:class ^(zoom)$"
-          "min_size 1 1, match:title ^(meeting bottombar popup)$, match:class ^(zoom)$"
-          "move onscreen cursor, match:title ^(Zoom Workplace)$, match:class ^(zoom)$"
-          "move onscreen cursor, match:title ^(menu window)$, match:class ^(zoom)$"
-          "move onscreen cursor, match:title ^(meeting bottombar popup)$, match:class ^(zoom)$"
-          "move onscreen cursor, match:title ^(Zoom Workplace)$, match:class ^(Zoom Workplace)$"
-          "move onscreen cursor, match:title ^(menu window)$, match:class ^(Zoom Workplace)$"
-          "move onscreen cursor, match:title ^(meeting bottombar popup)$, match:class ^(Zoom Workplace)$"
-          "stay_focused on, match:title ^(menu window)$, match:class ^(Zoom Workplace)$"
-          "stay_focused on, match:title ^(meeting bottombar popup)$, match:class ^(Zoom Workplace)$"
-          "stay_focused on, match:title ^(menu window)$, match:class ^(zoom)$"
-          "stay_focused on, match:title ^(meeting bottombar popup)$, match:class ^(zoom)$"
+        window_rule = [
+          { match = { title = "^Zoom - Licensed Account$"; class = "^(Zoom)$"; }; size = "360x690"; }
+          { match = { title = "^Zoom - Licensed Account$"; }; float = true; }
+          { match = { class = "^(Zoom)$"; }; no_anim = true; }
+          { match = { class = "^(Zoom)$"; }; no_dim = true; }
+          { match = { class = "^(Zoom)$"; }; no_blur = true; }
+          { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; float = true; }
+          { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; decorate = false; }
+          { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; no_shadow = true; }
+          { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; no_blur = true; }
+          { match = { title = "^(Zoom Workplace.*)$"; class = "^(Zoom Workplace)$"; }; min_size = "1x1"; }
+          { match = { title = "^(menu window)$"; class = "^(Zoom Workplace)$"; }; min_size = "1x1"; }
+          { match = { title = "^(meeting bottombar popup)$"; class = "^(Zoom Workplace)$"; }; min_size = "1x1"; }
+          { match = { title = "^(Zoom Workplace.*)$"; class = "^(zoom)$"; }; min_size = "1x1"; }
+          { match = { title = "^(menu window)$"; class = "^(zoom)$"; }; min_size = "1x1"; }
+          { match = { title = "^(meeting bottombar popup)$"; class = "^(zoom)$"; }; min_size = "1x1"; }
+          { match = { title = "^(Zoom Workplace)$"; class = "^(zoom)$"; }; move = "onscreen cursor"; }
+          { match = { title = "^(menu window)$"; class = "^(zoom)$"; }; move = "onscreen cursor"; }
+          { match = { title = "^(meeting bottombar popup)$"; class = "^(zoom)$"; }; move = "onscreen cursor"; }
+          { match = { title = "^(Zoom Workplace)$"; class = "^(Zoom Workplace)$"; }; move = "onscreen cursor"; }
+          { match = { title = "^(menu window)$"; class = "^(Zoom Workplace)$"; }; move = "onscreen cursor"; }
+          { match = { title = "^(meeting bottombar popup)$"; class = "^(Zoom Workplace)$"; }; move = "onscreen cursor"; }
+          { match = { title = "^(menu window)$"; class = "^(Zoom Workplace)$"; }; stay_focused = true; }
+          { match = { title = "^(meeting bottombar popup)$"; class = "^(Zoom Workplace)$"; }; stay_focused = true; }
+          { match = { title = "^(menu window)$"; class = "^(zoom)$"; }; stay_focused = true; }
+          { match = { title = "^(meeting bottombar popup)$"; class = "^(zoom)$"; }; stay_focused = true; }
         ];
       };
     };

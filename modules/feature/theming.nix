@@ -21,21 +21,28 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    colorscheme = inputs.nix-colors.colorSchemes.dracula;
-    catppuccin = {
-      autoEnable = true;
-      enable = true;
-      flavor = "mocha";
-      cache.enable = true;
-      cursors = {
+  config = mkMerge [
+    (mkIf cfg.enable {
+      colorscheme = inputs.nix-colors.colorSchemes.dracula;
+      catppuccin = {
         enable = true;
-        flavor = "mocha";
+        autoEnable = true;
+        cache.enable = true;
+        cursors = {
+          enable = true;
+          flavor = "mocha";
+        };
+        hyprland.enable = false;
+        kitty.enable = true;
+        floorp.enable = true;
+        anki.enable = false;
       };
-      hyprland.enable = false;
-      kitty.enable = true;
-      floorp.enable = true;
-      anki.enable = false;
-    };
-  };
+    })
+    (mkIf (!cfg.enable) {
+      catppuccin = {
+        enable = false;
+        autoEnable = false;
+      };
+    })
+  ];
 }

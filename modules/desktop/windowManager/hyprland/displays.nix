@@ -12,12 +12,24 @@ with lib;
       settings = mkMerge [
         (mkIf (hostname == "xavierdesktop") {
           monitor = [
-            "desc:Samsung Electric Company Odyssey G95NC HNTWA00116, 7680x2160@240, 0x0, auto, vrr, 1, bitdepth, 8"
+            {
+              output = "desc:Samsung Electric Company Odyssey G95NC HNTWA00116";
+              mode = "7680x2160@240";
+              position = "0x0";
+              scale = "auto";
+              vrr = 1;
+              bitdepth = 8;
+            }
           ];
         })
         (mkIf (hostname == "blackhawk") {
           monitor = [
-            ",preferred,auto,1"
+            {
+              output = "";
+              mode = "preferred";
+              position = "auto";
+              scale = 1;
+            }
           ];
         })
       ];

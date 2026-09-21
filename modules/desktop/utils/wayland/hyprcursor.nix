@@ -30,6 +30,7 @@ in
         ];
 
       pointerCursor = {
+        enable = true;
         #package = pkgs.bibata-cursors;
         #name = "Bibata-Modern-Classic";
         size = cursorSize;
@@ -67,18 +68,14 @@ in
 
       Install = {
         WantedBy = [ "graphical-session.target" ];
-        };
+      };
     };
 
     wayland.windowManager.hyprland = {
       settings = {
         env = mkIf (! config.host.home.feature.uwsm.enable) [
-          "HYPRCURSOR_THEME,${cursor}"
-          "HYPRCURSOR_SIZE,${toString cursorSize}"
-        ];
-
-        exec-once = [
-          "${config.host.home.feature.uwsm.prefix}hyprctl setcursor ${cursor} ${toString cursorSize}"
+          { _args = [ "HYPRCURSOR_THEME" "${cursor}" ]; }
+          { _args = [ "HYPRCURSOR_SIZE" "${toString cursorSize}" ]; }
         ];
       };
     };

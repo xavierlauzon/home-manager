@@ -1,9 +1,7 @@
 { config, inputs, lib, pkgs, ... }:
 let
   cfg = config.host.home.applications.dms;
-  windowManager = config.host.home.feature.gui.windowManager;
-  displayServer = config.host.home.feature.gui.displayServer;
-  hyprlandActive = builtins.elem "hyprland" windowManager;
+  lua = lib.generators.mkLuaInline;
 in
 with lib;
 {
@@ -109,66 +107,53 @@ with lib;
       settings = {
         # === Application Launchers ===
         bind = [
-          "SUPER, D, exec, dms ipc call spotlight toggle"
-          "SUPER SHIFT, V, exec, dms ipc call clipboard toggle"
-          #"SUPER, M, exec, dms ipc call processlist focusOrToggle"
-          "SUPER, comma, exec, dms ipc call settings focusOrToggle"
-          "SUPER, N, exec, dms ipc call notifications toggle"
-          "SUPER SHIFT, N, exec, dms ipc call notepad toggle"
-          #"SUPER, Y, exec, dms ipc call dankdash wallpaper"
-          "SUPER, TAB, exec, dms ipc call hypr toggleOverview"
-          "SUPER, P, exec, dms ipc call powermenu toggle"
+          { _args = [ "SUPER + D" (lua "hl.dsp.exec_cmd(\"dms ipc call spotlight toggle\")") ]; }
+          { _args = [ "SUPER + SHIFT + V" (lua "hl.dsp.exec_cmd(\"dms ipc call clipboard toggle\")") ]; }
+          #{ _args = [ "SUPER + M" (lua "hl.dsp.exec_cmd(\"dms ipc call processlist focusOrToggle\")") ]; }
+          { _args = [ "SUPER + comma" (lua "hl.dsp.exec_cmd(\"dms ipc call settings focusOrToggle\")") ]; }
+          { _args = [ "SUPER + N" (lua "hl.dsp.exec_cmd(\"dms ipc call notifications toggle\")") ]; }
+          { _args = [ "SUPER + SHIFT + N" (lua "hl.dsp.exec_cmd(\"dms ipc call notepad toggle\")") ]; }
+          #{ _args = [ "SUPER + Y" (lua "hl.dsp.exec_cmd(\"dms ipc call dankdash wallpaper\")") ]; }
+          { _args = [ "SUPER + TAB" (lua "hl.dsp.exec_cmd(\"dms ipc call hypr toggleOverview\")") ]; }
+          { _args = [ "SUPER + P" (lua "hl.dsp.exec_cmd(\"dms ipc call powermenu toggle\")") ]; }
           # === Cheat sheet ===
-          "SUPER SHIFT, Slash, exec, dms ipc call keybinds toggle hyprland"
+          { _args = [ "SUPER + SHIFT + Slash" (lua "hl.dsp.exec_cmd(\"dms ipc call keybinds toggle hyprland\")") ]; }
           # === Security ===
-          "SUPER SHIFT, X, exec, dms ipc call lock lock"
-          "CTRL ALT, Delete, exec, dms ipc call processlist focusOrToggle"
+          { _args = [ "SUPER + SHIFT + X" (lua "hl.dsp.exec_cmd(\"dms ipc call lock lock\")") ]; }
+          { _args = [ "CTRL + ALT + Delete" (lua "hl.dsp.exec_cmd(\"dms ipc call processlist focusOrToggle\")") ]; }
 
-          "SUPER_SHIFT, W, exec, systemctl --user restart dms.service"
-
+          { _args = [ "SUPER + SHIFT + W" (lua "hl.dsp.exec_cmd(\"systemctl --user restart dms.service\")") ]; }
 
           # === Screenshots ===
-          #", Print, exec, dms screenshot"
-          #"CTRL, Print, exec, dms screenshot full"
-          #"ALT, Print, exec, dms screenshot window"
+          #{ _args = [ "Print" (lua "hl.dsp.exec_cmd(\"dms screenshot\")") ]; }
+          #{ _args = [ "CTRL + Print" (lua "hl.dsp.exec_cmd(\"dms screenshot full\")") ]; }
+          #{ _args = [ "ALT + Print" (lua "hl.dsp.exec_cmd(\"dms screenshot window\")") ]; }
 
-          #"SUPER SHIFT, S, exec, dms screenshot --no-file --reset"
-        ];
+          #{ _args = [ "SUPER + SHIFT + S" (lua "hl.dsp.exec_cmd(\"dms screenshot --no-file --reset\")") ]; }
 
-        bindel = [
-          # === Audio Controls ===
-          ", XF86AudioRaiseVolume, exec, dms ipc call audio increment 1"
-          ", XF86AudioLowerVolume, exec, dms ipc call audio decrement 1"
-          "CTRL, XF86AudioRaiseVolume, exec, dms ipc call mpris increment 1"
-          "CTRL, XF86AudioLowerVolume, exec, dms ipc call mpris decrement 1"
-          # === Brightness Controls ===
-          ", XF86MonBrightnessUp, exec, dms ipc call brightness increment 5 \"\""
-          ", XF86MonBrightnessDown, exec, dms ipc call brightness decrement 5 \"\""
+          # Audio controls (repeating, locked)
+          { _args = [ "XF86AudioRaiseVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call audio increment 1\")") { locked = true; repeating = true; } ]; }
+          { _args = [ "XF86AudioLowerVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call audio decrement 1\")") { locked = true; repeating = true; } ]; }
+          { _args = [ "CTRL + XF86AudioRaiseVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris increment 1\")") { locked = true; repeating = true; } ]; }
+          { _args = [ "CTRL + XF86AudioLowerVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris decrement 1\")") { locked = true; repeating = true; } ]; }
+          # Brightness controls (repeating, locked)
+          { _args = [ "XF86MonBrightnessUp" (lua "hl.dsp.exec_cmd(\"dms ipc call brightness increment 5 \\\"\\\"\")") { locked = true; repeating = true; } ]; }
+          { _args = [ "XF86MonBrightnessDown" (lua "hl.dsp.exec_cmd(\"dms ipc call brightness decrement 5 \\\"\\\"\")") { locked = true; repeating = true; } ]; }
+
+          # Audio/mpris toggles (locked)
+          { _args = [ "XF86AudioMute" (lua "hl.dsp.exec_cmd(\"dms ipc call audio mute\")") { locked = true; } ]; }
+          { _args = [ "XF86AudioMicMute" (lua "hl.dsp.exec_cmd(\"dms ipc call audio micmute\")") { locked = true; } ]; }
+          { _args = [ "XF86AudioPause" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris playPause\")") { locked = true; } ]; }
+          { _args = [ "XF86AudioPlay" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris playPause\")") { locked = true; } ]; }
+          { _args = [ "XF86AudioPrev" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris previous\")") { locked = true; } ]; }
+          { _args = [ "XF86AudioNext" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris next\")") { locked = true; } ]; }
         ];
-        bindl = [
-          # === Audio Controls ===
-          ", XF86AudioMute, exec, dms ipc call audio mute"
-          ", XF86AudioMicMute, exec, dms ipc call audio micmute"
-          ", XF86AudioPause, exec, dms ipc call mpris playPause"
-          ", XF86AudioPlay, exec, dms ipc call mpris playPause"
-          ", XF86AudioPrev, exec, dms ipc call mpris previous"
-          ", XF86AudioNext, exec, dms ipc call mpris next"
+        layer_rule = [
+          { match = { namespace = "^dms:.*"; }; no_anim = true; }
+          { match = { namespace = "^(quickshell)$"; }; no_anim = true; }
         ];
-        source = [
-          #"../../src/home-manager/dotfiles/hypr/hyprland.conf"
-          #"./dms/binds.conf"
-          #"./dms/colors.conf"
-          #"./dms/cursor.conf"
-          #"./dms/layout.conf"
-          #"./dms/outputs.conf"
-          #"./dms/windowrules.conf"
-        ];
-        layerrule = [
-          "no_anim on, match:namespace ^dms:.*"
-          "no_anim on, match:namespace ^(quickshell)$"
-        ];
-        windowrule = [
-          "float on, match:class ^(org.quickshell)$"
+        window_rule = [
+          { match = { class = "^(org.quickshell)$"; }; float = true; }
         ];
       };
     };

@@ -187,7 +187,7 @@ in
             after_sleep_cmd = "$HOME/.local/state/nix/profile/bin/hypridle-companion sleep after";                   # to avoid having to press a key twice to turn on the display.
           };
          listener = mkMerge [
-            (mkIf (role != "laptop") (mkAfter [
+            (mkIf (role == "laptop") (mkAfter [
               {
                 timeout = 15;
                 on-timeout = "$HOME/.local/state/nix/profile/bin/hypridle-companion keyboard light before";             # keyboard off when timeout has passed

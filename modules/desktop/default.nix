@@ -1,7 +1,6 @@
 {config, lib, pkgs, ...}:
 
 let
-  displayServer = config.host.home.feature.gui.displayServer.server ;
   cfg = config.host.home.feature.gui ;
 in
 with lib;

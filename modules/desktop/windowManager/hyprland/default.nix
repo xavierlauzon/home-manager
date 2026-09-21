@@ -2,29 +2,6 @@
 let
   displayServer = config.host.home.feature.gui.displayServer ;
   windowManager = config.host.home.feature.gui.windowManager ;
-
-  gameMode = pkgs.writeShellScriptBin "gamemode" ''
-    HYPRGAMEMODE=$(hyprctl getoption animations:enabled | awk 'NR==2{print $2}')
-    if [ "$HYPRGAMEMODE" = 1 ] ; then
-      hyprctl --batch "\
-          keyword animations:enabled 0;\
-          keyword decoration:blur 0;\
-          keyword general:gaps_in 0;\
-          keyword general:gaps_out 0;\
-          keyword general:border_size 1;\
-          keyword decoration:rounding 0"
-      exit
-    else
-      hyprctl --batch "\
-          keyword animations:enabled 1;\
-          keyword decoration:blur 1;\
-          keyword general:gaps_in 1;\
-          keyword general:gaps_out 1;\
-          keyword general:border_size 1;\
-          keyword decoration:rounding 1"
-    fi
-    hyprctl reload
-  '';
 in
 
 with lib;
@@ -41,13 +18,6 @@ with lib;
   ];
 
   config = mkIf (config.host.home.feature.gui.enable && displayServer == "wayland" && windowManager == "hyprland") {
-    home = {
-      packages = with pkgs;
-        [
-          gameMode
-        ];
-    };
-
     host = {
       home = {
         applications = {
@@ -59,7 +29,7 @@ with lib;
 
           hyprpicker.enable = mkDefault true;
 
-          hyprkeys.enable = mkDefault true;
+          hyprkeys.enable = mkDefault false;
           playerctl.enable = mkDefault true;
           satty.enable = mkDefault true;
 
@@ -71,7 +41,7 @@ with lib;
             service.enable = mkDefault false;
           };
           hyprpaper = {
-            enable = mkDefault true;
+            enable = mkDefault false;
             service.enable = mkDefault false;
           };
           hyprpolkitagent = {
@@ -83,7 +53,7 @@ with lib;
             service.enable = mkDefault false;
           };
           sway-notification-center = {
-            enable = mkDefault true;
+            enable = mkDefault false;
             service.enable = mkDefault false;
           };
           swayosd = {
@@ -104,24 +74,24 @@ with lib;
 
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "lua";
       package = pkgs.unstable.hyprland;
       portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
       settings = {
         env = mkIf (! config.host.home.feature.uwsm.enable) [
-          "XDG_CURRENT_DESKTOP,Hyprland"
-          "XDG_SESSION_TYPE,wayland"
-          "XDG_SESSION_DEKSTOP,Hyprland"
-          "QT_AUTO_SCREEN_SCALE_FACTOR,1"
-          "QT_QPA_PLATFORM,wayland;xcb"
-          "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-          "QT_QPA_PLATFORMTHEME,qt6ct"
-          "MOZ_ENABLE_WAYLAND,1"
-          "GDK_BACKEND,wayland,x11,*"
-          "SDL_VIDEODRIVER,wayland"
-          "CLUTTER_BACKEND,wayland"
-          "XDG_SESSION_TYPE,wayland"
-          "ELECTRON_OZONE_PLATFORM_HINT,auto"
-          "NIXOS_OZONE_WL,1"
+          { _args = [ "XDG_CURRENT_DESKTOP" "Hyprland" ]; }
+          { _args = [ "XDG_SESSION_TYPE" "wayland" ]; }
+          { _args = [ "XDG_SESSION_DEKSTOP" "Hyprland" ]; }
+          { _args = [ "QT_AUTO_SCREEN_SCALE_FACTOR" "1" ]; }
+          { _args = [ "QT_QPA_PLATFORM" "wayland;xcb" ]; }
+          { _args = [ "QT_WAYLAND_DISABLE_WINDOWDECORATION" "1" ]; }
+          { _args = [ "QT_QPA_PLATFORMTHEME" "qt6ct" ]; }
+          { _args = [ "MOZ_ENABLE_WAYLAND" "1" ]; }
+          { _args = [ "GDK_BACKEND" "wayland,x11,*" ]; }
+          { _args = [ "SDL_VIDEODRIVER" "wayland" ]; }
+          { _args = [ "CLUTTER_BACKEND" "wayland" ]; }
+          { _args = [ "ELECTRON_OZONE_PLATFORM_HINT" "auto" ]; }
+          { _args = [ "NIXOS_OZONE_WL" "1" ]; }
         ];
       };
       systemd.enable = mkDefault false;

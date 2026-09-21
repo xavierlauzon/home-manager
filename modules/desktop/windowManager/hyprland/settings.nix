@@ -8,12 +8,14 @@ with lib;
   config = mkIf (config.host.home.feature.gui.enable && displayServer == "wayland" && windowManager == "hyprland") {
     wayland.windowManager.hyprland = {
       settings = {
-        misc = {
-          disable_hyprland_logo = true;
-          disable_splash_rendering = true;
-          force_default_wallpaper = -3;
-          middle_click_paste = false;
-          on_focus_under_fullscreen = 2;
+        config = {
+          misc = {
+            disable_hyprland_logo = true;
+            disable_splash_rendering = true;
+            force_default_wallpaper = -3;
+            middle_click_paste = false;
+            on_focus_under_fullscreen = 2;
+          };
         };
       };
     };

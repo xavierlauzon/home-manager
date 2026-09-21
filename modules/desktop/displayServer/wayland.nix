@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  inherit (specialArgs) kioskUsername kioskURL;
   displayServer = config.host.home.feature.gui.displayServer ;
 in
 {
@@ -25,7 +24,7 @@ in
             enable = false;
             service.enable = false;
           };
-          wlogout.enable = true;
+          wlogout.enable = false;
           wlr-randr.enable = true;
         };
       };

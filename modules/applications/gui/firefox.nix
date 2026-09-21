@@ -374,13 +374,13 @@ in with lib; {
 
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
-        windowrule = [
+        window_rule = [
            ### Make Firefox PiP window floating and sticky
-           "float on, match:title ^(Picture-in-Picture)$"
-           "pin on, match:title ^(Picture-in-Picture)$"
+           { match = { title = "^(Picture-in-Picture)$"; }; float = true; }
+           { match = { title = "^(Picture-in-Picture)$"; }; pin = true; }
            ### Throw sharing indicators away
-           "workspace special silent, match:title ^(Firefox — Sharing Indicator)$"
-           "workspace special silent, match:title ^(.*is sharing (your screen|a window)\.)$"
+           { match = { title = "^(Firefox — Sharing Indicator)$"; }; workspace = "special"; }
+           { match = { title = "^(.*is sharing (your screen|a window)\\.)$"; }; workspace = "special"; }
          ];
       };
     };

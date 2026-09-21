@@ -2,6 +2,7 @@
 
 let
   cfg = config.host.home.applications.satty;
+  lua = lib.generators.mkLuaInline;
 in
   with lib;
 {
@@ -25,13 +26,12 @@ in
 
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
-        #"SUPER_SHIFT, S, exec, pkill satty || hyprshot -s -r -m region | satty  -f -"
         bind = [
-          "SUPER, Print, exec, ${config.host.home.feature.uwsm.prefix}pkill satty || ${config.host.home.feature.uwsm.prefix}grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${config.host.home.feature.uwsm.prefix}satty --disable-notifications -f -"
+          { _args = [ "SUPER + Print" (lua "hl.dsp.exec_cmd(\"pkill satty || grim -g \\\"$(${pkgs.slurp}/bin/slurp)\\\" - | satty --disable-notifications -f -\")") ]; }
         ];
-        windowrule = [
-          "float on, match:class ^(com.gabm.satty)$"
-          "pin on, match:class ^(com.gabm.satty)$"
+        window_rule = [
+          { match = { class = "^(com.gabm.satty)$"; }; float = true; }
+          { match = { class = "^(com.gabm.satty)$"; }; pin = true; }
         ];
       };
     };

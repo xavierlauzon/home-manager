@@ -2,6 +2,7 @@
 
 let
   cfg = config.host.home.applications.wlogout;
+  lua = lib.generators.mkLuaInline;
 in
   with lib;
 {
@@ -26,7 +27,7 @@ in
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
         bind = [
-          "SUPER_SHIFT, E, exec, pkill wlogout || ${config.host.home.feature.uwsm.prefix}wlogout"
+          { _args = [ "SUPER + SHIFT + E" (lua "hl.dsp.exec_cmd(\"pkill wlogout || wlogout\")") ]; }
         ];
       };
     };
