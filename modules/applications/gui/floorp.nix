@@ -11,6 +11,11 @@ in with lib; {
         type = with types; bool;
         description = "Web Browser";
       };
+      service.enable = mkOption {
+        default = true;
+        type = with types; bool;
+        description = "Auto start on user session start";
+      };
       defaultApplication = {
         enable = mkOption {
           description = "MIME default application configuration";
@@ -47,11 +52,23 @@ in with lib; {
         ];
     };
 
-    wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
-      settings = {
-        exec-once = [
-          "floorp"
-        ];
+    systemd.user.services.floorp = mkIf cfg.service.enable {
+      Unit = {
+        Description = "Floorp web browser";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+        ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
+      };
+
+      Service = {
+        Type = "exec";
+        ExecStart = "${pkgs.stable.floorp-bin}/bin/floorp";
+        Restart = "on-failure";
+        Slice = "app-graphical.slice";
+      };
+
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
       };
     };
 

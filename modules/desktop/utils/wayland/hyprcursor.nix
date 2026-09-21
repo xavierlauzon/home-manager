@@ -51,6 +51,25 @@ in
         };
     };
 
+    systemd.user.services.hyprcursor = {
+      Unit = {
+        Description = "Set Hyprland cursor theme";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+        ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.unstable.hyprland}/bin/hyprctl setcursor ${cursor} ${toString cursorSize}";
+        RemainAfterExit = true;
+      };
+
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+        };
+    };
+
     wayland.windowManager.hyprland = {
       settings = {
         env = mkIf (! config.host.home.feature.uwsm.enable) [

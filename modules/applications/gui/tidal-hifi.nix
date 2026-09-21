@@ -12,6 +12,11 @@ in
         type = with types; bool;
         description = "HiFi music streaming service";
       };
+      service.enable = mkOption {
+        default = true;
+        type = with types; bool;
+        description = "Auto start on user session start";
+      };
     };
   };
 
@@ -23,6 +28,23 @@ in
         ];
     };
 
+    systemd.user.services.tidal-hifi = mkIf cfg.service.enable {
+      Unit = {
+        Description = "Tidal HiFi player";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+        ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
+      };
+
+      Service = {
+        Type = "exec";
+        ExecStart = "${pkgs.unstable.tidal-hifi}/bin/tidal-hifi";
+        Restart = "on-failure";
+        Slice = "app-graphical.slice";
+      };
+
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
         exec-once = [

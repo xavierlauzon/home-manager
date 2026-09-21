@@ -33,6 +33,11 @@ in
         type = with types; bool;
         description = "Discord, VoIP & IM";
       };
+      service.enable = mkOption {
+        default = true;
+        type = with types; bool;
+        description = "Auto start on user session start";
+      };
     };
   };
 
@@ -47,11 +52,23 @@ in
         ];
     };
 
-    wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
-      settings = {
-        exec-once = [
-          "vesktop"
-        ];
+    systemd.user.services.vesktop = mkIf cfg.service.enable {
+      Unit = {
+        Description = "Discord client (Vesktop)";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+        ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
+      };
+
+      Service = {
+        Type = "exec";
+        ExecStart = "${pkgs.unstable.vesktop}/bin/vesktop";
+        Restart = "on-failure";
+        Slice = "app-graphical.slice";
+      };
+
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
       };
     };
   };
