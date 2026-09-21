@@ -160,7 +160,30 @@
             };
           };
 
+          "raptor.sam" = HomeConfiguration {
+            system = "aarch64-linux";
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "raptor";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
+
           "trident.${gn}" = HomeConfiguration {
+            system = "aarch64-linux";
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "trident";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
+          "trident.sam" = HomeConfiguration {
             system = "aarch64-linux";
             extraSpecialArgs = {
               org = "xl";
@@ -181,6 +204,16 @@
             };
           };
 
+          "falcon.sam" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "falcon";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
           "spectre.${gn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "xl";
@@ -191,31 +224,11 @@
             };
           };
 
-          "paveway.${gn}" = HomeConfiguration {
+          "spectre.sam" = HomeConfiguration {
             extraSpecialArgs = {
               org = "xl";
               role = "server";
-              hostname = "paveway";
-              username = gn;
-              inherit inputs outputs;
-            };
-          };
-
-          "hellfire.${gn}" = HomeConfiguration {
-            extraSpecialArgs = {
-              org = "xl";
-              role = "server";
-              hostname = "hellfire";
-              username = gn;
-              inherit inputs outputs;
-            };
-          };
-
-          "maverick.${gn}" = HomeConfiguration {
-            extraSpecialArgs = {
-              org = "xl";
-              role = "server";
-              hostname = "maverick";
+              hostname = "spectre";
               username = gn;
               inherit inputs outputs;
             };
@@ -225,11 +238,11 @@
           # ORG: SD #
           ###########
 
-          "newton.${gnsn}" = HomeConfiguration {
+          "bohr.${gnsn}" = HomeConfiguration {
             extraSpecialArgs = {
               org = "sd";
               role = "server";
-              hostname = "newton";
+              hostname = "bohr";
               username = gnsn;
               inherit inputs outputs;
             };
@@ -266,6 +279,39 @@
             };
           };
 
+          ###########
+          # ORG: LM #
+          ###########
+
+          "paveway.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "paveway";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
+          "hellfire.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "hellfire";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
+
+          "maverick.${gn}" = HomeConfiguration {
+            extraSpecialArgs = {
+              org = "xl";
+              role = "server";
+              hostname = "maverick";
+              username = gn;
+              inherit inputs outputs;
+            };
+          };
       };
 
       inherit home-manager-stable home-manager-unstable;
