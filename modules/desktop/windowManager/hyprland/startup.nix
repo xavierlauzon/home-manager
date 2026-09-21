@@ -22,6 +22,7 @@ with lib;
         After = [ "graphical-session.target" ];
         PartOf = [ "graphical-session.target" ];
         ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
+        X-SwitchMethod = "keep-old";
       };
 
       Service = {
