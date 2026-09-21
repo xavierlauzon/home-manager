@@ -13,7 +13,7 @@ with lib;
           # XDG-Portal-GTK File Picker annoyances
           { match = { title = "^(Open Files)$"; }; dim_around = true; }
           { match = { title = "^(Open Files)$"; }; float = true; }
-          { match = { title = "^(Open Files)$"; }; size = "1290x800"; }
+          { match = { title = "^(Open Files)$"; }; size = ["1290" "800"]; }
 
           # Generics
           { match = { class = "^(xdg-desktop-portal-hyprland)$"; }; float = true; }
@@ -41,10 +41,10 @@ with lib;
           { match = { title = "^(branchdialog)$"; }; float = true; }
 
           # Size
-          { match = { class = "^(download)$"; }; size = "800x600"; }
-          { match = { title = "^(Open File)$"; }; size = "800x600"; }
-          { match = { title = "^(Save File)$"; }; size = "800x600"; }
-          { match = { title = "^(Volume Control)$"; }; size = "800x600"; }
+          { match = { class = "^(download)$"; }; size = ["800" "600"]; }
+          { match = { title = "^(Open File)$"; }; size = ["800" "600"]; }
+          { match = { title = "^(Save File)$"; }; size = ["800" "600"]; }
+          { match = { title = "^(Volume Control)$"; }; size = ["800" "600"]; }
         ];
       };
     };

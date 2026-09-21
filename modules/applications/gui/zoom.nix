@@ -40,7 +40,7 @@ in
    wayland.windowManager.hyprland = {
       settings = {
         window_rule = [
-          { match = { title = "^Zoom - Licensed Account$"; class = "^(Zoom)$"; }; size = "360x690"; }
+          { match = { title = "^Zoom - Licensed Account$"; class = "^(Zoom)$"; }; size = ["360" "690"]; }
           { match = { title = "^Zoom - Licensed Account$"; }; float = true; }
           { match = { class = "^(Zoom)$"; }; no_anim = true; }
           { match = { class = "^(Zoom)$"; }; no_dim = true; }
@@ -49,12 +49,12 @@ in
           { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; decorate = false; }
           { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; no_shadow = true; }
           { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; no_blur = true; }
-          { match = { title = "^(Zoom Workplace.*)$"; class = "^(Zoom Workplace)$"; }; min_size = "1x1"; }
-          { match = { title = "^(menu window)$"; class = "^(Zoom Workplace)$"; }; min_size = "1x1"; }
-          { match = { title = "^(meeting bottombar popup)$"; class = "^(Zoom Workplace)$"; }; min_size = "1x1"; }
-          { match = { title = "^(Zoom Workplace.*)$"; class = "^(zoom)$"; }; min_size = "1x1"; }
-          { match = { title = "^(menu window)$"; class = "^(zoom)$"; }; min_size = "1x1"; }
-          { match = { title = "^(meeting bottombar popup)$"; class = "^(zoom)$"; }; min_size = "1x1"; }
+          { match = { title = "^(Zoom Workplace.*)$"; class = "^(Zoom Workplace)$"; }; min_size = ["1" "1"]; }
+          { match = { title = "^(menu window)$"; class = "^(Zoom Workplace)$"; }; min_size = ["1" "1"]; }
+          { match = { title = "^(meeting bottombar popup)$"; class = "^(Zoom Workplace)$"; }; min_size = ["1" "1"]; }
+          { match = { title = "^(Zoom Workplace.*)$"; class = "^(zoom)$"; }; min_size = ["1" "1"]; }
+          { match = { title = "^(menu window)$"; class = "^(zoom)$"; }; min_size = ["1" "1"]; }
+          { match = { title = "^(meeting bottombar popup)$"; class = "^(zoom)$"; }; min_size = ["1" "1"]; }
           { match = { title = "^(Zoom Workplace)$"; class = "^(zoom)$"; }; move = "onscreen cursor"; }
           { match = { title = "^(menu window)$"; class = "^(zoom)$"; }; move = "onscreen cursor"; }
           { match = { title = "^(meeting bottombar popup)$"; class = "^(zoom)$"; }; move = "onscreen cursor"; }

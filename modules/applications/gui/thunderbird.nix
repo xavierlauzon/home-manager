@@ -37,7 +37,7 @@ in
           { match = { class = "^(thunderbird)$"; title = "^(.*)(Reminder)(.*)$"; }; float = true; }
           { match = { class = "^(thunderbird)$"; title = "^About(.*)$"; }; float = true; }
           { match = { class = "^(thunderbird)$"; title = "^(Check Spelling)$"; }; float = true; }
-          { match = { class = "^(thunderbird)$"; title = "^(Check Spelling)$"; }; size = "525x335"; }
+          { match = { class = "^(thunderbird)$"; title = "^(Check Spelling)$"; }; size = ["525" "335"]; }
         ];
       };
     };

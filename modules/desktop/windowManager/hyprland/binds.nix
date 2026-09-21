@@ -80,11 +80,6 @@ with lib;
           { _args = [ "SUPER + mouse_down" (lua "hl.dsp.focus({ workspace = \"e+1\" })") ]; }
           { _args = [ "SUPER + mouse_up" (lua "hl.dsp.focus({ workspace = \"e-1\" })") ]; }
 
-          # PTT
-          #{ _args = [ "F24" (lua "hl.dsp.pass({ window = \"class:^(com\\\\.github\\\\.Vencord\\\\.Vesktop)$\" })") ]; }
-          #{ _args = [ "F24" (lua "hl.dsp.pass({ window = \"class:^Vesktop\" })") ]; }
-          { _args = [ "F24" (lua "hl.dsp.send_shortcut({ key = \"F24\", window = \"class:^vesktop\" })") ]; }
-
           # Repeating resize (binde)
           { _args = [ "SUPER + CTRL + left" (lua "hl.dsp.window.resize({ x = -20, y = 0 })") { repeating = true; } ]; }
           { _args = [ "SUPER + CTRL + right" (lua "hl.dsp.window.resize({ x = 20, y = 0 })") { repeating = true; } ]; }
