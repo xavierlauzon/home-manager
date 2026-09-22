@@ -166,7 +166,7 @@
               org = "xl";
               role = "server";
               hostname = "raptor";
-              username = gn;
+              username = "sam";
               inherit inputs outputs;
             };
           };
@@ -189,7 +189,7 @@
               org = "xl";
               role = "server";
               hostname = "trident";
-              username = gn;
+              username = "sam";
               inherit inputs outputs;
             };
           };
@@ -209,7 +209,7 @@
               org = "xl";
               role = "server";
               hostname = "falcon";
-              username = gn;
+              username = "sam";
               inherit inputs outputs;
             };
           };
@@ -229,7 +229,7 @@
               org = "xl";
               role = "server";
               hostname = "spectre";
-              username = gn;
+              username = "sam";
               inherit inputs outputs;
             };
           };
