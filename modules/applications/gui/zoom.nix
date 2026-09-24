@@ -46,9 +46,7 @@ in
           { match = { class = "^(Zoom)$"; }; no_dim = true; }
           { match = { class = "^(Zoom)$"; }; no_blur = true; }
           { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; float = true; }
-          { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; decorate = false; }
-          { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; no_shadow = true; }
-          { match = { title = "^as_toolbar$"; class = "^(Zoom)$"; }; no_blur = true; }
+          { match = { title = "^annotate_toolbar$"; class = "^(Zoom)$"; }; float = true; }
           { match = { title = "^(Zoom Workplace.*)$"; class = "^(Zoom Workplace)$"; }; min_size = ["1" "1"]; }
           { match = { title = "^(menu window)$"; class = "^(Zoom Workplace)$"; }; min_size = ["1" "1"]; }
           { match = { title = "^(meeting bottombar popup)$"; class = "^(Zoom Workplace)$"; }; min_size = ["1" "1"]; }
