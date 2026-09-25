@@ -50,6 +50,7 @@ in
       ssh = {
         enable = mkDefault true;
         settings."*.${s}${_p}${_a}${m}${t}${r}${a_}${p_}" = {
+          User = "sam";
           IdentityFile = config.sops.secrets."ssh/xl-id_ed25519".path;
         };
       };

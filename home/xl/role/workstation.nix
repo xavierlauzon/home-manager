@@ -40,6 +40,7 @@ with lib;
         gparted.enable = mkDefault true;
         kitty.enable = mkDefault true;
         kubernetes.enable = mkDefault true;
+        komodo.enable = mkDefault true;
         lazygit.enable = mkDefault true;
         libreoffice.enable = mkDefault true;
         master-pdf-editor.enable = mkDefault true;

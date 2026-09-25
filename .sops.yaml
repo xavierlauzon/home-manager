@@ -1,19 +1,33 @@
 keys:
   - &user_xavier age1c68qgdn67fm244dzevutpz7kxy0g7dds2kdd5pcmxguv9yfyvqsqvj5h8y
-  - &host_xavierdesktop age19lhdxrj9uzzg5gd4l73vsnud9m7wadm7t936cxhkfrlkh8d9dpgq6s8jju
+  - &host_xavierdesktop age1ca3msprfg6cesmg05q5hpak2tazhelv47etz76mkmh9yssatlyuq6uwnwu
+  - &host_blackhawk age1kvu5jrrveq6f4j8df2auh532sxd6u7nj7xeajd4ljfl63990k4qs9gz8eu
+  - &user_sam age1c4e9fn93e6umkr6kh6ec208gjjeple4gdevghlrfxjtzu73phdwsh4a9aq
 creation_rules:
   - path_regex: home/*/secrets/.*
     key_groups:
     - age:
       - *user_xavier
+      - *user_sam
       - *host_xavierdesktop
+      - *host_blackhawk
   - path_regex: home/xl/user/xavier/secrets/.*
     key_groups:
     - age:
       - *user_xavier
+      - *user_sam
+      - *host_xavierdesktop
+      - *host_blackhawk
+  - path_regex: home/xl/user/sam/secrets/.*
+    key_groups:
+    - age:
+      - *user_xavier
+      - *user_sam
+      - *host_blackhawk
       - *host_xavierdesktop
   - path_regex: home/sd/user/xavierlauzon/secrets/.*
     key_groups:
     - age:
       - *user_xavier
+      - *user_sam
       - *host_xavierdesktop

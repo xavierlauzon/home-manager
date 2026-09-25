@@ -3,6 +3,7 @@
 with lib;
 {
   imports = [
+    ./komodo
     ./ssh
   ];
 }

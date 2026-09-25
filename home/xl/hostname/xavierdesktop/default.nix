@@ -14,6 +14,7 @@ with lib;
 #            github = {
 #              xl.enable = false;
 #            };
+            komodo.enable = true;
             ssh = {
               sd.enable = true;
               xl.enable = true;
