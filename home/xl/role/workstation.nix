@@ -72,7 +72,7 @@ with lib;
           defaultApplication.enable = mkDefault true;
         };
         prismlauncher.enable = mkDefault true;
-        obsidian.enable = mkDefault true;
+        obsidian.enable = mkDefault false;
         opencode.enable = mkDefault true;
         satisfactorymodmanager.enable = mkDefault true;
         tidal-hifi.enable = mkDefault true;
