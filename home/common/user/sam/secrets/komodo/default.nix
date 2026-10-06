@@ -12,6 +12,13 @@ in
         type = with types; bool;
         description = "Deploy encrypted Komodo CLI (km) config";
       };
+      mcpEnv = {
+        enable = mkOption {
+          default = false;
+          type = with types; bool;
+          description = "Deploy encrypted Komodo MCP credentials env file";
+        };
+      };
     };
   };
 
@@ -24,5 +31,14 @@ in
         mode = "600";
       };
     };
-  };
+  } // (mkIf cfg.mcpEnv.enable {
+    sops.secrets = {
+      "komodo/mcp.env" = {
+        format = "dotenv";
+        sopsFile = ../../../../../xl/user/sam/secrets/komodo/mcp.env.enc;
+        path = config.home.homeDirectory+"/.config/komodo/mcp.env";
+        mode = "600";
+      };
+    };
+  });
 }
