@@ -36,6 +36,11 @@ in
         kitty.enable = true;
         floorp.enable = true;
         anki.enable = false;
+        # OpenCode v2 uses cli.json for TUI config; the catppuccin module only
+        # writes the legacy V1 tui.json. Theme is set in cli.json instead, and
+        # disabling this avoids a stale tui.json that blocks herdr's V2
+        # opencode integration registration.
+        opencode.enable = false;
       };
     })
     (mkIf (!cfg.enable) {

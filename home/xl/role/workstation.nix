@@ -85,6 +85,7 @@ with lib;
           defaultApplication.enable = mkDefault true;
         };
         ferdium.enable = mkDefault true;
+        herdr.enable = mkDefault true;
 
       };
       feature = {

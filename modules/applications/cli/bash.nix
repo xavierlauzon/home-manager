@@ -13,6 +13,7 @@ let
     scstop = "systemctl stop $@"; # systemd service stop
     scenable = "systemctl enable $@"; # systemd service enable
     scdisable = "systemctl disable $@"; # systemd service disable
+    opencode = "opencode2"; # OpenCode v2 binary is named opencode2
   };
 in
   with lib;
