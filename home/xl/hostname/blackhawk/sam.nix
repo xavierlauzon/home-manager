@@ -6,8 +6,13 @@ with lib;
       user = {
         sam = {
           secrets = {
+            komodo = {
+              mcpEnv.enable = true;
+            };
             ssh = {
               xl.enable = true;
+              sampc.enable = true;
+              lumae.enable = true;
             };
           };
         };
