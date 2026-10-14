@@ -119,11 +119,15 @@ with lib;
       min_log_level = 2
       origin_web_ui_allowed = lan
       upnp = disabled
-      lan_encryption_mode = 0
+      lan_encryption_mode = 1
       port = 47989
     '' + (lib.concatStrings (lib.mapAttrsToList (k: v: "${k} = ${v}\n") cfg.settings));
 
     xdg.configFile."sunshine/apps.json".text = builtins.toJSON {
+      # "env" is REQUIRED by Sunshine's GameStream /applist parser (Boost
+      # ptree throws "No such node (env)" if absent -> client sees empty list
+      # while the web UI still shows apps). Must come before "apps".
+      env = { };
       apps = [
         {
           name = "Second Monitor";
