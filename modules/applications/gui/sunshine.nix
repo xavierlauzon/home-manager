@@ -77,9 +77,13 @@ with lib;
           description = "Name of the headless output";
         };
         mode = mkOption {
-          default = "2560x1440@120";
+          default = "2560x1600@165";
           type = with types; str;
-          description = "Default virtual display mode (WIDTHxHEIGHT@REFRESH). 2x the target stream FPS gives clean frame pacing.";
+          description = ''
+            Default virtual display mode (WIDTHxHEIGHT@REFRESH). Should match
+            the Moonlight client's native panel (thebehemoth = 2560x1600@165)
+            so the stream fills the screen without letterbox bars.
+          '';
         };
         position = mkOption {
           default = "auto-right";
