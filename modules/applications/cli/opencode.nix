@@ -77,6 +77,16 @@ in
             KOMODO_URL = "https://k.lauzon.xyz";
           };
         };
+        # Playwright browser automation (headless Chromium, system binary).
+        # Browser options live in ~/.config/opencode/playwright-mcp.json.
+        playwright = {
+          command = "${pkgs.nodejs_22}/bin/node";
+          args = [
+            "/home/sam/.npm-global/lib/node_modules/@playwright/mcp/cli.js"
+            "--config"
+            "/home/sam/.config/opencode/playwright-mcp.json"
+          ];
+        };
       };
     };
 
