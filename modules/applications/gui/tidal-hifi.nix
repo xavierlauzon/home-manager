@@ -2,6 +2,16 @@
 
 let
   cfg = config.host.home.applications.tidal-hifi;
+  pkg = pkgs.unstable.tidal-hifi;
+
+  # tidal-hifi <= 8.1.3 appends `no-sandbox`/`disable-seccomp-filter-sandbox`
+  # from config.json at runtime, AFTER Electron has started its Linux zygote.
+  # Child processes then inherit a broken sandbox state and the renderer
+  # FATAL-crashes trying to allocate shared memory in /dev/shm (ESRCH),
+  # leaving a blank window that never renders. Passing the flag on the real
+  # command line avoids the sandboxed zygote entirely.
+  # See https://github.com/Mastermindzh/tidal-hifi/pull/1007
+  tidalExec = "${pkg}/bin/tidal-hifi --no-sandbox";
 in
   with lib;
 {
