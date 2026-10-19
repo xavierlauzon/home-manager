@@ -3,14 +3,10 @@
 let
   inherit (specialArgs) username;
   cfg = config.host.home.user.xavier.secrets.ssh.sd;
-  s = "se";
-  _p = "lf";
-  _a = "de";
-  m = "si";
-  t = "gn";
-  r = ".";
-  a_ = "o";
-  p_ = "rg";
+  # spamtrap: domain reassembled from fragments so crawlers don't index it.
+  mk = lib.concatStrings;
+  se = "se"; lf = "lf"; de = "de"; si = "si"; gn = "gn"; dot = "."; o = "o"; rg = "rg";
+  domain = mk [ se lf de si gn dot o rg ];  # selfdesign.org
 in
   with lib;
 {
@@ -49,7 +45,7 @@ in
     programs = {
       ssh = {
         enable = mkDefault true;
-        settings."*.${s}${_p}${_a}${m}${t}${r}${a_}${p_}" = {
+        settings."*.${domain}" = {
           User = "xavierlauzon";
           IdentityFile = config.sops.secrets."ssh/sd-id_ed25519".path;
         };

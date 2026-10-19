@@ -2,19 +2,6 @@
 
 let
   cfg = config.host.home.applications.opencode;
-
-  # Wrapper that injects the sops-decrypted Komodo MCP credentials from
-  # ~/.config/komodo/mcp.env into the process environment before launching
-  # the Komodo MCP server. On hosts without the secret the server still
-  # starts (credentials simply stay unset).
-  komodoMcpWrapper = pkgs.writeShellScriptBin "komodo-mcp-server" ''
-    if [ -f "$HOME/.config/komodo/mcp.env" ]; then
-      set -a
-      . "$HOME/.config/komodo/mcp.env"
-      set +a
-    fi
-    exec ${pkgs.komodo-mcp-server}/bin/komodo-mcp-server "$@"
-  '';
 in
   with lib;
 {
@@ -25,13 +12,32 @@ in
         type = types.bool;
         description = "AI coding agent";
       };
+
+      model = mkOption {
+        default = "ai-lauzon-xyz/deepseek-v4-flash";
+        type = types.str;
+        description = "Default model for OpenCode.";
+      };
+
+      # MCP servers that are self-contained/portable (no machine-specific
+      # paths). Each can be toggled on/off per user so hosts can pick and
+      # choose. Machine-specific servers (e.g. a locally-built Komodo) should
+      # live in the host/user config that owns them instead of here.
+      mcp = {
+        firecrawl = {
+          enable = mkOption {
+            default = true;
+            type = types.bool;
+            description = "Enable the Firecrawl MCP server.";
+          };
+        };
+      };
     };
   };
 
   config = mkIf cfg.enable {
     home.packages = [
       inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode-desktop
-      komodoMcpWrapper
     ];
 
     programs.opencode = {
@@ -45,7 +51,7 @@ in
         nodejs_22
       ];
       settings = {
-        model = "ai-lauzon-xyz/deepseek-v4-flash";
+        model = cfg.model;
         tools = {
           websearch = false;
           webfetch = false;
@@ -61,33 +67,17 @@ in
 
     programs.mcp = {
       enable = true;
-      servers = {
-        firecrawl = {
-          command = "${pkgs.firecrawl-mcp}/bin/firecrawl-mcp";
-          env = {
-            FIRECRAWL_API_URL = "https://crawl.lauzon.xyz";
-            FIRECRAWL_NO_SEARCH_FEEDBACK = "1";
-            FIRECRAWL_NO_ENDPOINT_FEEDBACK = "1";
+      servers = {}
+        // optionalAttrs cfg.mcp.firecrawl.enable {
+          firecrawl = {
+            command = "${pkgs.firecrawl-mcp}/bin/firecrawl-mcp";
+            env = {
+              FIRECRAWL_API_URL = "https://crawl.lauzon.xyz";
+              FIRECRAWL_NO_SEARCH_FEEDBACK = "1";
+              FIRECRAWL_NO_ENDPOINT_FEEDBACK = "1";
+            };
           };
         };
-        komodo = {
-          command = "${komodoMcpWrapper}/bin/komodo-mcp-server";
-          env = {
-            MCP_TRANSPORT = "stdio";
-            KOMODO_URL = "https://k.lauzon.xyz";
-          };
-        };
-        # Playwright browser automation (headless Chromium, system binary).
-        # Browser options live in ~/.config/opencode/playwright-mcp.json.
-        playwright = {
-          command = "${pkgs.nodejs_22}/bin/node";
-          args = [
-            "/home/sam/.npm-global/lib/node_modules/@playwright/mcp/cli.js"
-            "--config"
-            "/home/sam/.config/opencode/playwright-mcp.json"
-          ];
-        };
-      };
     };
 
     xdg.configFile = {

@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{config, lib, pkgs, specialArgs, ...}:
 
 let
   cfg = config.host.home.applications.sunshine;
@@ -53,6 +53,14 @@ with lib;
         default = false;
         type = with types; bool;
         description = "Sunshine self-hosted game stream server (host)";
+      };
+
+      # `sunshine_name` in sunshine.conf — the host name shown in the Moonlight
+      # client. Defaults to the host's hostname so it's not hardcoded per host.
+      name = mkOption {
+        default = specialArgs.hostname or "sunshine";
+        type = with types; str;
+        description = "sunshine_name used in sunshine.conf (shown in the Moonlight client)";
       };
 
       service = {
@@ -115,7 +123,7 @@ with lib;
 
     # Declarative config — the web UI becomes read-only, which is what we want.
     xdg.configFile."sunshine/sunshine.conf".text = ''
-      sunshine_name = blackhawk
+      sunshine_name = ${cfg.name}
       capture = wlr
       output_name = ${vd.name}
       encoder = vaapi

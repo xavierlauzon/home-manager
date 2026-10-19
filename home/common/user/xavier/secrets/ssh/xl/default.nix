@@ -3,14 +3,10 @@
 let
   inherit (specialArgs) username;
   cfg = config.host.home.user.xavier.secrets.ssh.xl;
-  s = "l";
-  _p = "a";
-  _a = "u";
-  m = "z";
-  t = "o";
-  r = "n";
-  a_ = ".";
-  p_ = "xyz";
+  # spamtrap: domain reassembled from fragments so crawlers don't index it.
+  mk = lib.concatStrings;
+  l = "l"; a = "a"; u = "u"; z = "z"; o = "o"; n = "n"; dot = "."; x = "x"; y = "y";
+  domain = mk [ l a u z o n dot x y z ];  # lauzon.xyz
 in
   with lib;
 {
@@ -49,7 +45,7 @@ in
     programs = {
       ssh = {
         enable = mkDefault true;
-        settings."*.${s}${_p}${_a}${m}${t}${r}${a_}${p_}" = {
+        settings."*.${domain}" = {
           User = "xavier";
           IdentityFile = config.sops.secrets."ssh/xl-id_ed25519".path;
         };
