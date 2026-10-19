@@ -62,6 +62,51 @@ in
         plugin = [
           "oh-my-opencode-slim"
         ];
+        # Provider/model catalog for the Lauzon AI gateway. Capabilities gate
+        # what media types each model may receive: qwen3.8-flash-next and
+        # deepseek-v4-flash are both multimodal (text + image).
+        provider = {
+          "ai-lauzon-xyz" = {
+            name = "Lauzon AI";
+            npm = "@ai-sdk/openai-compatible";
+            options = {
+              baseURL = "https://ai.lauzon.xyz/api";
+              timeout = 12000000;
+            };
+            models = {
+              "deepseek-v4-flash" = {
+                name = "Deepseek V4 Flash Local";
+                capabilities = {
+                  tools = true;
+                  input = [ "text" "image" ];
+                  output = [ "text" ];
+                };
+                limit = {
+                  context = 1000000;
+                  output = 384000;
+                };
+              };
+              "qwen3.6-27b" = {
+                name = "Qwen 3.6 27B";
+              };
+              "qwen3.6-35b" = {
+                name = "Qwen 3.6 35B";
+              };
+              "qwen3.8-flash-next" = {
+                name = "Qwen 3.8 Flash Next";
+                capabilities = {
+                  tools = true;
+                  input = [ "text" "image" ];
+                  output = [ "text" ];
+                };
+                limit = {
+                  context = 1000000;
+                  output = 384000;
+                };
+              };
+            };
+          };
+        };
       };
     };
 
