@@ -107,22 +107,22 @@ with lib;
       settings = {
         # === Application Launchers ===
         bind = [
-          { _args = [ "SUPER + D" (lua "hl.dsp.exec_cmd(\"dms ipc call spotlight toggle\")") ]; }
-          { _args = [ "SUPER + SHIFT + V" (lua "hl.dsp.exec_cmd(\"dms ipc call clipboard toggle\")") ]; }
+          { _args = [ "SUPER + D" (lua "hl.dsp.exec_cmd(\"dms ipc call spotlight toggle\")") (lua "{ description = \"Spotlight\" }") ]; }
+          { _args = [ "SUPER + SHIFT + V" (lua "hl.dsp.exec_cmd(\"dms ipc call clipboard toggle\")") (lua "{ description = \"Clipboard\" }") ]; }
           #{ _args = [ "SUPER + M" (lua "hl.dsp.exec_cmd(\"dms ipc call processlist focusOrToggle\")") ]; }
-          { _args = [ "SUPER + comma" (lua "hl.dsp.exec_cmd(\"dms ipc call settings focusOrToggle\")") ]; }
-          { _args = [ "SUPER + N" (lua "hl.dsp.exec_cmd(\"dms ipc call notifications toggle\")") ]; }
-          { _args = [ "SUPER + SHIFT + N" (lua "hl.dsp.exec_cmd(\"dms ipc call notepad toggle\")") ]; }
+          { _args = [ "SUPER + comma" (lua "hl.dsp.exec_cmd(\"dms ipc call settings focusOrToggle\")") (lua "{ description = \"Settings\" }") ]; }
+          { _args = [ "SUPER + N" (lua "hl.dsp.exec_cmd(\"dms ipc call notifications toggle\")") (lua "{ description = \"Notifications\" }") ]; }
+          { _args = [ "SUPER + SHIFT + N" (lua "hl.dsp.exec_cmd(\"dms ipc call notepad toggle\")") (lua "{ description = \"Notepad\" }") ]; }
           #{ _args = [ "SUPER + Y" (lua "hl.dsp.exec_cmd(\"dms ipc call dankdash wallpaper\")") ]; }
-          { _args = [ "SUPER + TAB" (lua "hl.dsp.exec_cmd(\"dms ipc call hypr toggleOverview\")") ]; }
-          { _args = [ "SUPER + P" (lua "hl.dsp.exec_cmd(\"dms ipc call powermenu toggle\")") ]; }
+          { _args = [ "SUPER + TAB" (lua "hl.dsp.exec_cmd(\"dms ipc call hypr toggleOverview\")") (lua "{ description = \"Overview\" }") ]; }
+          { _args = [ "SUPER + P" (lua "hl.dsp.exec_cmd(\"dms ipc call powermenu toggle\")") (lua "{ description = \"Power Menu\" }") ]; }
           # === Cheat sheet ===
-          { _args = [ "SUPER + SHIFT + Slash" (lua "hl.dsp.exec_cmd(\"dms ipc call keybinds toggle hyprland\")") ]; }
+          { _args = [ "SUPER + SHIFT + Slash" (lua "hl.dsp.exec_cmd(\"dms ipc call keybinds toggle hyprland\")") (lua "{ description = \"Keybinds\" }") ]; }
           # === Security ===
-          { _args = [ "SUPER + SHIFT + X" (lua "hl.dsp.exec_cmd(\"dms ipc call lock lock\")") ]; }
-          { _args = [ "CTRL + ALT + Delete" (lua "hl.dsp.exec_cmd(\"dms ipc call processlist focusOrToggle\")") ]; }
+          { _args = [ "SUPER + SHIFT + X" (lua "hl.dsp.exec_cmd(\"dms ipc call lock lock\")") (lua "{ description = \"Lock Screen\" }") ]; }
+          { _args = [ "CTRL + ALT + Delete" (lua "hl.dsp.exec_cmd(\"dms ipc call processlist focusOrToggle\")") (lua "{ description = \"Process List\" }") ]; }
 
-          { _args = [ "SUPER + SHIFT + W" (lua "hl.dsp.exec_cmd(\"systemctl --user restart dms.service\")") ]; }
+          { _args = [ "SUPER + SHIFT + W" (lua "hl.dsp.exec_cmd(\"systemctl --user restart dms.service\")") (lua "{ description = \"Restart DMS\" }") ]; }
 
           # === Screenshots ===
           #{ _args = [ "Print" (lua "hl.dsp.exec_cmd(\"dms screenshot\")") ]; }
@@ -132,21 +132,21 @@ with lib;
           #{ _args = [ "SUPER + SHIFT + S" (lua "hl.dsp.exec_cmd(\"dms screenshot --no-file --reset\")") ]; }
 
           # Audio controls (repeating, locked)
-          { _args = [ "XF86AudioRaiseVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call audio increment 1\")") { locked = true; repeating = true; } ]; }
-          { _args = [ "XF86AudioLowerVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call audio decrement 1\")") { locked = true; repeating = true; } ]; }
-          { _args = [ "CTRL + XF86AudioRaiseVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris increment 1\")") { locked = true; repeating = true; } ]; }
-          { _args = [ "CTRL + XF86AudioLowerVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris decrement 1\")") { locked = true; repeating = true; } ]; }
+          { _args = [ "XF86AudioRaiseVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call audio increment 1\")") (lua "{ locked = true, repeating = true, description = \"Volume Up\" }") ]; }
+          { _args = [ "XF86AudioLowerVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call audio decrement 1\")") (lua "{ locked = true, repeating = true, description = \"Volume Down\" }") ]; }
+          { _args = [ "CTRL + XF86AudioRaiseVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris increment 1\")") (lua "{ locked = true, repeating = true, description = \"Player Volume Up\" }") ]; }
+          { _args = [ "CTRL + XF86AudioLowerVolume" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris decrement 1\")") (lua "{ locked = true, repeating = true, description = \"Player Volume Down\" }") ]; }
           # Brightness controls (repeating, locked)
-          { _args = [ "XF86MonBrightnessUp" (lua "hl.dsp.exec_cmd(\"dms ipc call brightness increment 5 \\\"\\\"\")") { locked = true; repeating = true; } ]; }
-          { _args = [ "XF86MonBrightnessDown" (lua "hl.dsp.exec_cmd(\"dms ipc call brightness decrement 5 \\\"\\\"\")") { locked = true; repeating = true; } ]; }
+          { _args = [ "XF86MonBrightnessUp" (lua "hl.dsp.exec_cmd(\"dms ipc call brightness increment 5 \\\"\\\"\")") (lua "{ locked = true, repeating = true, description = \"Brightness Up\" }") ]; }
+          { _args = [ "XF86MonBrightnessDown" (lua "hl.dsp.exec_cmd(\"dms ipc call brightness decrement 5 \\\"\\\"\")") (lua "{ locked = true, repeating = true, description = \"Brightness Down\" }") ]; }
 
           # Audio/mpris toggles (locked)
-          { _args = [ "XF86AudioMute" (lua "hl.dsp.exec_cmd(\"dms ipc call audio mute\")") { locked = true; } ]; }
-          { _args = [ "XF86AudioMicMute" (lua "hl.dsp.exec_cmd(\"dms ipc call audio micmute\")") { locked = true; } ]; }
-          { _args = [ "XF86AudioPause" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris playPause\")") { locked = true; } ]; }
-          { _args = [ "XF86AudioPlay" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris playPause\")") { locked = true; } ]; }
-          { _args = [ "XF86AudioPrev" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris previous\")") { locked = true; } ]; }
-          { _args = [ "XF86AudioNext" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris next\")") { locked = true; } ]; }
+          { _args = [ "XF86AudioMute" (lua "hl.dsp.exec_cmd(\"dms ipc call audio mute\")") (lua "{ locked = true, description = \"Mute\" }") ]; }
+          { _args = [ "XF86AudioMicMute" (lua "hl.dsp.exec_cmd(\"dms ipc call audio micmute\")") (lua "{ locked = true, description = \"Mic Mute\" }") ]; }
+          { _args = [ "XF86AudioPause" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris playPause\")") (lua "{ locked = true, description = \"Play/Pause\" }") ]; }
+          { _args = [ "XF86AudioPlay" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris playPause\")") (lua "{ locked = true, description = \"Play/Pause\" }") ]; }
+          { _args = [ "XF86AudioPrev" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris previous\")") (lua "{ locked = true, description = \"Previous Track\" }") ]; }
+          { _args = [ "XF86AudioNext" (lua "hl.dsp.exec_cmd(\"dms ipc call mpris next\")") (lua "{ locked = true, description = \"Next Track\" }") ]; }
         ];
         layer_rule = [
           { match = { namespace = "^dms:.*"; }; no_anim = true; }

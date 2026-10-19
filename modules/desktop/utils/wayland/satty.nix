@@ -27,7 +27,7 @@ in
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
         bind = [
-          { _args = [ "SUPER + Print" (lua "hl.dsp.exec_cmd(\"pkill satty || grim -g \\\"$(${pkgs.slurp}/bin/slurp)\\\" - | satty --disable-notifications -f -\")") ]; }
+          { _args = [ "SUPER + Print" (lua "hl.dsp.exec_cmd(\"pkill satty || grim -g \\\"$(${pkgs.slurp}/bin/slurp)\\\" - | satty --disable-notifications -f -\")") (lua "{ description = \"Screenshot & Annotate\" }") ]; }
         ];
         window_rule = [
           { match = { class = "^(com.gabm.satty)$"; }; float = true; }

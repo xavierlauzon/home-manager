@@ -27,7 +27,7 @@ in
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
         bind = [
-          { _args = [ "SUPER + SHIFT + E" (lua "hl.dsp.exec_cmd(\"pkill wlogout || wlogout\")") ]; }
+          { _args = [ "SUPER + SHIFT + E" (lua "hl.dsp.exec_cmd(\"pkill wlogout || wlogout\")") (lua "{ description = \"Logout Menu\" }") ]; }
         ];
       };
     };

@@ -114,7 +114,7 @@ in
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
         bind = [
-          { _args = [ "SUPER + SHIFT + X" (lua "hl.dsp.exec_cmd(\"hyprlock\")") ]; }
+          { _args = [ "SUPER + SHIFT + X" (lua "hl.dsp.exec_cmd(\"hyprlock\")") (lua "{ description = \"Lock Screen\" }") ]; }
         ];
       };
     };

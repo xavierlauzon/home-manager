@@ -49,10 +49,10 @@ in
     wayland.windowManager.hyprland = mkIf (config.host.home.feature.gui.displayServer == "wayland" && config.host.home.feature.gui.windowManager == "hyprland" && config.host.home.feature.gui.enable) {
       settings = {
         bind = [
-          { _args = [ "SUPER + R" (lua "hl.dsp.exec_cmd(\"pkill rofi || ${config.programs.rofi.package}/bin/rofi -show run -config '~/.config/rofi/styles/style.rasi' -run-shell-command '${pkgs.kitty}/bin/kitty' \")") ]; }
-          { _args = [ "SUPER + D" (lua "hl.dsp.exec_cmd(\"pkill rofi || ${config.programs.rofi.package}/bin/rofi -show drun -config '~/.config/rofi/styles/style.rasi'\")") ]; }
+          { _args = [ "SUPER + R" (lua "hl.dsp.exec_cmd(\"pkill rofi || ${config.programs.rofi.package}/bin/rofi -show run -config '~/.config/rofi/styles/style.rasi' -run-shell-command '${pkgs.kitty}/bin/kitty' \")") (lua "{ description = \"Run Command\" }") ]; }
+          { _args = [ "SUPER + D" (lua "hl.dsp.exec_cmd(\"pkill rofi || ${config.programs.rofi.package}/bin/rofi -show drun -config '~/.config/rofi/styles/style.rasi'\")") (lua "{ description = \"App Launcher\" }") ]; }
           #{ _args = [ "SUPER + D" (lua "hl.dsp.exec_cmd(\"pkill rofi || ${config.programs.rofi.package}/bin/rofi -combi-modi window,drun,ssh,run -show combi -show-icons\")") ]; }
-          { _args = [ "SUPER + SHIFT + V" (lua "hl.dsp.exec_cmd(\"${pkgs.cliphist}/bin/cliphist list | ${config.programs.rofi.package}/bin/rofi -dmenu | ${pkgs.cliphist}/bin/cliphist decode | wl-copy\")") ]; }
+          { _args = [ "SUPER + SHIFT + V" (lua "hl.dsp.exec_cmd(\"${pkgs.cliphist}/bin/cliphist list | ${config.programs.rofi.package}/bin/rofi -dmenu | ${pkgs.cliphist}/bin/cliphist decode | wl-copy\")") (lua "{ description = \"Clipboard History\" }") ]; }
         ];
       };
     };

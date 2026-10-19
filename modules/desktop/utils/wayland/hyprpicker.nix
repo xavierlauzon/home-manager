@@ -27,7 +27,7 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         bind = [
-          { _args = [ "SUPER + SHIFT + P" (lua "hl.dsp.exec_cmd(\"pkill hyprpicker || hyprpicker --autocopy --no-fancy --format=hex\")") ]; }
+          { _args = [ "SUPER + SHIFT + P" (lua "hl.dsp.exec_cmd(\"pkill hyprpicker || hyprpicker --autocopy --no-fancy --format=hex\")") (lua "{ description = \"Color Picker\" }") ]; }
         ];
       };
     };
