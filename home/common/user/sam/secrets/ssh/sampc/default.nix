@@ -19,7 +19,7 @@ in
       enable = mkOption {
         default = false;
         type = with types; bool;
-        description = "Always authenticate to the managed host with the sops-protected password";
+        description = "Enable SSH to sampc with the xl keypair and sops-protected password fallback";
       };
     };
   };
@@ -41,8 +41,9 @@ in
     # Must come before the `*.${domain}` wildcard block (first obtained value wins in ssh_config).
     programs.ssh.settings."${sc} ${sc}.${domain}" = lib.hm.dag.entryBefore [ "*.${domain}" ] {
       User = user;
-      PubkeyAuthentication = "no";
-      PreferredAuthentications = "password,keyboard-interactive";
+      IdentityFile = config.sops.secrets."ssh/xl-id_ed25519".path;
+      PubkeyAuthentication = "yes";
+      PreferredAuthentications = "publickey,password,keyboard-interactive";
       NumberOfPasswordPrompts = "1";
     };
 
