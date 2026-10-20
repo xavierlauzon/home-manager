@@ -73,6 +73,14 @@ in
         plugin = [
           "oh-my-opencode-slim"
         ];
+        # OpenCode 2.x form for package plugins (the legacy `plugin` key is
+        # deprecated). Persistent cross-session memory via opencode-codex-memory:
+        # uses the models configured below (Lauzon AI gateway), no extra API keys.
+        plugins = [
+          {
+            package = "opencode-codex-memory@0.9.11";
+          }
+        ];
         # Provider/model catalog for the Lauzon AI gateway. Capabilities gate
         # what media types each model may receive: qwen3.8-flash-next and
         # deepseek-v4-flash are both multimodal (text + image).
