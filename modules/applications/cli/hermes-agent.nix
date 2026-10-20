@@ -3,6 +3,8 @@
 let
   cfg = config.host.home.applications.hermes-agent;
 
+  hermesAgentPkg = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent;
+
   # numtide's hermes-agent is built against nixpkgs mcp 1.29.0, but Hermes
   # v0.22.x expects mcp 2.x (mcp.server.MCPServer). The sitecustomize shim
   # aliases MCPServer -> FastMCP (same API); PYTHONPATH makes it load for
@@ -27,9 +29,34 @@ with lib;
 
   config = mkIf cfg.enable {
     home.packages = [
-      inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent
+      hermesAgentPkg
       hermesMcpWrapper
     ];
+
+    # Daemonize the Hermes messaging gateway as a systemd user service so it
+    # persists (and the Hermes cron keeps firing) without a manual `hermes
+    # gateway start`. Declarative: rebuildable, starts at login, auto-restarts.
+    systemd.user.services.hermes-gateway = {
+      Unit = {
+        Description = "Hermes Agent Gateway - Messaging Platform Integration";
+        After = [ "network-online.target" ];
+        Wants = [ "network-online.target" ];
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${hermesAgentPkg}/bin/hermes gateway run";
+        WorkingDirectory = "${config.home.homeDirectory}/.hermes";
+        Environment = [
+          "HERMES_HOME=${config.home.homeDirectory}/.hermes"
+          "HERMES_SUPERVISED_CHILD=1"
+        ];
+        Restart = "always";
+        RestartSec = "5";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
 
     home.file.".local/lib/hermes-patch/sitecustomize.py".text = ''
       # Shim: numtide's hermes-agent is built against nixpkgs mcp 1.29.0, where the
