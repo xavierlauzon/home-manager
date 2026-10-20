@@ -30,6 +30,9 @@ with lib;
       user = {
         sam = {
           secrets = {
+            hermes = {
+              env.enable = true;
+            };
             komodo = {
               mcpEnv.enable = true;
             };
@@ -42,6 +45,29 @@ with lib;
         };
       };
     };
+  };
+
+  # Hermes Agent points at the Lauzon AI OpenAI-compatible gateway
+  # (https://ai.lauzon.xyz/api/v1). The API key stays in the sops-encrypted
+  # ~/.hermes/.env (AI_LAUZON_API_KEY); config.yaml only names the env var.
+  # Context length is pinned because our model aliases aren't in models.dev.
+  home.file.".hermes/config.yaml" = {
+    text = ''
+      providers:
+        lauzon:
+          api: https://ai.lauzon.xyz/api/v1
+          key_env: AI_LAUZON_API_KEY
+          transport: chat_completions
+          default_model: deepseek-v4-flash
+          models:
+            deepseek-v4-flash:
+              context_length: 1000000
+            qwen3.8-flash-next:
+              context_length: 1000000
+      model:
+        provider: custom:lauzon
+        default: deepseek-v4-flash
+    '';
   };
 
   # Sam's opinionated OpenCode MCP servers. These are scoped to sam@blackhawk:
