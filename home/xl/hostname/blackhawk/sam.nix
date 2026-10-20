@@ -36,6 +36,9 @@ with lib;
             komodo = {
               mcpEnv.enable = true;
             };
+            git = {
+              token.enable = true;
+            };
             ssh = {
               xl.enable = true;
               sampc.enable = true;
