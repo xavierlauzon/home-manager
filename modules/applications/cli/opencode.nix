@@ -156,7 +156,7 @@ in
           memory = {
             command = "${pkgs.mcp-server-memory}/bin/mcp-server-memory";
             env = {
-              MEMORY_FILE_PATH = "${config.home.homeDirectory}/.local/share/mcp-memory/memory.jsonl";
+              MEMORY_FILE_PATH = "${config.home.homeDirectory}/src/kb/memory.jsonl";
             };
           };
           # Real NixOS / Home Manager / nix docs lookup via search.nixos.org, so
@@ -168,7 +168,7 @@ in
     };
 
     home.activation.createMCPMemoryDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      mkdir -p "$HOME/.local/share/mcp-memory"
+      mkdir -p "$HOME/src/kb"
     '';
 
     xdg.configFile = {
