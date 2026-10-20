@@ -22,6 +22,10 @@ with lib;
         # Personal theme control panel (lives in ~/src/desktop-theme-panel).
         # Scoped to sam@blackhawk so it doesn't enable on other hosts/users.
         theme-panel.enable = true;
+        # Nous Research Hermes Agent. Auth/config is done at runtime with
+        # `hermes setup` (writes ~/.hermes); the package comes from the
+        # numtide llm-agents flake input.
+        hermes-agent.enable = true;
       };
       user = {
         sam = {
