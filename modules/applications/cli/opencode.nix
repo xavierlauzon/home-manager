@@ -149,8 +149,27 @@ in
           hermes = {
             command = "${config.home.profileDirectory}/bin/hermes-mcp";
           };
+        }
+        # Shared cross-tool knowledge-graph memory (entity/relation store in a
+        # JSONL file). Same MEMORY_FILE_PATH as Hermes so both agents share one KB.
+        // {
+          memory = {
+            command = "${pkgs.mcp-server-memory}/bin/mcp-server-memory";
+            env = {
+              MEMORY_FILE_PATH = "${config.home.homeDirectory}/.local/share/mcp-memory/memory.jsonl";
+            };
+          };
+          # Real NixOS / Home Manager / nix docs lookup via search.nixos.org, so
+          # agents stop hallucinating option/package names.
+          nixos = {
+            command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+          };
         };
     };
+
+    home.activation.createMCPMemoryDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      mkdir -p "$HOME/.local/share/mcp-memory"
+    '';
 
     xdg.configFile = {
       # oh-my-opencode-slim preset config (brings the context7 + gh_grep MCPs)

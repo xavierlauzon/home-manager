@@ -67,6 +67,15 @@ with lib;
       model:
         provider: custom:lauzon
         default: deepseek-v4-flash
+      mcp_servers:
+        # Shared knowledge-graph memory (same JSONL file as OpenCode).
+        memory:
+          command: "${pkgs.mcp-server-memory}/bin/mcp-server-memory"
+          env:
+            MEMORY_FILE_PATH: "${config.home.homeDirectory}/.local/share/mcp-memory/memory.jsonl"
+        # Real NixOS / Home Manager / nix docs lookup.
+        nixos:
+          command: "${pkgs.mcp-nixos}/bin/mcp-nixos"
     '';
   };
 
