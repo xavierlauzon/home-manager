@@ -40,6 +40,17 @@ in
       inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode-desktop
     ];
 
+    # OpenCode v2 layers OPENCODE_CLI_CONFIG_CONTENT over the global cli.json on
+    # every read and re-applies it after every write, so tabs stay enabled even
+    # when herdr or OpenCode itself rewrites cli.json. ("auto" is hard-coded to
+    # hide tabs when HERDR_ENV=1, i.e. inside herdr.)
+    home.sessionVariables.OPENCODE_CLI_CONFIG_CONTENT = builtins.toJSON {
+      tabs = {
+        scope = "global";
+        mode = "on";
+      };
+    };
+
     programs.opencode = {
       enable = true;
       package = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2;
