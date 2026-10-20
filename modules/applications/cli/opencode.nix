@@ -174,6 +174,11 @@ in
     xdg.configFile = {
       # oh-my-opencode-slim preset config (brings the context7 + gh_grep MCPs)
       "opencode/oh-my-opencode-slim.json".source = ./opencode/oh-my-opencode-slim.json;
+      # Global agent instructions + agent skills, rendered from the repo so they
+      # are declarative and git-versioned (survive rebuilds).
+      "opencode/AGENTS.md".source = ./opencode/AGENTS.md;
+      "opencode/skills/hm-rebuild/SKILL.md".source = ./opencode/skills/hm-rebuild/SKILL.md;
+      "opencode/skills/secret-handling/SKILL.md".source = ./opencode/skills/secret-handling/SKILL.md;
     };
   };
 }
