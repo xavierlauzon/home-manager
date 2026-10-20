@@ -133,6 +133,14 @@ in
               FIRECRAWL_NO_ENDPOINT_FEEDBACK = "1";
             };
           };
+        }
+        # Hermes messaging bridge (list/read/send conversations across Hermes'
+        # connected platforms). Only wired when Hermes Agent is enabled; the
+        # hermes-mcp wrapper loads the mcp-version shim for the Nix build.
+        // optionalAttrs config.host.home.applications.hermes-agent.enable {
+          hermes = {
+            command = "${config.home.profileDirectory}/bin/hermes-mcp";
+          };
         };
     };
 

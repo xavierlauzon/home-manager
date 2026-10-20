@@ -2,6 +2,16 @@
 
 let
   cfg = config.host.home.applications.hermes-agent;
+
+  # numtide's hermes-agent is built against nixpkgs mcp 1.29.0, but Hermes
+  # v0.22.x expects mcp 2.x (mcp.server.MCPServer). The sitecustomize shim
+  # aliases MCPServer -> FastMCP (same API); PYTHONPATH makes it load for
+  # `hermes mcp serve` (Hermes' entrypoint adds deps via site.addsitedir,
+  # which the shim patches after startup).
+  hermesMcpWrapper = pkgs.writeShellScriptBin "hermes-mcp" ''
+    export PYTHONPATH="$HOME/.local/lib/hermes-patch''${PYTHONPATH:+:$PYTHONPATH}"
+    exec ${inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent}/bin/hermes mcp serve "$@"
+  '';
 in
 with lib;
 {
@@ -18,6 +28,32 @@ with lib;
   config = mkIf cfg.enable {
     home.packages = [
       inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent
+      hermesMcpWrapper
     ];
+
+    home.file.".local/lib/hermes-patch/sitecustomize.py".text = ''
+      # Shim: numtide's hermes-agent is built against nixpkgs mcp 1.29.0, where the
+      # server class is mcp.server.fastmcp.FastMCP (renamed to MCPServer in mcp 2.0).
+      # Hermes' entrypoint adds deps via site.addsitedir() AFTER interpreter startup,
+      # so patch addsitedir and alias MCPServer as soon as mcp becomes importable.
+      import site as _site
+
+      _orig_addsitedir = _site.addsitedir
+
+
+      def _addsitedir_patched(*args, **kwargs):
+          ret = _orig_addsitedir(*args, **kwargs)
+          try:
+              import mcp.server as _ms
+              from mcp.server.fastmcp import FastMCP
+              if not hasattr(_ms, "MCPServer"):
+                  _ms.MCPServer = FastMCP
+          except Exception:
+              pass
+          return ret
+
+
+      _site.addsitedir = _addsitedir_patched
+    '';
   };
 }
