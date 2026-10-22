@@ -111,4 +111,17 @@ with lib;
       };
     };
   };
+
+  # Sam's DMS (dank-material-shell) settings, nix-managed so they survive clean
+  # rebuilds. Snapshot of ~/.config/DankMaterialShell/settings.json. NOTE:
+  # nix-managing this makes the file read-only, so DMS UI setting changes won't
+  # persist — edit ./dms-settings.json and rebuild instead. `osdMediaVolumeEnabled
+  # = false` suppresses the volume OSD that tidal-hifi re-emits on every track
+  # change. Scoped to sam@blackhawk (xavier shares the host but keeps his own
+  # DMS config).
+  programs.dank-material-shell.settings = builtins.fromJSON (builtins.readFile ./dms-settings.json);
+  # The runtime file exists as a plain file (from DMS's own runtime writes); nix
+  # now manages it, so force the read-only store symlink to take over. Content is
+  # identical to ./dms-settings.json (verified), so nothing is lost.
+  xdg.configFile."DankMaterialShell/settings.json".force = true;
 }
