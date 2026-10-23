@@ -70,6 +70,14 @@ with lib;
       model:
         provider: custom:lauzon
         default: deepseek-v4-flash
+      # The Lauzon gateway models are pinned at a 1M context window, so the
+      # default 0.50 compaction threshold (compact at 500k) is far too eager.
+      # Raise it to 0.90 so we compact at 900k, leaving a safety margin for
+      # tokenizer drift between the client and provider.
+      compression:
+        enabled: true
+        threshold: 0.90
+        target_ratio: 0.20
       mcp_servers:
         # Shared knowledge-graph memory (same JSONL file as OpenCode, git-versioned).
         memory:
