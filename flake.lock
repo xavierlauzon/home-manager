@@ -668,6 +668,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "sops-nix": "sops-nix",
+        "split-monitor-workspaces": "split-monitor-workspaces",
         "vscode-server": "vscode-server"
       }
     },
@@ -705,6 +706,23 @@
       "original": {
         "owner": "mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "split-monitor-workspaces": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786046529,
+        "narHash": "sha256-NEL7gkeIIUY+DkGLEa7lhSZ9PlqWeqddNmNqakxz3KI=",
+        "owner": "zjeffer",
+        "repo": "split-monitor-workspaces",
+        "rev": "656ac1f024f0c1d6ec007f4c25cbc02951d51c9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zjeffer",
+        "ref": "v0.56.2",
+        "repo": "split-monitor-workspaces",
         "type": "github"
       }
     },

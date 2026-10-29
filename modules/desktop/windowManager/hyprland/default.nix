@@ -15,6 +15,7 @@ with lib;
     ./startup.nix
     ./windowrules.nix
     ./displays.nix
+    ./split-workspaces.nix
   ];
 
   config = mkIf (config.host.home.feature.gui.enable && displayServer == "wayland" && windowManager == "hyprland") {

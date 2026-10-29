@@ -49,6 +49,12 @@
       url = "github:AvengeMedia/dms-plugin-registry";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    # Per-monitor independent workspace tracks (awesome-style) as a Hyprland Lua package.
+    # Pinned to the release matching Hyprland 0.56.2 (see home-manager split-workspaces.nix).
+    split-monitor-workspaces = {
+      url = "github:zjeffer/split-monitor-workspaces/v0.56.2";
+      flake = false;
+    };
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
