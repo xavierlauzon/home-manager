@@ -87,6 +87,31 @@ with lib;
         # Real NixOS / Home Manager / nix docs lookup.
         nixos:
           command: "${pkgs.mcp-nixos}/bin/mcp-nixos"
+          # Komodo container/deploy MCP (same local server + sops creds as
+          # OpenCode). The komodoMcpWrapper injects ~/.config/komodo/mcp.env
+          # into the process env before launch (credentials stay unset if the
+          # secret isn't present).
+          komodo:
+            command: "${komodoMcpWrapper}/bin/komodo-mcp-server"
+            env:
+              MCP_TRANSPORT: "stdio"
+              KOMODO_URL: "https://k.lauzon.xyz"
+          # Web scraping/search via the Lauzon Firecrawl gateway.
+          firecrawl:
+            command: "${pkgs.firecrawl-mcp}/bin/firecrawl-mcp"
+            env:
+              FIRECRAWL_API_URL: "https://crawl.lauzon.xyz"
+              FIRECRAWL_NO_ENDPOINT_FEEDBACK: "1"
+              FIRECRAWL_NO_SEARCH_FEEDBACK: "1"
+          # Playwright browser automation (headless Chromium, system binary).
+          # Browser options live in ~/.config/opencode/playwright-mcp.json.
+          playwright:
+            command: "${pkgs.nodejs_22}/bin/node"
+            args: [
+              "/home/sam/.npm-global/lib/node_modules/@playwright/mcp/cli.js"
+              "--config"
+              "/home/sam/.config/opencode/playwright-mcp.json"
+            ]
     '';
   };
 
