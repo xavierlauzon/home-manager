@@ -72,8 +72,16 @@ with lib;
           transport: chat_completions
           default_model: deepseek-v4-flash
           models:
+            # deepseek-v4-flash on this gateway accepts image_url parts
+            # (verified against /v1/chat/completions). Declaring supports_vision
+            # makes Hermes attach user images natively AND lets the auxiliary
+            # vision task (vision_analyze) use the main provider. Without it the
+            # vision auto-chain has no backend and image recognition silently fails.
             deepseek-v4-flash:
               context_length: 1000000
+              supports_vision: true
+            # qwen3.8-flash-next is NOT vision-capable here: it rejects image
+            # parts with HTTP 400 "decoding failed". Leave supports_vision unset.
             qwen3.8-flash-next:
               context_length: 1000000
       model:
@@ -137,11 +145,10 @@ with lib;
           # Browser options live in ~/.config/opencode/playwright-mcp.json.
           playwright:
             command: "${pkgs.nodejs_22}/bin/node"
-            args: [
-              "/home/sam/.npm-global/lib/node_modules/@playwright/mcp/cli.js"
-              "--config"
-              "/home/sam/.config/opencode/playwright-mcp.json"
-            ]
+            args:
+              - "/home/sam/.npm-global/lib/node_modules/@playwright/mcp/cli.js"
+              - "--config"
+              - "/home/sam/.config/opencode/playwright-mcp.json"
     '';
   };
 
