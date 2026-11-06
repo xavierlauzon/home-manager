@@ -10,6 +10,8 @@ let
   # First entry in monitor_priority gets the lowest workspace IDs (track 1).
   monitorPriority = {
     blackhawk = [ "HDMI-A-1" "STREAM" ];
+    # lightning: DP-2 ultrawide (track 1) + HDMI-A-1 1080p (track 2), both on the dGPU.
+    lightning = [ "DP-2" "HDMI-A-1" ];
     # xavierdesktop = [ "<primary>" "<secondary>" ];
   };
 

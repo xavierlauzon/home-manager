@@ -155,6 +155,21 @@
             };
           };
 
+          "lightning.sam" = HomeConfiguration {
+            nixpkgs = nixpkgs-unstable;
+            extraSpecialArgs = {
+              org = "xl";
+              role = "workstation";
+              hostname = "lightning";
+              displays = 2;
+              display_center = "DP-2";
+              display_top = "HDMI-A-1";
+              networkInterface = "public";
+              username = "sam";
+              inherit inputs outputs;
+            };
+          };
+
           "raptor.${gn}" = HomeConfiguration {
             system = "aarch64-linux";
             extraSpecialArgs = {
