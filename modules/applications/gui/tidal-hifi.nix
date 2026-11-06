@@ -48,7 +48,12 @@ in
 
       Service = {
         Type = "exec";
-        ExecStart = "${pkgs.unstable.tidal-hifi}/bin/tidal-hifi";
+        # Use the --no-sandbox launch wrapper: tidal-hifi <= 8.1.3 appends
+        # no-sandbox at runtime AFTER the sandboxed zygote starts, which the
+        # renderer FATAL-crashes on. Passing the flag on the real command line
+        # (tidalExec) avoids the sandboxed zygote entirely. See the `tidalExec`
+        # definition above.
+        ExecStart = "${tidalExec}";
         Restart = "on-failure";
         Slice = "app-graphical.slice";
       };
