@@ -1,20 +1,13 @@
-{ config, lib, pkgs, specialArgs, ...}:
-with lib;
+# Shared host-level defaults for sam's workstation hosts. Host-specific values
+# (hostname, displays, network interface) live in flake.nix extraSpecialArgs.
 {
+  config,
+  lib,
+  pkgs,
+  specialArgs,
+  ...
+}: {
   imports = [
+    ../../user/sam/host-default.nix
   ];
-
-  host = {
-    home = {
-      applications = {
-        # blackhawk is the Sunshine HOST; the Windows laptop
-        # (xavie@thebehemoth) is the Moonlight client / second monitor.
-        sunshine.enable = true;
-      };
-      feature = {
-      };
-      service = {
-      };
-    };
-  };
 }
