@@ -1,6 +1,10 @@
-{ config, lib, pkgs, ... }:
-with lib;
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   imports = [
   ];
 
@@ -86,7 +90,7 @@ with lib;
         };
         ferdium.enable = mkDefault true;
         herdr.enable = mkDefault true;
-
+        super-productivity.enable = mkDefault true;
       };
       feature = {
         fonts.enable = mkDefault true;
