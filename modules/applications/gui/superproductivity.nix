@@ -25,7 +25,7 @@ in
     config = mkIf cfg.enable {
       home = {
         packages = with pkgs; [
-          unstable.super-productivity
+          superproductivity
         ];
       };
 
@@ -39,7 +39,7 @@ in
 
         Service = {
           Type = "exec";
-          ExecStart = "${pkgs.unstable.super-productivity}/bin/superproductivity";
+          ExecStart = "${pkgs.superproductivity}/bin/superproductivity";
           Restart = "on-failure";
           Slice = "app-graphical.slice";
         };
