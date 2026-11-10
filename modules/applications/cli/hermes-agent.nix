@@ -31,6 +31,9 @@ with lib;
     home.packages = [
       hermesAgentPkg
       hermesMcpWrapper
+      # uvx is the launcher for the Plane MCP server (plane-mcp-server runs
+      # via `uvx plane-mcp-server stdio`).
+      pkgs.uv
     ];
 
     # Daemonize the Hermes messaging gateway as a systemd user service so it

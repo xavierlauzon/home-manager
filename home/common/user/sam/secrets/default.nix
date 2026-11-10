@@ -6,5 +6,6 @@ with lib; {
     ./git
     ./ssh
     ./proton
+    ./plane
   ];
 }

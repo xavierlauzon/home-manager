@@ -17,6 +17,22 @@
     fi
     exec ${pkgs.komodo-mcp-server}/bin/komodo-mcp-server "$@"
   '';
+
+  # Wrapper that injects the sops-decrypted Plane MCP credentials from
+  # ~/.config/plane/mcp.env (PLANE_API_KEY / PLANE_WORKSPACE_SLUG /
+  # PLANE_BASE_URL) into the process env, then launches the official
+  # plane-mcp-server in stdio mode via uvx. uvx is invoked by absolute store
+  # path (Hermes filters the MCP subprocess env to a safe baseline, so relying
+  # on PATH would break). On hosts without the secret the server still starts
+  # (creds simply stay unset).
+  planeMcpWrapper = pkgs.writeShellScriptBin "plane-mcp" ''
+    if [ -f "$HOME/.config/plane/mcp.env" ]; then
+      set -a
+      . "$HOME/.config/plane/mcp.env"
+      set +a
+    fi
+    exec ${pkgs.uv}/bin/uvx plane-mcp-server stdio
+  '';
 in
   with lib; {
     host = {
@@ -37,6 +53,9 @@ in
                 env.enable = true;
               };
               komodo = {
+                mcpEnv.enable = true;
+              };
+              plane = {
                 mcpEnv.enable = true;
               };
               proton = {
@@ -137,6 +156,12 @@ in
             env:
               MCP_TRANSPORT: "stdio"
               KOMODO_URL: "https://k.lauzon.xyz"
+          # Plane project management (self-hosted on the lumae Komodo host).
+          # Credentials (PLANE_API_KEY / PLANE_WORKSPACE_SLUG / PLANE_BASE_URL)
+          # come from the sops-decrypted ~/.config/plane/mcp.env via the
+          # planeMcpWrapper; the server runs in stdio mode through uvx.
+          plane:
+            command: "${planeMcpWrapper}/bin/plane-mcp"
           # Web scraping/search via the Lauzon Firecrawl gateway.
           firecrawl:
             command: "${pkgs.firecrawl-mcp}/bin/firecrawl-mcp"
