@@ -4,6 +4,7 @@ with lib; {
     ./hermes
     ./komodo
     ./git
+    ./github
     ./ssh
     ./proton
     ./plane

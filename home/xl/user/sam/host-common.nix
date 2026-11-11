@@ -79,6 +79,9 @@ in
               git = {
                 token.enable = true;
               };
+              github = {
+                token.enable = true;
+              };
               superproductivity = {
                 captureToken.enable = true;
               };
