@@ -7,5 +7,6 @@ with lib; {
     ./ssh
     ./proton
     ./plane
+    ./superproductivity
   ];
 }

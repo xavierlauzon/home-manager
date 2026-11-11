@@ -33,6 +33,21 @@
     fi
     exec ${pkgs.uv}/bin/uvx plane-mcp-server stdio
   '';
+
+  # Super Productivity MCP (npm-installed at ~/.npm-global, same as playwright).
+  # SP 19.x's local REST API requires a Bearer token; SP writes it to a 0600 file
+  # under userData when the API is enabled (Settings -> Misc -> Enable local REST
+  # API). This wrapper reads that token at runtime and passes it as SP_API_TOKEN,
+  # so the credential never appears in config. If the API is off (no token file)
+  # the server still starts; check_connection reports the missing credential.
+  spMcpWrapper = pkgs.writeShellScriptBin "sp-mcp" ''
+    SP_TOKEN_FILE="$HOME/.config/superProductivity/local-rest-api-token"
+    if [ -f "$SP_TOKEN_FILE" ]; then
+      export SP_API_TOKEN="$(cat "$SP_TOKEN_FILE")"
+    fi
+    exec ${pkgs.nodejs_22}/bin/node \
+      /home/sam/.npm-global/lib/node_modules/super-productivity-mcp-server/dist/index.js "$@"
+  '';
 in
   with lib; {
     host = {
@@ -63,6 +78,9 @@ in
               };
               git = {
                 token.enable = true;
+              };
+              superproductivity = {
+                captureToken.enable = true;
               };
               ssh = {
                 xl.enable = true;
@@ -177,6 +195,25 @@ in
               - "/home/sam/.npm-global/lib/node_modules/@playwright/mcp/cli.js"
               - "--config"
               - "/home/sam/.config/opencode/playwright-mcp.json"
+          # Super Productivity day-planning (local REST API on 127.0.0.1:3876).
+          # spMcpWrapper reads the SP access token from the 0600 token file SP
+          # writes when its local REST API is enabled (Settings -> Misc -> Enable
+          # local REST API). Until that toggle is on, the server loads but
+          # check_connection reports the missing credential.
+          super-productivity:
+            command: "${spMcpWrapper}/bin/sp-mcp"
+            env:
+              SP_API_URL: "http://127.0.0.1:3876"
+            timeout: 60
+          # SuperSync remote task capture MCP (sp-sync.lauzon.xyz/mcp). Adds
+          # tasks to the Inbox via the sync server from any host; it can only
+          # create tasks, not read or edit them. The capture token (sp_cap_...)
+          # is kept in ~/.hermes/.env as MCP_SUPERPRODUCTIVITY_SYNC_API_KEY and
+          # referenced via env interpolation so it never appears in the store.
+          super-productivity-sync:
+            url: "https://sp-sync.lauzon.xyz/mcp"
+            headers:
+              Authorization: "Bearer ''${MCP_SUPERPRODUCTIVITY_SYNC_API_KEY}"
       '';
     };
 
@@ -208,6 +245,29 @@ in
             "/home/sam/.config/opencode/playwright-mcp.json"
           ];
         };
+        # Super Productivity day-planning (local REST API). spMcpWrapper reads
+        # the SP access token from the 0600 token file at runtime.
+        super-productivity = {
+          command = "${spMcpWrapper}/bin/sp-mcp";
+          env = {
+            SP_API_URL = "http://127.0.0.1:3876";
+          };
+        };
+      };
+    };
+
+    # SuperSync remote task capture MCP for OpenCode (declared here rather than
+    # in programs.mcp because it needs oauth:false, which the opencode module's
+    # transform drops for remote servers). Adds tasks to the Inbox via the sync
+    # server from any host; it can only create tasks, not read or edit them.
+    # The capture token is read from the sops-decrypted file at runtime via
+    # {file:...}, so it never appears in the nix store or git.
+    programs.opencode.settings.mcp.super-productivity-sync = {
+      type = "remote";
+      url = "https://sp-sync.lauzon.xyz/mcp";
+      oauth = false;
+      headers = {
+        Authorization = "Bearer {file:/home/sam/.config/superproductivity/capture-token}";
       };
     };
   }
