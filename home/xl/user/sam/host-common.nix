@@ -158,10 +158,9 @@ in
           threshold: 0.90
           target_ratio: 0.20
           # Per-model compaction trigger override (ratio of the window).
-          # qwen3.8-flash-next: force compression at the full 1M window
-          # (1.0 x 1,000,000 pinned below) instead of the 0.90 -> 900k default.
+          # qwen3.8-flash-next: window pinned at 1M; compact at 0.95 (950k).
           model_thresholds:
-            qwen3.8-flash-next: 1.0
+            qwen3.8-flash-next: 0.95
         mcp_servers:
           # Shared knowledge-graph memory (same JSONL file as OpenCode, git-versioned).
           memory:
