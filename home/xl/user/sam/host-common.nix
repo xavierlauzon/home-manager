@@ -208,6 +208,13 @@ in
             env:
               SP_API_URL: "http://127.0.0.1:3876"
             timeout: 60
+          # LemonLDAP::NG Web-SSO admin (llng-mcp by LinaGora). stdio server;
+          # instance details (spectre host, docker exec into auth-lauzon-xyz)
+          # come from ~/.llng-mcp.json generated below — no secrets in it,
+          # auth is sam's passwordless SSH key to spectre.
+          llng:
+            command: "${pkgs.llng-mcp}/bin/llng-mcp"
+            timeout: 60
           # SuperSync remote task capture MCP (sp-sync.lauzon.xyz/mcp). Adds
           # tasks to the Inbox via the sync server from any host; it can only
           # create tasks, not read or edit them. The capture token (sp_cap_...)
@@ -218,6 +225,26 @@ in
             headers:
               Authorization: "Bearer ''${MCP_SUPERPRODUCTIVITY_SYNC_API_KEY}"
       '';
+    };
+
+    # llng-mcp instance registry (LemonLDAP::NG admin MCP). The LLNG web-SSO
+    # runs as the auth-lauzon-xyz container on spectre; the server drives the
+    # LLNG CLIs via `ssh sam@spectre docker exec auth-lauzon-xyz <cli>`.
+    # No secrets here (SSH key auth); it's a read-only store symlink, so
+    # llng-mcp's 0600-perms warning fires at startup and is harmless.
+    home.file.".llng-mcp.json" = {
+      text = builtins.toJSON {
+        instances.prod = {
+          mode = "ssh";
+          ssh = {
+            host = "spectre.lauzon.xyz";
+            user = "sam";
+            # LLNG ships its CLIs under this prefix inside the container.
+            remoteCommand = "docker exec auth-lauzon-xyz";
+          };
+        };
+        default = "prod";
+      };
     };
 
     # Sam's opinionated OpenCode MCP servers. These are scoped to sam's
@@ -255,6 +282,10 @@ in
           env = {
             SP_API_URL = "http://127.0.0.1:3876";
           };
+        };
+        # LemonLDAP::NG Web-SSO admin; instance config in ~/.llng-mcp.json.
+        llng = {
+          command = "${pkgs.llng-mcp}/bin/llng-mcp";
         };
       };
     };
