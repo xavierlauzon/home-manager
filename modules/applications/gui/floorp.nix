@@ -65,6 +65,20 @@ in with lib; {
         ExecStart = "${pkgs.stable.floorp-bin}/bin/floorp";
         Restart = "on-failure";
         Slice = "app-graphical.slice";
+        # Firefox dlopens libEGL.so.1 (libglvnd dispatcher) and needs Mesa's EGL
+        # vendor registered to reach the DRI driver. NixOS's /run/opengl-driver
+        # has libEGL_mesa + the vendor json but NOT the libglvnd dispatcher, so
+        # either (a) the dispatcher is found via libglvnd's own lib dir, and
+        # (b) EGL_VENDOR_DIR points at the vendor json. Without these, WebGL
+        # fails with FEATURE_FAILURE_NO_DISPLAY / "Failed to create EGL library
+        # display". (2026-11-18 lightning/floorp; see floorp-webgl-broken skill.)
+        Environment =
+          [
+            "EGL_VENDOR_DIR=/run/opengl-driver/share/glvnd/egl_vendor.d"
+            "LIBGL_DRIVERS_PATH=/run/opengl-driver/lib/dri"
+            "LD_LIBRARY_PATH=${pkgs.libglvnd}/lib:/run/opengl-driver/lib"
+            "MOZ_ENABLE_WAYLAND=1"
+          ];
       };
 
       Install = {
