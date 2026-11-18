@@ -252,8 +252,22 @@ in
     # 768-dim) and hits OLLAMA_URL ?? http://localhost:11434. CPU-only is
     # plenty for a 275MB embedding model. Models live under ~/.cache so a
     # `nix-collect-garbage` never eats them.
+    #
+    # SECURITY: Ollama has NO authentication at all — anyone who can reach the
+    # port can pull/run models and use the CPU. Defenses here:
+    #   - OLLAMA_HOST is the loopback address (127.0.0.1, NOT 0.0.0.0) — never
+    #     widen this; nothing on the network needs to reach it.
+    #   - OLLAMA_ORIGINS= (empty) rejects browser cross-origin requests, so a
+    #     random webpage in your session cannot POST /api/generate. Non-browser
+    #     clients (llng-mcp) send no Origin header and are unaffected.
+    #   - OLLAMA_NO_CLOUD=1 keeps it off ollama.com's cloud/sign-in surface.
+    #   - systemd sandbox: read-only / and home except the two dirs ollama
+    #     writes (models + its ed25519 key), plus the common Restrict* set.
+    #   - No MemoryDenyWriteExecute: llama.cpp JITs/mmaps executable pages and
+    #     the server dies with it (verified upstream reports) — accepted risk
+    #     given loopback-only + no privilege (user unit).
     systemd.user.services.ollama = {
-      Unit.Description = "Ollama local model server (llng-mcp doc search)";
+      Unit.Description = "Ollama local model server (llng-mcp doc search, loopback-only)";
       Service.ExecStart = "${pkgs.ollama}/bin/ollama serve";
       Service.Restart = "on-failure";
       Service.RestartSec = 5;
@@ -261,7 +275,24 @@ in
         "OLLAMA_HOST=127.0.0.1:11434"
         "OLLAMA_MODELS=%h/.cache/ollama/models"
         "OLLAMA_NO_CLOUD=1"
+        "OLLAMA_ORIGINS="
       ];
+      Service.NoNewPrivileges = true;
+      Service.ProtectSystem = "strict";
+      Service.ProtectHome = "read-only";
+      Service.ProtectKernelTunables = true;
+      Service.ProtectKernelModules = true;
+      Service.ProtectControlGroups = true;
+      Service.RestrictNamespaces = true;
+      Service.RestrictSUIDSGID = true;
+      Service.LockPersonality = true;
+      # Loopback AF_INET + AF_UNIX only; no outbound AF_INET6 surprises.
+      Service.RestrictAddressFamilies = "AF_INET AF_UNIX";
+      Service.ReadWritePaths = [
+        "%h/.cache/ollama"
+        "%h/.ollama"
+      ];
+      Service.PrivateTmp = true;
       Install.WantedBy = [ "default.target" ];
     };
 
