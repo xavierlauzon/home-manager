@@ -161,6 +161,13 @@ in
           # qwen3.8-flash-next: window pinned at 1M; compact at 0.95 (950k).
           model_thresholds:
             qwen3.8-flash-next: 0.95
+        # Shared cross-host memory: the OpenViking server on falcon
+        # (https://openviking.lauzon.xyz), embeddings served by tei.lauzon.xyz.
+        # Connection env (OPENVIKING_ENDPOINT/_API_KEY/_ACCOUNT/_USER) lives in
+        # the sops-encrypted ~/.hermes/.env. The plugin itself is installed per
+        # host into ~/.hermes/plugins/openviking (git: volcengine/OpenViking).
+        memory:
+          provider: openviking
         mcp_servers:
           # Shared knowledge-graph memory (same JSONL file as OpenCode, git-versioned).
           memory:
