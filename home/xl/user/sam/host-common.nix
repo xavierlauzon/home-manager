@@ -144,8 +144,10 @@ in
                 supports_vision: true
               # qwen3.8-flash-next is NOT vision-capable here: it rejects image
               # parts with HTTP 400 "decoding failed". Leave supports_vision unset.
+              # Its real window is 512K (gateway-probed max_model_len 524288,
+              # confirmed by sam 2026-11-18), NOT 1M like deepseek.
               qwen3.8-flash-next:
-                context_length: 1000000
+                context_length: 524288
         model:
           provider: custom:lauzon
           default: deepseek-v4-flash
@@ -158,7 +160,7 @@ in
           threshold: 0.90
           target_ratio: 0.20
           # Per-model compaction trigger override (ratio of the window).
-          # qwen3.8-flash-next: window pinned at 1M; compact at 0.95 (950k).
+          # qwen3.8-flash-next: 512K window; compact at 0.95 (~498k).
           model_thresholds:
             qwen3.8-flash-next: 0.95
         # Shared cross-host memory: the OpenViking server on falcon
