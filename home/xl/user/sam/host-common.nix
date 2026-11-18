@@ -121,15 +121,18 @@ in
       };
     };
 
-    # Hermes Agent points at the Lauzon AI OpenAI-compatible gateway
-    # (https://ai.lauzon.xyz/api/v1). The API key stays in the sops-encrypted
-    # ~/.hermes/.env (AI_LAUZON_API_KEY); config.yaml only names the env var.
+    # Hermes Agent points at the LiteLLM gateway (https://litellm.lauzon.xyz/v1
+    # — Phase 5b cutover 2026-11-18; previously Open WebUI at ai.lauzon.xyz).
+    # The per-user virtual key lives in the sops-encrypted ~/.hermes/.env
+    # (AI_LAUZON_API_KEY = sk-... from litellm /key/generate, alias
+    # sam-hermes-hosts); config.yaml only names the env var. litellm routes
+    # deepseek-v4-flash -> spark vLLM and qwen3.8-flash-next -> radiance.
     # Context length is pinned because our model aliases aren't in models.dev.
     home.file.".hermes/config.yaml" = {
       text = ''
         providers:
           lauzon:
-            api: https://ai.lauzon.xyz/api/v1
+            api: https://litellm.lauzon.xyz/v1
             key_env: AI_LAUZON_API_KEY
             transport: chat_completions
             default_model: deepseek-v4-flash
