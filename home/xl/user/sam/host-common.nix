@@ -247,6 +247,37 @@ in
       };
     };
 
+    # Ollama for llng-mcp's llng_doc_search tool: the tool embeds the query
+    # with nomic-embed-text (must match the bundled index's embedding model,
+    # 768-dim) and hits OLLAMA_URL ?? http://localhost:11434. CPU-only is
+    # plenty for a 275MB embedding model. Models live under ~/.cache so a
+    # `nix-collect-garbage` never eats them.
+    systemd.user.services.ollama = {
+      Unit.Description = "Ollama local model server (llng-mcp doc search)";
+      Service.ExecStart = "${pkgs.ollama}/bin/ollama serve";
+      Service.Restart = "on-failure";
+      Service.RestartSec = 5;
+      Service.Environment = [
+        "OLLAMA_HOST=127.0.0.1:11434"
+        "OLLAMA_MODELS=%h/.cache/ollama/models"
+        "OLLAMA_NO_CLOUD=1"
+      ];
+      Install.WantedBy = [ "default.target" ];
+    };
+
+    # Pull nomic-embed-text once; idempotent and near-instant when cached.
+    systemd.user.services.ollama-pull-llng-docs = {
+      Unit = {
+        Description = "Pull nomic-embed-text for llng-mcp doc search";
+        After = [ "ollama.service" ];
+        Requires = [ "ollama.service" ];
+      };
+      Service.Type = "oneshot";
+      Service.ExecStart = "${pkgs.ollama}/bin/ollama pull nomic-embed-text";
+      Service.Environment = [ "OLLAMA_HOST=127.0.0.1:11434" ];
+      Install.WantedBy = [ "default.target" ];
+    };
+
     # Sam's opinionated OpenCode MCP servers. These are scoped to sam's
     # workstation hosts: komodo is built from a local source path that only
     # exists on this machine, and playwright lives under sam's home. They only
