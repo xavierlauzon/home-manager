@@ -48,6 +48,22 @@
     exec ${pkgs.nodejs_22}/bin/node \
       /home/sam/.npm-global/lib/node_modules/super-productivity-mcp-server/dist/index.js "$@"
   '';
+
+  # LiteLLM Admin MCP (official BerriAI connector). The personal proxy_admin
+  # key comes from the sops-decrypted ~/.config/litellm/mcp.env at runtime,
+  # so it never appears in the store or git. READ-ONLY MODE IS FORCED here
+  # (LITELLM_ADMIN_READ_ONLY=true) until we grow a skill for operating its
+  # write tools; to lift it, drop the export below and rebuild.
+  litellmAdminMcpWrapper = pkgs.writeShellScriptBin "litellm-admin-mcp" ''
+    if [ -f "$HOME/.config/litellm/mcp.env" ]; then
+      set -a
+      . "$HOME/.config/litellm/mcp.env"
+      set +a
+    fi
+    export LITELLM_BASE_URL="''${LITELLM_BASE_URL:-https://ai.lauzon.xyz}"
+    export LITELLM_ADMIN_READ_ONLY=true
+    exec ${pkgs.litellm-admin-mcp}/bin/litellm-admin-mcp "$@"
+  '';
 in
   with lib; {
     host = {
@@ -215,6 +231,14 @@ in
           llng:
             command: "${pkgs.llng-mcp}/bin/llng-mcp"
             timeout: 60
+          # LiteLLM gateway admin (official BerriAI LiteAdmin connector).
+          # READ-ONLY until a skill exists for its write tools; the personal
+          # proxy_admin key is sourced from the sops-decrypted
+          # ~/.config/litellm/mcp.env by litellmAdminMcpWrapper. Needs
+          # host.home.user.sam.secrets.litellm.mcpEnv.enable + the .enc file.
+          litellm-admin:
+            command: "${litellmAdminMcpWrapper}/bin/litellm-admin-mcp"
+            timeout: 60
           # SuperSync remote task capture MCP (sp-sync.lauzon.xyz/mcp). Adds
           # tasks to the Inbox via the sync server from any host; it can only
           # create tasks, not read or edit them. The capture token (sp_cap_...)
@@ -348,6 +372,11 @@ in
         # LemonLDAP::NG Web-SSO admin; instance config in ~/.llng-mcp.json.
         llng = {
           command = "${pkgs.llng-mcp}/bin/llng-mcp";
+        };
+        # LiteLLM gateway admin, read-only (wrapper forces
+        # LITELLM_ADMIN_READ_ONLY). Key via ~/.config/litellm/mcp.env (sops).
+        litellm-admin = {
+          command = "${litellmAdminMcpWrapper}/bin/litellm-admin-mcp";
         };
       };
     };
