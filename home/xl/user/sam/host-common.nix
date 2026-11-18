@@ -60,7 +60,7 @@
       . "$HOME/.config/litellm/mcp.env"
       set +a
     fi
-    export LITELLM_BASE_URL="''${LITELLM_BASE_URL:-https://ai.lauzon.xyz}"
+    export LITELLM_BASE_URL="''${LITELLM_BASE_URL:-https://litellm.lauzon.xyz}"
     export LITELLM_ADMIN_READ_ONLY=true
     exec ${pkgs.litellm-admin-mcp}/bin/litellm-admin-mcp "$@"
   '';
@@ -87,6 +87,9 @@ in
                 mcpEnv.enable = true;
               };
               plane = {
+                mcpEnv.enable = true;
+              };
+              litellm = {
                 mcpEnv.enable = true;
               };
               proton = {
