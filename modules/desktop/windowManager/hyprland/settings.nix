@@ -12,7 +12,7 @@ with lib;
           misc = {
             disable_hyprland_logo = true;
             disable_splash_rendering = true;
-            force_default_wallpaper = -3;
+            force_default_wallpaper = 0;
             middle_click_paste = false;
             on_focus_under_fullscreen = 2;
           };
