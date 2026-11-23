@@ -11,4 +11,6 @@
   imports = [
     ../../user/sam/host-common.nix
   ];
+
+  host.home.applications.obsidian.enable = true;
 }
