@@ -44,6 +44,13 @@ with lib;
         Description = "Hermes Agent Gateway - Messaging Platform Integration";
         After = [ "network-online.target" ];
         Wants = [ "network-online.target" ];
+        # sd-switch (the HM activation step) must NEVER stop/restart this unit:
+        # hermes agent sessions — and any `home-manager switch` run from them —
+        # live inside this service's cgroup, so stopping it kills the running
+        # switch mid-flight (stops enqueue, starts never do; the stale GC root
+        # then makes every later switch flag this unit again). Gateway updates
+        # apply on the next deliberate `systemctl --user restart hermes-gateway`.
+        X-SwitchMethod = "keep-old";
       };
       Service = {
         Type = "simple";
@@ -53,6 +60,10 @@ with lib;
           "HERMES_HOME=${config.home.homeDirectory}/.hermes"
           "HERMES_SUPERVISED_CHILD=1"
         ];
+        # On SIGTERM the gateway drains with a 0s budget under
+        # HERMES_SUPERVISED_CHILD, interrupts active agents and exits 1; count
+        # that as a clean stop instead of FAILED (Restart=always unaffected).
+        SuccessExitStatus = [ 1 ];
         Restart = "always";
         RestartSec = "5";
       };
