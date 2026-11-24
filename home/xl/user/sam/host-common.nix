@@ -64,6 +64,19 @@
     export LITELLM_ADMIN_READ_ONLY=true
     exec ${pkgs.litellm-admin-mcp}/bin/litellm-admin-mcp "$@"
   '';
+
+  # Forgejo MCP (goern/agentic-forges forgejo-mcp, in nixpkgs; 3.4.0 on the
+  # unstable channel the workstations run) pointed at git.lauzon.xyz. The PAT
+  # is read at runtime from the sops-decrypted ~/.config/git/lauzon.env
+  # (GIT_LAUZON_TOKEN — the same secret tea and the git credential helper use)
+  # and exported as FORGEJO_ACCESS_TOKEN, so the token never appears in the
+  # store, git, or the process arguments. stdio transport only.
+  forgejoMcpWrapper = pkgs.writeShellScriptBin "forgejo-mcp" ''
+    if [ -f "$HOME/.config/git/lauzon.env" ]; then
+      export FORGEJO_ACCESS_TOKEN="$(sed -n 's/^GIT_LAUZON_TOKEN=//p' "$HOME/.config/git/lauzon.env")"
+    fi
+    exec ${pkgs.forgejo-mcp}/bin/forgejo-mcp -transport stdio -url https://git.lauzon.xyz "$@"
+  '';
 in
   with lib; {
     host = {
@@ -267,6 +280,12 @@ in
             url: "https://sp-sync.lauzon.xyz/mcp"
             headers:
               Authorization: "Bearer ''${MCP_SUPERPRODUCTIVITY_SYNC_API_KEY}"
+          # Forgejo (git.lauzon.xyz): repos, issues, PRs, files, Actions.
+          # The PAT is injected at runtime by forgejoMcpWrapper from the
+          # sops-decrypted ~/.config/git/lauzon.env — no secret in the store.
+          forgejo:
+            command: "${forgejoMcpWrapper}/bin/forgejo-mcp"
+            timeout: 60
       '';
     };
 
@@ -336,20 +355,20 @@ in
         "%h/.ollama"
       ];
       Service.PrivateTmp = true;
-      Install.WantedBy = [ "default.target" ];
+      Install.WantedBy = ["default.target"];
     };
 
     # Pull nomic-embed-text once; idempotent and near-instant when cached.
     systemd.user.services.ollama-pull-llng-docs = {
       Unit = {
         Description = "Pull nomic-embed-text for llng-mcp doc search";
-        After = [ "ollama.service" ];
-        Requires = [ "ollama.service" ];
+        After = ["ollama.service"];
+        Requires = ["ollama.service"];
       };
       Service.Type = "oneshot";
       Service.ExecStart = "${pkgs.ollama}/bin/ollama pull nomic-embed-text";
-      Service.Environment = [ "OLLAMA_HOST=127.0.0.1:11434" ];
-      Install.WantedBy = [ "default.target" ];
+      Service.Environment = ["OLLAMA_HOST=127.0.0.1:11434"];
+      Install.WantedBy = ["default.target"];
     };
 
     # Sam's opinionated OpenCode MCP servers. These are scoped to sam's
@@ -396,6 +415,11 @@ in
         # LITELLM_ADMIN_READ_ONLY). Key via ~/.config/litellm/mcp.env (sops).
         litellm-admin = {
           command = "${litellmAdminMcpWrapper}/bin/litellm-admin-mcp";
+        };
+        # Forgejo (git.lauzon.xyz); PAT via ~/.config/git/lauzon.env (sops),
+        # injected by forgejoMcpWrapper — same entry as the Hermes config.
+        forgejo = {
+          command = "${forgejoMcpWrapper}/bin/forgejo-mcp";
         };
       };
     };
