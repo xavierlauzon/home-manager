@@ -77,6 +77,18 @@
     fi
     exec ${pkgs.forgejo-mcp}/bin/forgejo-mcp -transport stdio -url https://git.lauzon.xyz "$@"
   '';
+
+  # Steam launcher that hides the host's virtual network interfaces (Docker
+  # bridges, ZeroTier links) from the game. Ghost Recon Breakpoint's protection
+  # crashes seconds after launch when it sees them (recurring ProtonDB report,
+  # 2026-11); pasta spawns Steam in a network namespace that carries only the
+  # interface with the default route. Steam must be fully closed before this is
+  # used — it is a dedicated launcher, not the normal way to start Steam.
+  #   steam-ns            regular client
+  #   steam-ns -silent    tray-only start (matches the autostart service)
+  steamNsWrapper = pkgs.writeShellScriptBin "steam-ns" ''
+    exec ${pkgs.passt}/bin/pasta --config-net unshare --user --map-user="$(id -u)" --map-group="$(id -g)" -- steam "$@"
+  '';
 in
   with lib; {
     host = {
@@ -371,14 +383,32 @@ in
       Install.WantedBy = ["default.target"];
     };
 
-    # Sam's opinionated OpenCode MCP servers. These are scoped to sam's
-    # workstation hosts: komodo is built from a local source path that only
-    # exists on this machine, and playwright lives under sam's home. They only
-    # apply when OpenCode is enabled (the universal module owns the portable MCP
-    # servers).
-    home.packages = mkIf config.host.home.applications.opencode.enable [
-      komodoMcpWrapper
-    ];
+    # Proton/gaming support for Steam games (Breakpoint et al.):
+    #   protontricks — per-game prefix fixes (installs Ubisoft Connect into a
+    #     game's prefix when Steam's auto-install fails).
+    #   passt (+ the steam-ns wrapper above) — namespace launch that hides
+    #     Docker bridges / ZeroTier links from Denuvo-adjacent protections.
+    #   gamescope — nested compositor; fixes games that mispick resolution or
+    #     misbehave in fullscreen with multiple monitors.
+    #   gamemode — on-demand perf mode. Works as a plain package; CPU-governor
+    #     control additionally needs the NixOS-side programs.gamemode.enable
+    #     (system config lives outside this repo).
+    home.packages =
+      [
+        pkgs.protontricks
+        pkgs.passt
+        pkgs.gamescope
+        pkgs.gamemode
+        steamNsWrapper
+      ]
+      # Sam's opinionated OpenCode MCP servers. These are scoped to sam's
+      # workstation hosts: komodo is built from a local source path that only
+      # exists on this machine, and playwright lives under sam's home. They only
+      # apply when OpenCode is enabled (the universal module owns the portable MCP
+      # servers).
+      ++ optionals config.host.home.applications.opencode.enable [
+        komodoMcpWrapper
+      ];
 
     programs.mcp = mkIf config.host.home.applications.opencode.enable {
       servers = {
